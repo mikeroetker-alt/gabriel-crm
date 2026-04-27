@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gabriel Impact Group — Free Video Outreach CRM</title>
+  <title>Gabriel Growth Engine — Local Spotlight Command Center</title>
   <style>
     :root {
       --bg: #0f172a;
       --panel: #111827;
       --panel-2: #1f2937;
       --text: #e5e7eb;
-      --muted: #9ca3af;
+      --muted: #94a3b8;
       --primary: #22c55e;
       --accent: #38bdf8;
       --warn: #f59e0b;
@@ -29,7 +29,7 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 15;
       background: #020617;
       border-bottom: 1px solid var(--border);
       padding: 1rem;
@@ -39,13 +39,14 @@
       flex-wrap: wrap;
     }
 
-    h1 { margin: 0; font-size: 1.1rem; }
-    .tagline { color: var(--muted); font-size: 0.88rem; margin-top: 0.25rem; }
+    h1 { margin: 0; font-size: 1.2rem; }
+    h2 { margin-top: 0; }
+    .tagline { color: var(--muted); font-size: 0.9rem; margin-top: 0.2rem; }
 
     .container { padding: 1rem; display: grid; gap: 1rem; }
     .grid { display: grid; gap: 1rem; }
+    .grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
     .grid.cols-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-    .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 
     .card {
       background: var(--panel);
@@ -54,74 +55,54 @@
       padding: 1rem;
     }
 
-    .metric { font-size: 1.6rem; font-weight: 700; }
+    .metric { font-size: 1.45rem; font-weight: 700; }
     .muted { color: var(--muted); }
+    .small { font-size: 0.82rem; }
 
-    form { display: grid; gap: 0.7rem; }
-    label { font-size: 0.85rem; color: #cbd5e1; }
+    form { display: grid; gap: 0.65rem; }
+    label { font-size: 0.84rem; color: #cbd5e1; }
     input, select, textarea, button {
       width: 100%;
       border-radius: 8px;
       border: 1px solid var(--border);
-      padding: 0.6rem 0.7rem;
+      padding: 0.55rem 0.68rem;
       background: var(--panel-2);
       color: var(--text);
     }
+    textarea { min-height: 80px; resize: vertical; }
 
-    textarea { min-height: 70px; resize: vertical; }
-    button {
-      cursor: pointer;
-      background: #0b1220;
-      font-weight: 600;
-    }
+    button { cursor: pointer; font-weight: 600; background: #0b1220; }
     .btn-primary { background: #14532d; border-color: #166534; }
-    .btn-accent { background: #0c4a6e; border-color: #0369a1; }
 
-    .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .actions button { width: auto; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-    }
-    th, td {
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-      padding: 0.55rem;
-      vertical-align: top;
-    }
-    th { color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+    th, td { border-bottom: 1px solid var(--border); text-align: left; padding: 0.5rem; vertical-align: top; }
+    th { color: #cbd5e1; font-size: 0.75rem; text-transform: uppercase; }
 
     .pill {
       display: inline-block;
       padding: 0.15rem 0.5rem;
-      border-radius: 100px;
-      font-size: 0.75rem;
+      border-radius: 999px;
       border: 1px solid var(--border);
+      font-size: 0.74rem;
       margin-right: 0.25rem;
       margin-bottom: 0.2rem;
     }
-
     .warm { color: var(--warn); border-color: var(--warn); }
     .hot { color: var(--hot); border-color: var(--hot); }
     .ok { color: var(--primary); border-color: var(--primary); }
-    .bad { color: var(--hot); border-color: var(--hot); }
-
-    .small { font-size: 0.8rem; }
-
-    @media (max-width: 840px) {
-      th:nth-child(7), td:nth-child(7), th:nth-child(11), td:nth-child(11) {
-        display: none;
-      }
-    }
+    .link-list a { color: var(--accent); text-decoration: none; }
+    .link-list li { margin-bottom: 0.35rem; }
   </style>
 </head>
 <body>
   <header>
     <div>
-      <h1>Gabriel Impact Group — Free Video Outreach CRM</h1>
-      <div class="tagline">Local-first. Lead with free short business video first. Funding is back-end only after trust/response/need.</div>
+      <h1>Gabriel Growth Engine</h1>
+      <div class="tagline">A Gabriel Impact Group initiative • Free-video-first local business growth command center.</div>
+      <div class="tagline small">Funding readiness is tracked as a back-end opportunity only after trust, response, or clear business need.</div>
     </div>
     <div class="actions">
       <button id="exportCsvBtn">Export CSV</button>
@@ -135,128 +116,111 @@
   <main class="container">
     <section class="grid cols-4" id="dashboard"></section>
 
-    <section class="grid cols-2">
+    <section class="grid cols-3">
       <article class="card">
-        <h2>Add / Update Lead</h2>
-        <p class="muted small">No guessed emails. Source URL is required for verified contacts.</p>
+        <h2>Lead + Client Command Record</h2>
+        <p class="small muted">Local-first workflow: free spotlight video → upgrades/distribution → weekly visibility → website trust improvements → optional funding back-end.</p>
         <form id="leadForm">
-          <div>
-            <label>Business Name *</label>
-            <input name="businessName" required />
+          <div><label>Business Name *</label><input name="businessName" required /></div>
+          <div><label>Contact Name</label><input name="contactName" /></div>
+          <div><label>Pipeline *</label><select name="pipeline" required></select></div>
+          <div><label>Local Area *</label><input name="localArea" required placeholder="e.g., Lowell / Crown Point / NWI" /></div>
+          <div><label>Phone</label><input name="phone" /></div>
+          <div><label>Email</label><input name="email" type="email" placeholder="Only real known email addresses" /></div>
+          <div><label>Email Quality</label>
+            <select name="emailQuality"><option value="unknown">Unknown</option><option value="verified">Verified</option><option value="risky">Risky</option><option value="invalid">Invalid</option><option value="missing">Missing</option></select>
           </div>
-          <div>
-            <label>Contact Name</label>
-            <input name="contactName" />
+          <div><label>Verified Contact?</label><select name="isVerifiedContact"><option value="no">No</option><option value="yes">Yes</option></select></div>
+          <div><label>Source URL (required for verified contact)</label><input name="sourceUrl" type="url" placeholder="https://..." /></div>
+
+          <div><label>Free Business Spotlight Video Status</label>
+            <select name="freeVideoStatus"><option value="not_offered">Not Offered</option><option value="offered">Offered</option><option value="requested">Requested</option><option value="in_production">In Production</option><option value="delivered">Delivered</option></select>
           </div>
-          <div>
-            <label>Pipeline *</label>
-            <select name="pipeline" required></select>
+          <div><label>Paid Video Upgrade Status</label>
+            <select name="videoUpgradeStatus"><option value="none">None</option><option value="presented">Presented</option><option value="accepted">Accepted</option><option value="active">Active</option><option value="complete">Complete</option></select>
           </div>
-          <div>
-            <label>Phone</label>
-            <input name="phone" />
+          <div><label>Client Spotlight Page</label>
+            <select name="clientSpotlightStatus"><option value="not_started">Not Started</option><option value="draft">Draft</option><option value="published">Published</option></select>
           </div>
-          <div>
-            <label>Email</label>
-            <input name="email" type="email" placeholder="Only use real, known emails" />
+          <div><label>Local Spotlight Draft Status</label>
+            <select name="localSpotlightStatus"><option value="not_started">Not Started</option><option value="drafting">Drafting</option><option value="ready">Ready to Share</option><option value="shared">Shared</option></select>
           </div>
-          <div>
-            <label>Email Quality</label>
-            <select name="emailQuality">
-              <option value="unknown">Unknown</option>
-              <option value="verified">Verified</option>
-              <option value="risky">Risky</option>
-              <option value="invalid">Invalid</option>
-              <option value="missing">Missing</option>
-            </select>
-          </div>
-          <div>
-            <label>Verified Contact?</label>
-            <select name="isVerifiedContact">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-          </div>
-          <div>
-            <label>Source URL (required when Verified Contact = Yes)</label>
-            <input name="sourceUrl" type="url" placeholder="https://..." />
-          </div>
-          <div>
-            <label>Free Video Offer Status</label>
-            <select name="freeVideoStatus">
-              <option value="not_offered">Not Offered</option>
-              <option value="offered">Offered</option>
-              <option value="accepted">Accepted</option>
-              <option value="declined">Declined</option>
-            </select>
-          </div>
-          <div>
-            <label>Video Request Status</label>
-            <select name="videoRequestStatus">
-              <option value="none">None</option>
-              <option value="requested">Requested</option>
-              <option value="script_ready">Script Ready</option>
-              <option value="recording_done">Recording Done</option>
-              <option value="delivered">Delivered</option>
-            </select>
-          </div>
-          <div>
-            <label>Next Follow-up Date</label>
-            <input name="followUpDate" type="date" />
-          </div>
-          <div>
-            <label>Lead Temperature</label>
-            <select name="leadTemperature">
-              <option value="cold">Cold</option>
-              <option value="warm">Warm</option>
-              <option value="hot">Hot</option>
-            </select>
-          </div>
-          <div>
-            <label>Funding Interest</label>
-            <select name="fundingInterest">
-              <option value="not_discussed">Not Discussed</option>
-              <option value="potential_need">Potential Need</option>
-              <option value="interested">Interested</option>
-              <option value="active_conversation">Active Conversation</option>
-            </select>
-          </div>
-          <div>
-            <label>Estimated DAC Commission ($)</label>
-            <input name="dacCommission" type="number" min="0" step="0.01" value="0" />
-          </div>
-          <div>
-            <label>Notes</label>
-            <textarea name="notes"></textarea>
-          </div>
+
+          <div><label>Facebook Page/Community Draft</label><select name="facebookDraftStatus"><option value="not_started">Not Started</option><option value="draft">Draft Created</option><option value="approved">Approved</option><option value="published">Published</option></select></div>
+          <div><label>Local Group/Share Draft</label><select name="groupShareDraftStatus"><option value="not_started">Not Started</option><option value="draft">Draft Created</option><option value="ready">Ready</option></select></div>
+          <div><label>Manually Shared?</label><select name="manualShared"><option value="no">No</option><option value="yes">Yes</option></select></div>
+          <div><label>Published Post URL</label><input name="postUrl" type="url" placeholder="https://..." /></div>
+
+          <div><label>GBP / Local Visibility Status</label><select name="gbpStatus"><option value="not_started">Not Started</option><option value="drafting">Drafting</option><option value="active">Active</option><option value="consistent">Weekly Consistent</option></select></div>
+          <div><label>Weekly Visibility Post Status</label><select name="weeklyPostStatus"><option value="not_scheduled">Not Scheduled</option><option value="scheduled">Scheduled</option><option value="draft_ready">Draft Ready</option><option value="posted">Posted</option></select></div>
+          <div><label>Website Trust / SEO-AEO Status</label><select name="websiteTrustStatus"><option value="not_started">Not Started</option><option value="audit">Audit</option><option value="in_progress">In Progress</option><option value="improved">Improved</option></select></div>
+          <div><label>Funding Readiness (Back-End)</label><select name="fundingReadiness"><option value="not_discussed">Not Discussed</option><option value="monitoring">Monitoring</option><option value="qualified">Qualified</option><option value="active_conversation">Active Conversation</option></select></div>
+
+          <div><label>Lead Temperature</label><select name="leadTemperature"><option value="cold">Cold</option><option value="warm">Warm</option><option value="hot">Hot</option></select></div>
+          <div><label>Next Follow-up Date</label><input name="followUpDate" type="date" /></div>
+
+          <div><label>Revenue: Paid Videos ($)</label><input name="revenuePaidVideos" type="number" min="0" step="0.01" value="0" /></div>
+          <div><label>Revenue: Spotlight Pages ($)</label><input name="revenueSpotlightPages" type="number" min="0" step="0.01" value="0" /></div>
+          <div><label>Revenue: GBP/Local Visibility ($)</label><input name="revenueLocalVisibility" type="number" min="0" step="0.01" value="0" /></div>
+          <div><label>Revenue: Website Trust Improvements ($)</label><input name="revenueWebsiteTrust" type="number" min="0" step="0.01" value="0" /></div>
+          <div><label>Revenue: Funding Commissions ($)</label><input name="revenueFundingCommissions" type="number" min="0" step="0.01" value="0" /></div>
+
+          <div><label>Notes</label><textarea name="notes"></textarea></div>
           <input name="id" type="hidden" />
-          <div class="actions">
-            <button class="btn-primary" type="submit">Save Lead</button>
-            <button type="button" id="resetFormBtn">Clear</button>
-          </div>
+          <div class="actions"><button class="btn-primary" type="submit">Save Record</button><button id="resetFormBtn" type="button">Clear</button></div>
         </form>
       </article>
 
       <article class="card">
-        <h2>Queues & Pipeline Snapshot</h2>
+        <h2>Queues + Planning</h2>
         <div id="pipelineSummary" class="small"></div>
         <hr style="border-color:var(--border); margin:1rem 0;" />
-        <h3>Duplicate Detection</h3>
-        <p class="muted small">Checks exact match on business name, email, or phone.</p>
-        <div id="duplicateList" class="small"></div>
+        <h3>Warm / Hot Priority Queue</h3>
+        <div id="priorityQueue" class="small"></div>
+        <hr style="border-color:var(--border); margin:1rem 0;" />
+        <h3>Assistant / Chatbot Planning</h3>
+        <p class="muted small">Plan only for now. This will eventually answer common questions and escalate only when a live person is requested.</p>
+        <div class="small">
+          <span class="pill">No paid APIs yet</span>
+          <span class="pill">No email sending yet</span>
+          <span class="pill">No Facebook auto-posting yet</span>
+          <span class="pill">Manual approval + manual share workflow</span>
+        </div>
+        <textarea id="assistantPlan" placeholder="Capture future bot Q&A intents, escalation triggers, and approved responses..."></textarea>
+      </article>
+
+      <article class="card link-list">
+        <h2>Public URL Plan</h2>
+        <ul>
+          <li>/free-video</li>
+          <li>/client-spotlights</li>
+          <li>/spotlight/company-name</li>
+          <li>/services/video</li>
+          <li>/services/local-visibility</li>
+          <li>/services/website-visibility</li>
+          <li>/services/funding</li>
+          <li>/contact</li>
+          <li>/faq</li>
+        </ul>
+        <h3>Local Spotlight Examples</h3>
+        <ul>
+          <li>/local/nwi-home-service-spotlight</li>
+          <li>/local/lowell-business-spotlight</li>
+          <li>/local/crown-point-home-service-spotlight</li>
+          <li>/local/merrillville-contractor-spotlight</li>
+          <li>/local/valparaiso-local-service-spotlight</li>
+        </ul>
       </article>
     </section>
 
     <section class="card">
-      <h2>Lead Database</h2>
-      <div class="actions" style="margin: 0.5rem 0 1rem;">
-        <input id="searchInput" placeholder="Search business, pipeline, email, funding status..." style="max-width: 420px;" />
-      </div>
+      <h2>Lead / Client Database</h2>
+      <div class="actions" style="margin: 0.5rem 0 1rem;"><input id="searchInput" placeholder="Search business, local area, free-video, upgrades, GBP, funding, notes..." style="max-width:460px;" /></div>
       <div style="overflow:auto;">
         <table>
           <thead>
             <tr>
-              <th>Business</th><th>Pipeline</th><th>Free Video</th><th>Video Request</th><th>Follow-up</th><th>Temp</th><th>Funding</th><th>Email Quality</th><th>Source URL</th><th>DAC $</th><th>Actions</th>
+              <th>Business</th><th>Area</th><th>Temp</th><th>Free Video</th><th>Upgrade</th><th>Spotlight Pg</th><th>FB Draft</th><th>Group Draft</th><th>Manual Share</th><th>Post URL</th><th>GBP</th><th>Weekly</th><th>Website Trust</th><th>Funding (Back-End)</th><th>Follow-up</th><th>Revenue Snapshot</th><th>Actions</th>
             </tr>
           </thead>
           <tbody id="leadTableBody"></tbody>
@@ -266,18 +230,25 @@
   </main>
 
   <script>
-    const STORAGE_KEY = 'gabriel-impact-crm-v1';
-    const pipelines = ['HVAC', 'Plumbing', 'Electrical', 'Roofing', 'Construction', 'Bankers', 'Former DAC'];
+    const STORAGE_KEY = 'gabriel-growth-engine-v1';
+    const pipelines = ['Home Services', 'Contractors', 'Professional Services', 'Retail', 'Health & Wellness', 'Hospitality', 'Other Local Business'];
+    const assistantPlanKey = 'gabriel-growth-engine-assistant-plan';
 
     const form = document.getElementById('leadForm');
     const tableBody = document.getElementById('leadTableBody');
     const dashboard = document.getElementById('dashboard');
     const pipelineSummary = document.getElementById('pipelineSummary');
-    const duplicateList = document.getElementById('duplicateList');
+    const priorityQueue = document.getElementById('priorityQueue');
     const searchInput = document.getElementById('searchInput');
     const fileInput = document.getElementById('fileInput');
+    const assistantPlan = document.getElementById('assistantPlan');
 
     form.pipeline.innerHTML = pipelines.map(p => `<option value="${p}">${p}</option>`).join('');
+    assistantPlan.value = localStorage.getItem(assistantPlanKey) || '';
+
+    assistantPlan.addEventListener('input', () => {
+      localStorage.setItem(assistantPlanKey, assistantPlan.value);
+    });
 
     let state = loadState();
     let activeFileMode = null;
@@ -327,6 +298,13 @@
       if (lead.email && lead.email.includes(' ')) {
         throw new Error('Email appears invalid (contains spaces).');
       }
+      if (!normalize(lead.localArea)) {
+        throw new Error('Local area is required for spotlight distribution tracking.');
+      }
+    }
+
+    function asNumber(v) {
+      return Number(v || 0);
     }
 
     function leadFromForm() {
@@ -336,32 +314,52 @@
         businessName: fd.get('businessName').trim(),
         contactName: fd.get('contactName').trim(),
         pipeline: fd.get('pipeline'),
+        localArea: fd.get('localArea').trim(),
         phone: fd.get('phone').trim(),
         email: fd.get('email').trim(),
         emailQuality: fd.get('emailQuality'),
         isVerifiedContact: fd.get('isVerifiedContact'),
         sourceUrl: fd.get('sourceUrl').trim(),
         freeVideoStatus: fd.get('freeVideoStatus'),
-        videoRequestStatus: fd.get('videoRequestStatus'),
-        followUpDate: fd.get('followUpDate'),
+        videoUpgradeStatus: fd.get('videoUpgradeStatus'),
+        clientSpotlightStatus: fd.get('clientSpotlightStatus'),
+        localSpotlightStatus: fd.get('localSpotlightStatus'),
+        facebookDraftStatus: fd.get('facebookDraftStatus'),
+        groupShareDraftStatus: fd.get('groupShareDraftStatus'),
+        manualShared: fd.get('manualShared'),
+        postUrl: fd.get('postUrl').trim(),
+        gbpStatus: fd.get('gbpStatus'),
+        weeklyPostStatus: fd.get('weeklyPostStatus'),
+        websiteTrustStatus: fd.get('websiteTrustStatus'),
+        fundingReadiness: fd.get('fundingReadiness'),
         leadTemperature: fd.get('leadTemperature'),
-        fundingInterest: fd.get('fundingInterest'),
-        dacCommission: Number(fd.get('dacCommission') || 0),
+        followUpDate: fd.get('followUpDate'),
+        revenuePaidVideos: asNumber(fd.get('revenuePaidVideos')),
+        revenueSpotlightPages: asNumber(fd.get('revenueSpotlightPages')),
+        revenueLocalVisibility: asNumber(fd.get('revenueLocalVisibility')),
+        revenueWebsiteTrust: asNumber(fd.get('revenueWebsiteTrust')),
+        revenueFundingCommissions: asNumber(fd.get('revenueFundingCommissions')),
         notes: fd.get('notes').trim(),
         updatedAt: new Date().toISOString()
       };
     }
 
+    function sum(leads, key) {
+      return leads.reduce((acc, lead) => acc + asNumber(lead[key]), 0);
+    }
+
     function dashboardMetrics(leads) {
       const now = new Date().toISOString().slice(0, 10);
-      const warmHot = leads.filter(l => ['warm', 'hot'].includes(l.leadTemperature)).length;
+      const freeVideoRequests = leads.filter(l => ['requested', 'in_production', 'delivered'].includes(l.freeVideoStatus)).length;
       return [
-        { label: 'Total Leads', value: leads.length },
-        { label: 'Follow-up Queue (Due)', value: leads.filter(l => l.followUpDate && l.followUpDate <= now).length },
-        { label: 'Warm/Hot Queue', value: warmHot },
-        { label: 'Funding Interested+', value: leads.filter(l => ['interested', 'active_conversation'].includes(l.fundingInterest)).length },
-        { label: 'Video Requests Active', value: leads.filter(l => ['requested', 'script_ready', 'recording_done'].includes(l.videoRequestStatus)).length },
-        { label: 'DAC Commission Total', value: `$${leads.reduce((a, b) => a + (Number(b.dacCommission) || 0), 0).toFixed(2)}` }
+        { label: 'Free Video Requests', value: freeVideoRequests },
+        { label: 'Paid Video Revenue', value: `$${sum(leads, 'revenuePaidVideos').toFixed(2)}` },
+        { label: 'Spotlight Page Revenue', value: `$${sum(leads, 'revenueSpotlightPages').toFixed(2)}` },
+        { label: 'GBP/Local Visibility Revenue', value: `$${sum(leads, 'revenueLocalVisibility').toFixed(2)}` },
+        { label: 'Website Trust Revenue', value: `$${sum(leads, 'revenueWebsiteTrust').toFixed(2)}` },
+        { label: 'Funding Commissions', value: `$${sum(leads, 'revenueFundingCommissions').toFixed(2)}` },
+        { label: 'Warm/Hot Queue', value: leads.filter(l => ['warm', 'hot'].includes(l.leadTemperature)).length },
+        { label: 'Follow-up Due', value: leads.filter(l => l.followUpDate && l.followUpDate <= now).length }
       ];
     }
 
@@ -375,68 +373,85 @@
     }
 
     function renderPipelineSummary(leads) {
-      const now = new Date().toISOString().slice(0, 10);
       const lines = [];
       for (const pipe of pipelines) {
         const inPipe = leads.filter(l => l.pipeline === pipe);
-        lines.push(`<div><span class="pill">${pipe}</span> ${inPipe.length} leads</div>`);
+        lines.push(`<div><span class="pill">${pipe}</span> ${inPipe.length} records</div>`);
       }
-      lines.push(`<div style="margin-top:.5rem;"><span class="pill">Follow-up Queue</span> ${leads.filter(l => l.followUpDate && l.followUpDate <= now).length}</div>`);
-      lines.push(`<div><span class="pill warm">Warm Queue</span> ${leads.filter(l => l.leadTemperature === 'warm').length}</div>`);
-      lines.push(`<div><span class="pill hot">Hot Queue</span> ${leads.filter(l => l.leadTemperature === 'hot').length}</div>`);
-      lines.push(`<div><span class="pill">Funding Interest</span> ${leads.filter(l => l.fundingInterest !== 'not_discussed').length}</div>`);
+      lines.push(`<div style="margin-top:0.5rem;"><span class="pill">Client Spotlight Published</span> ${leads.filter(l => l.clientSpotlightStatus === 'published').length}</div>`);
+      lines.push(`<div><span class="pill">FB Drafts Ready+</span> ${leads.filter(l => ['approved', 'published'].includes(l.facebookDraftStatus)).length}</div>`);
+      lines.push(`<div><span class="pill">Local Group Draft Ready</span> ${leads.filter(l => l.groupShareDraftStatus === 'ready').length}</div>`);
+      lines.push(`<div><span class="pill">Weekly Posts Posted</span> ${leads.filter(l => l.weeklyPostStatus === 'posted').length}</div>`);
+      lines.push(`<div><span class="pill">Funding Back-End Queue</span> ${leads.filter(l => ['qualified', 'active_conversation'].includes(l.fundingReadiness)).length}</div>`);
       pipelineSummary.innerHTML = lines.join('');
     }
 
-    function renderDuplicates() {
-      const seen = new Map();
-      const dupes = [];
-      for (const lead of state.leads) {
-        for (const k of [normalize(lead.businessName), normalize(lead.email), normalize(lead.phone)]) {
-          if (!k) continue;
-          if (seen.has(k) && seen.get(k) !== lead.id) {
-            dupes.push(`${lead.businessName} duplicates ${k}`);
-          } else {
-            seen.set(k, lead.id);
-          }
-        }
+    function renderPriorityQueue(leads) {
+      const priority = leads
+        .filter(l => ['warm', 'hot'].includes(l.leadTemperature))
+        .sort((a, b) => (a.leadTemperature === 'hot' ? -1 : 1));
+
+      if (!priority.length) {
+        priorityQueue.innerHTML = '<span class="pill ok">No warm/hot leads currently queued</span>';
+        return;
       }
-      duplicateList.innerHTML = dupes.length
-        ? dupes.map(d => `<div class="pill bad">${d}</div>`).join('')
-        : '<span class="pill ok">No duplicates detected</span>';
+
+      priorityQueue.innerHTML = priority.map(l => `
+        <div style="margin-bottom:0.35rem;">
+          <strong>${l.businessName}</strong> (${l.localArea})
+          <span class="pill ${l.leadTemperature === 'hot' ? 'hot' : 'warm'}">${l.leadTemperature}</span>
+          <span class="muted">Next: ${l.followUpDate || 'No date set'}</span>
+        </div>
+      `).join('');
     }
 
     function renderTable() {
       const q = normalize(searchInput.value);
       const filtered = state.leads.filter(l => {
         if (!q) return true;
-        return [l.businessName, l.pipeline, l.email, l.fundingInterest, l.freeVideoStatus, l.videoRequestStatus, l.notes]
-          .some(v => normalize(v).includes(q));
+        return [
+          l.businessName, l.localArea, l.pipeline, l.freeVideoStatus, l.videoUpgradeStatus, l.clientSpotlightStatus,
+          l.facebookDraftStatus, l.groupShareDraftStatus, l.gbpStatus, l.weeklyPostStatus,
+          l.websiteTrustStatus, l.fundingReadiness, l.notes
+        ].some(v => normalize(v).includes(q));
       });
 
       renderDashboard(filtered);
       renderPipelineSummary(filtered);
+      renderPriorityQueue(filtered);
 
-      tableBody.innerHTML = filtered.map(l => `
-        <tr>
-          <td><strong>${l.businessName}</strong><br/><span class="small muted">${l.contactName || '-'}</span></td>
-          <td>${l.pipeline}</td>
-          <td>${l.freeVideoStatus}</td>
-          <td>${l.videoRequestStatus}</td>
-          <td>${l.followUpDate || '-'}</td>
-          <td><span class="pill ${l.leadTemperature === 'hot' ? 'hot' : l.leadTemperature === 'warm' ? 'warm' : ''}">${l.leadTemperature}</span></td>
-          <td>${l.fundingInterest}</td>
-          <td><span class="pill ${l.emailQuality === 'verified' ? 'ok' : (l.emailQuality === 'invalid' ? 'bad' : '')}">${l.emailQuality}</span></td>
-          <td>${l.sourceUrl ? `<a href="${l.sourceUrl}" target="_blank" rel="noreferrer">Source</a>` : '-'}</td>
-          <td>$${Number(l.dacCommission || 0).toFixed(2)}</td>
-          <td>
-            <button onclick="editLead('${l.id}')">Edit</button>
-            <button onclick="deleteLead('${l.id}')">Delete</button>
-          </td>
-        </tr>
-      `).join('') || '<tr><td colspan="11" class="muted">No leads yet. Add your first real lead.</td></tr>';
-
-      renderDuplicates();
+      tableBody.innerHTML = filtered.map(l => {
+        const revenueTotal = asNumber(l.revenuePaidVideos) + asNumber(l.revenueSpotlightPages) + asNumber(l.revenueLocalVisibility) + asNumber(l.revenueWebsiteTrust) + asNumber(l.revenueFundingCommissions);
+        return `
+          <tr>
+            <td><strong>${l.businessName}</strong><br/><span class="small muted">${l.contactName || '-'}</span></td>
+            <td>${l.localArea}</td>
+            <td><span class="pill ${l.leadTemperature === 'hot' ? 'hot' : l.leadTemperature === 'warm' ? 'warm' : ''}">${l.leadTemperature}</span></td>
+            <td>${l.freeVideoStatus}</td>
+            <td>${l.videoUpgradeStatus}</td>
+            <td>${l.clientSpotlightStatus}</td>
+            <td>${l.facebookDraftStatus}</td>
+            <td>${l.groupShareDraftStatus}</td>
+            <td>${l.manualShared}</td>
+            <td>${l.postUrl ? `<a href="${l.postUrl}" target="_blank" rel="noreferrer">Post</a>` : '-'}</td>
+            <td>${l.gbpStatus}</td>
+            <td>${l.weeklyPostStatus}</td>
+            <td>${l.websiteTrustStatus}</td>
+            <td>${l.fundingReadiness}</td>
+            <td>${l.followUpDate || '-'}</td>
+            <td>
+              Free req: ${['requested','in_production','delivered'].includes(l.freeVideoStatus) ? 'Yes' : 'No'}<br/>
+              Paid: $${asNumber(l.revenuePaidVideos).toFixed(0)} | Spotlights: $${asNumber(l.revenueSpotlightPages).toFixed(0)}<br/>
+              GBP: $${asNumber(l.revenueLocalVisibility).toFixed(0)} | Web: $${asNumber(l.revenueWebsiteTrust).toFixed(0)}<br/>
+              Funding: $${asNumber(l.revenueFundingCommissions).toFixed(0)} | Total: $${revenueTotal.toFixed(0)}
+            </td>
+            <td>
+              <button onclick="editLead('${l.id}')">Edit</button>
+              <button onclick="deleteLead('${l.id}')">Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('') || '<tr><td colspan="17" class="muted">No records yet. Add your first local business spotlight record.</td></tr>';
     }
 
     function clearForm() {
@@ -446,10 +461,22 @@
       form.emailQuality.value = 'unknown';
       form.isVerifiedContact.value = 'no';
       form.freeVideoStatus.value = 'not_offered';
-      form.videoRequestStatus.value = 'none';
+      form.videoUpgradeStatus.value = 'none';
+      form.clientSpotlightStatus.value = 'not_started';
+      form.localSpotlightStatus.value = 'not_started';
+      form.facebookDraftStatus.value = 'not_started';
+      form.groupShareDraftStatus.value = 'not_started';
+      form.manualShared.value = 'no';
+      form.gbpStatus.value = 'not_started';
+      form.weeklyPostStatus.value = 'not_scheduled';
+      form.websiteTrustStatus.value = 'not_started';
+      form.fundingReadiness.value = 'not_discussed';
       form.leadTemperature.value = 'cold';
-      form.fundingInterest.value = 'not_discussed';
-      form.dacCommission.value = '0';
+      form.revenuePaidVideos.value = '0';
+      form.revenueSpotlightPages.value = '0';
+      form.revenueLocalVisibility.value = '0';
+      form.revenueWebsiteTrust.value = '0';
+      form.revenueFundingCommissions.value = '0';
     }
 
     window.editLead = function(id) {
@@ -462,7 +489,7 @@
     };
 
     window.deleteLead = function(id) {
-      if (!confirm('Delete this lead?')) return;
+      if (!confirm('Delete this record?')) return;
       state.leads = state.leads.filter(l => l.id !== id);
       saveState();
       renderTable();
@@ -500,7 +527,12 @@
     }
 
     function toCSV(rows) {
-      const headers = ['id','businessName','contactName','pipeline','phone','email','emailQuality','isVerifiedContact','sourceUrl','freeVideoStatus','videoRequestStatus','followUpDate','leadTemperature','fundingInterest','dacCommission','notes','updatedAt'];
+      const headers = [
+        'id','businessName','contactName','pipeline','localArea','phone','email','emailQuality','isVerifiedContact','sourceUrl',
+        'freeVideoStatus','videoUpgradeStatus','clientSpotlightStatus','localSpotlightStatus','facebookDraftStatus','groupShareDraftStatus','manualShared','postUrl',
+        'gbpStatus','weeklyPostStatus','websiteTrustStatus','fundingReadiness','leadTemperature','followUpDate',
+        'revenuePaidVideos','revenueSpotlightPages','revenueLocalVisibility','revenueWebsiteTrust','revenueFundingCommissions','notes','updatedAt'
+      ];
       const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
       return [headers.join(','), ...rows.map(r => headers.map(h => esc(r[h])).join(','))].join('\n');
     }
@@ -515,18 +547,53 @@
         headers.forEach((h, i) => {
           obj[h] = (parts[i] || '').replace(/^"|"$/g, '').replace(/""/g, '"');
         });
-        obj.dacCommission = Number(obj.dacCommission || 0);
         return obj;
       });
     }
 
+    function cleanIncoming(item) {
+      return {
+        id: item.id || uid(),
+        businessName: (item.businessName || '').trim(),
+        contactName: (item.contactName || '').trim(),
+        pipeline: pipelines.includes(item.pipeline) ? item.pipeline : pipelines[0],
+        localArea: (item.localArea || '').trim(),
+        phone: (item.phone || '').trim(),
+        email: (item.email || '').trim(),
+        emailQuality: item.emailQuality || 'unknown',
+        isVerifiedContact: item.isVerifiedContact || 'no',
+        sourceUrl: (item.sourceUrl || '').trim(),
+        freeVideoStatus: item.freeVideoStatus || 'not_offered',
+        videoUpgradeStatus: item.videoUpgradeStatus || 'none',
+        clientSpotlightStatus: item.clientSpotlightStatus || 'not_started',
+        localSpotlightStatus: item.localSpotlightStatus || 'not_started',
+        facebookDraftStatus: item.facebookDraftStatus || 'not_started',
+        groupShareDraftStatus: item.groupShareDraftStatus || 'not_started',
+        manualShared: item.manualShared || 'no',
+        postUrl: (item.postUrl || '').trim(),
+        gbpStatus: item.gbpStatus || 'not_started',
+        weeklyPostStatus: item.weeklyPostStatus || 'not_scheduled',
+        websiteTrustStatus: item.websiteTrustStatus || 'not_started',
+        fundingReadiness: item.fundingReadiness || 'not_discussed',
+        leadTemperature: item.leadTemperature || 'cold',
+        followUpDate: item.followUpDate || '',
+        revenuePaidVideos: asNumber(item.revenuePaidVideos),
+        revenueSpotlightPages: asNumber(item.revenueSpotlightPages),
+        revenueLocalVisibility: asNumber(item.revenueLocalVisibility),
+        revenueWebsiteTrust: asNumber(item.revenueWebsiteTrust),
+        revenueFundingCommissions: asNumber(item.revenueFundingCommissions),
+        notes: (item.notes || '').trim(),
+        updatedAt: item.updatedAt || new Date().toISOString()
+      };
+    }
+
     document.getElementById('exportCsvBtn').addEventListener('click', () => {
       const csv = toCSV(state.leads);
-      downloadFile(`gabriel-crm-${new Date().toISOString().slice(0,10)}.csv`, csv, 'text/csv');
+      downloadFile(`gabriel-growth-engine-${new Date().toISOString().slice(0,10)}.csv`, csv, 'text/csv');
     });
 
     document.getElementById('exportJsonBtn').addEventListener('click', () => {
-      downloadFile(`gabriel-crm-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(state, null, 2), 'application/json');
+      downloadFile(`gabriel-growth-engine-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(state, null, 2), 'application/json');
     });
 
     document.getElementById('importCsvBtn').addEventListener('click', () => {
@@ -557,25 +624,7 @@
 
         const clean = [];
         for (const item of incoming) {
-          const lead = {
-            id: item.id || uid(),
-            businessName: (item.businessName || '').trim(),
-            contactName: (item.contactName || '').trim(),
-            pipeline: pipelines.includes(item.pipeline) ? item.pipeline : pipelines[0],
-            phone: (item.phone || '').trim(),
-            email: (item.email || '').trim(),
-            emailQuality: item.emailQuality || 'unknown',
-            isVerifiedContact: item.isVerifiedContact || 'no',
-            sourceUrl: (item.sourceUrl || '').trim(),
-            freeVideoStatus: item.freeVideoStatus || 'not_offered',
-            videoRequestStatus: item.videoRequestStatus || 'none',
-            followUpDate: item.followUpDate || '',
-            leadTemperature: item.leadTemperature || 'cold',
-            fundingInterest: item.fundingInterest || 'not_discussed',
-            dacCommission: Number(item.dacCommission || 0),
-            notes: (item.notes || '').trim(),
-            updatedAt: item.updatedAt || new Date().toISOString()
-          };
+          const lead = cleanIncoming(item);
           if (!lead.businessName) continue;
           enforceRules(lead, '');
           clean.push(lead);
@@ -585,7 +634,7 @@
         saveState();
         renderTable();
         clearForm();
-        alert(`Imported ${clean.length} leads.`);
+        alert(`Imported ${clean.length} records.`);
       } catch (err) {
         alert(`Import failed: ${err.message}`);
       }
