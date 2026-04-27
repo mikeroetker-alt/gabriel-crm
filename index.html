@@ -1,361 +1,598 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel CRM - Professional Lead Management</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --primary: #00d4aa; --bg: #0d1117; --bg2: #161b22; --bg3: #21262d; --border: #30363d; --text: #c9d1d9; --text2: #8b949e; --blue: #58a6ff; --orange: #f0883e; --red: #f85149; --green: #3fb950; }
-        body { font-family: -apple-system,BlinkMacSystemFont,sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-        
-        /* Header */
-        .header { background: var(--bg2); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-        .logo { display: flex; align-items: center; gap: 12px; }
-        .logo h1 { font-size: 20px; color: var(--primary); font-weight: 700; }
-        .logo span { background: var(--primary); color: var(--bg); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-        .header-right { display: flex; align-items: center; gap: 20px; }
-        .live-badge { display: flex; align-items: center; gap: 8px; background: #1f3a2f; padding: 6px 12px; border-radius: 20px; }
-        .live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
-        
-        /* Stats */
-        .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); padding: 1px; }
-        .stat { background: var(--bg2); padding: 16px; text-align: center; }
-        .stat-value { font-size: 28px; font-weight: 700; color: var(--primary); }
-        .stat-label { font-size: 11px; color: var(--text2); text-transform: uppercase; margin-top: 4px; }
-        
-        /* Tabs */
-        .tabs { display: flex; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 24px; }
-        .tab { padding: 14px 20px; cursor: pointer; color: var(--text2); border-bottom: 2px solid transparent; transition: all 0.2s; }
-        .tab:hover { color: var(--text); }
-        .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-        
-        /* Kanban Board */
-        .kanban { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; padding: 24px; min-height: calc(100vh - 200px); align-items: start; }
-        .column { background: var(--bg2); border-radius: 12px; padding: 16px; min-height: 500px; }
-        .column-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-        .column-title { font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .column-count { background: var(--bg3); padding: 2px 8px; border-radius: 10px; font-size: 12px; }
-        .column-NEW { border-top: 3px solid var(--blue); }
-        .column-CONTACTED { border-top: 3px solid var(--orange); }
-        .column-QUALIFIED { border-top: 3px solid #a371f7; }
-        .column-APPLICATION { border-top: 3px solid var(--primary); }
-        .column-FUNDED { border-top: 3px solid var(--green); }
-        
-        /* Cards */
-        .card { background: var(--bg3); border-radius: 8px; padding: 14px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; }
-        .card:hover { border-color: var(--border); transform: translateY(-2px); }
-        .card-name { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
-        .card-info { font-size: 12px; color: var(--text2); display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-        .card-info svg { width: 14px; height: 14px; opacity: 0.7; }
-        .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-        .tag { background: var(--bg); padding: 2px 8px; border-radius: 4px; font-size: 10px; }
-        .tag-HVAC { color: #7ee787; }
-        .tag-Plumbing { color: #79c0ff; }
-        .tag-Electrical { color: #ffa657; }
-        
-        /* Detail Panel */
-        .detail-panel { position: fixed; right: -450px; top: 0; width: 450px; height: 100vh; background: var(--bg2); border-left: 1px solid var(--border); transition: right 0.3s; z-index: 200; overflow-y: auto; }
-        .detail-panel.open { right: 0; }
-        .detail-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .detail-body { padding: 20px; }
-        .detail-section { margin-bottom: 24px; }
-        .detail-label { font-size: 11px; color: var(--text2); text-transform: uppercase; margin-bottom: 6px; }
-        .detail-value { font-size: 15px; }
-        .detail-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .btn { padding: 10px 16px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 13px; }
-        .btn-primary { background: var(--primary); color: var(--bg); }
-        .btn-secondary { background: var(--bg3); color: var(--text); }
-        .btn-danger { background: #3d1f1f; color: var(--red); }
-        
-        /* Timeline */
-        .timeline { margin-top: 20px; }
-        .timeline-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
-        .timeline-dot { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
-        .timeline-content { flex: 1; }
-        .timeline-time { font-size: 11px; color: var(--text2); }
-        .timeline-msg { font-size: 13px; margin-top: 4px; }
-        
-        /* Quick Actions */
-        .quick-actions { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; }
-        .action-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--primary); color: var(--bg); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s; }
-        .action-btn:hover { transform: scale(1.1); }
-        
-        /* Modal */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 300; }
-        .modal-overlay.open { display: flex; }
-        .modal { background: var(--bg2); border-radius: 12px; padding: 24px; width: 400px; max-width: 90vw; }
-        .modal h3 { margin-bottom: 16px; }
-        .modal input, .modal textarea, .modal select { width: 100%; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); margin-bottom: 12px; }
-        .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel Impact Group — Free Video Outreach CRM</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --primary: #22c55e;
+      --accent: #38bdf8;
+      --warn: #f59e0b;
+      --hot: #ef4444;
+      --border: #334155;
+    }
 
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-    </style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #020617;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    h1 { margin: 0; font-size: 1.1rem; }
+    .tagline { color: var(--muted); font-size: 0.88rem; margin-top: 0.25rem; }
+
+    .container { padding: 1rem; display: grid; gap: 1rem; }
+    .grid { display: grid; gap: 1rem; }
+    .grid.cols-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .metric { font-size: 1.6rem; font-weight: 700; }
+    .muted { color: var(--muted); }
+
+    form { display: grid; gap: 0.7rem; }
+    label { font-size: 0.85rem; color: #cbd5e1; }
+    input, select, textarea, button {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.7rem;
+      background: var(--panel-2);
+      color: var(--text);
+    }
+
+    textarea { min-height: 70px; resize: vertical; }
+    button {
+      cursor: pointer;
+      background: #0b1220;
+      font-weight: 600;
+    }
+    .btn-primary { background: #14532d; border-color: #166534; }
+    .btn-accent { background: #0c4a6e; border-color: #0369a1; }
+
+    .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .actions button { width: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      padding: 0.55rem;
+      vertical-align: top;
+    }
+    th { color: #cbd5e1; font-size: 0.8rem; text-transform: uppercase; }
+
+    .pill {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      border: 1px solid var(--border);
+      margin-right: 0.25rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .warm { color: var(--warn); border-color: var(--warn); }
+    .hot { color: var(--hot); border-color: var(--hot); }
+    .ok { color: var(--primary); border-color: var(--primary); }
+    .bad { color: var(--hot); border-color: var(--hot); }
+
+    .small { font-size: 0.8rem; }
+
+    @media (max-width: 840px) {
+      th:nth-child(7), td:nth-child(7), th:nth-child(11), td:nth-child(11) {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="logo">
-            <h1>🤖 Gabriel CRM</h1>
-            <span>v2.0</span>
-        </div>
-        <div class="header-right">
-            <div class="live-badge">
-                <div class="live-dot"></div>
-                <span style="font-size: 12px; color: var(--green);">Automation Active</span>
-            </div>
-            <button class="btn btn-primary" onclick="openModal('addLead')">➕ Add Lead</button>
-        </div>
+  <header>
+    <div>
+      <h1>Gabriel Impact Group — Free Video Outreach CRM</h1>
+      <div class="tagline">Local-first. Lead with free short business video first. Funding is back-end only after trust/response/need.</div>
     </div>
-    
-    <!-- Stats -->
-    <div class="stats">
-        <div class="stat"><div class="stat-value" id="total">12</div><div class="stat-label">Total Leads</div></div>
-        <div class="stat"><div class="stat-value" id="new">12</div><div class="stat-label">New</div></div>
-        <div class="stat"><div class="stat-value" id="contacted">0</div><div class="stat-label">Contacted</div></div>
-        <div class="stat"><div class="stat-value" id="qualified">0</div><div class="stat-label">Qualified</div></div>
-        <div class="stat"><div class="stat-value" id="application">0</div><div class="stat-label">In Application</div></div>
-        <div class="stat"><div class="stat-value" id="funded">0</div><div class="stat-label">Funded 💰</div></div>
+    <div class="actions">
+      <button id="exportCsvBtn">Export CSV</button>
+      <button id="exportJsonBtn">Backup JSON</button>
+      <button id="importCsvBtn">Import CSV</button>
+      <button id="importJsonBtn">Restore JSON</button>
+      <input id="fileInput" type="file" accept=".csv,.json" style="display:none;" />
     </div>
-    
-    <!-- Tabs -->
-    <div class="tabs">
-        <div class="tab active" onclick="showView('kanban')">📋 Pipeline</div>
-        <div class="tab" onclick="showView('list')">📊 List View</div>
-        <div class="tab" onclick="showView('automation')">⚡ Automation</div>
-        <div class="tab" onclick="showView('reports')">📈 Reports</div>
-    </div>
-    
-    <!-- Kanban Board -->
-    <div class="kanban" id="kanban-view">
-        <div class="column column-NEW">
-            <div class="column-header"><div class="column-title">🆕 NEW <span class="column-count" id="count-NEW">12</span></div></div>
-            <div id="col-NEW"></div>
-        </div>
-        <div class="column column-CONTACTED">
-            <div class="column-header"><div class="column-title">📞 CONTACTED <span class="column-count" id="count-CONTACTED">0</span></div></div>
-            <div id="col-CONTACTED"></div>
-        </div>
-        <div class="column column-QUALIFIED">
-            <div class="column-header"><div class="column-title">✅ QUALIFIED <span class="column-count" id="count-QUALIFIED">0</span></div></div>
-            <div id="col-QUALIFIED"></div>
-        </div>
-        <div class="column column-APPLICATION">
-            <div class="column-header"><div class="column-title">📝 APPLICATION <span class="column-count" id="count-APPLICATION">0</span></div></div>
-            <div id="col-APPLICATION"></div>
-        </div>
-        <div class="column column-FUNDED">
-            <div class="column-header"><div class="column-title">💰 FUNDED <span class="column-count" id="count-FUNDED">0</span></div></div>
-            <div id="col-FUNDED"></div>
-        </div>
-    </div>
-    
-    <!-- Detail Panel -->
-    <div class="detail-panel" id="detailPanel">
-        <div class="detail-header">
-            <h3 id="detailName">Lead Details</h3>
-            <button onclick="closeDetail()" style="background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;">✕</button>
-        </div>
-        <div class="detail-body">
-            <div class="detail-section">
-                <div class="detail-label">Status</div>
-                <select id="detailStatus" onchange="updateStatus()" style="padding:8px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);">
-                    <option value="NEW">🆕 NEW</option>
-                    <option value="CONTACTED">📞 CONTACTED</option>
-                    <option value="QUALIFIED">✅ QUALIFIED</option>
-                    <option value="APPLICATION">📝 APPLICATION</option>
-                    <option value="FUNDED">💰 FUNDED</option>
-                </select>
-            </div>
-            <div class="detail-section">
-                <div class="detail-label">Phone</div>
-                <div class="detail-value" id="detailPhone">-</div>
-            </div>
-            <div class="detail-section">
-                <div class="detail-label">Email</div>
-                <div class="detail-value" id="detailEmail">-</div>
-            </div>
-            <div class="detail-section">
-                <div class="detail-label">Industry</div>
-                <div class="detail-value" id="detailIndustry">-</div>
-            </div>
-            <div class="detail-section">
-                <div class="detail-label">Source</div>
-                <div class="detail-value" id="detailSource">-</div>
-            </div>
-            <div class="detail-section">
-                <div class="detail-label">Notes</div>
-                <textarea id="detailNotes" rows="4" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);"></textarea>
-            </div>
-            <div class="detail-actions">
-                <button class="btn btn-primary" onclick="updateStatus()">💾 Save</button>
-                <button class="btn btn-danger" onclick="deleteLead()">🗑️ Delete</button>
-            </div>
-            
-            <div class="timeline" id="detailTimeline">
-                <div class="detail-label">Activity Timeline</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Quick Actions -->
-    <div class="quick-actions">
-        <button class="action-btn" onclick="openModal('addLead')" title="Add Lead">➕</button>
-        <button class="action-btn" onclick="refreshData()" title="Refresh">🔄</button>
-    </div>
-    
-    <!-- Modal -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal">
-            <h3 id="modalTitle">Add New Lead</h3>
-            <input type="text" id="modalName" placeholder="Business Name">
-            <input type="text" id="modalPhone" placeholder="Phone">
-            <input type="email" id="modalEmail" placeholder="Email">
-            <select id="modalIndustry">
-                <option value="HVAC">HVAC</option>
-                <option value="Plumbing">Plumbing</option>
-                <option value="Electrical">Electrical</option>
+  </header>
+
+  <main class="container">
+    <section class="grid cols-4" id="dashboard"></section>
+
+    <section class="grid cols-2">
+      <article class="card">
+        <h2>Add / Update Lead</h2>
+        <p class="muted small">No guessed emails. Source URL is required for verified contacts.</p>
+        <form id="leadForm">
+          <div>
+            <label>Business Name *</label>
+            <input name="businessName" required />
+          </div>
+          <div>
+            <label>Contact Name</label>
+            <input name="contactName" />
+          </div>
+          <div>
+            <label>Pipeline *</label>
+            <select name="pipeline" required></select>
+          </div>
+          <div>
+            <label>Phone</label>
+            <input name="phone" />
+          </div>
+          <div>
+            <label>Email</label>
+            <input name="email" type="email" placeholder="Only use real, known emails" />
+          </div>
+          <div>
+            <label>Email Quality</label>
+            <select name="emailQuality">
+              <option value="unknown">Unknown</option>
+              <option value="verified">Verified</option>
+              <option value="risky">Risky</option>
+              <option value="invalid">Invalid</option>
+              <option value="missing">Missing</option>
             </select>
-            <div class="modal-buttons">
-                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveLead()">Save</button>
-            </div>
-        </div>
-    </div>
+          </div>
+          <div>
+            <label>Verified Contact?</label>
+            <select name="isVerifiedContact">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+          <div>
+            <label>Source URL (required when Verified Contact = Yes)</label>
+            <input name="sourceUrl" type="url" placeholder="https://..." />
+          </div>
+          <div>
+            <label>Free Video Offer Status</label>
+            <select name="freeVideoStatus">
+              <option value="not_offered">Not Offered</option>
+              <option value="offered">Offered</option>
+              <option value="accepted">Accepted</option>
+              <option value="declined">Declined</option>
+            </select>
+          </div>
+          <div>
+            <label>Video Request Status</label>
+            <select name="videoRequestStatus">
+              <option value="none">None</option>
+              <option value="requested">Requested</option>
+              <option value="script_ready">Script Ready</option>
+              <option value="recording_done">Recording Done</option>
+              <option value="delivered">Delivered</option>
+            </select>
+          </div>
+          <div>
+            <label>Next Follow-up Date</label>
+            <input name="followUpDate" type="date" />
+          </div>
+          <div>
+            <label>Lead Temperature</label>
+            <select name="leadTemperature">
+              <option value="cold">Cold</option>
+              <option value="warm">Warm</option>
+              <option value="hot">Hot</option>
+            </select>
+          </div>
+          <div>
+            <label>Funding Interest</label>
+            <select name="fundingInterest">
+              <option value="not_discussed">Not Discussed</option>
+              <option value="potential_need">Potential Need</option>
+              <option value="interested">Interested</option>
+              <option value="active_conversation">Active Conversation</option>
+            </select>
+          </div>
+          <div>
+            <label>Estimated DAC Commission ($)</label>
+            <input name="dacCommission" type="number" min="0" step="0.01" value="0" />
+          </div>
+          <div>
+            <label>Notes</label>
+            <textarea name="notes"></textarea>
+          </div>
+          <input name="id" type="hidden" />
+          <div class="actions">
+            <button class="btn-primary" type="submit">Save Lead</button>
+            <button type="button" id="resetFormBtn">Clear</button>
+          </div>
+        </form>
+      </article>
 
-    <script>
-        // Lead Data
-        let leads = [
-            {id:1,name:"Meyer's Companies",phone:"219-388-7174",email:"contact@meyerscompaniesinc.com",industry:"HVAC",status:"NEW",source:"Search",notes:"Full service since 1951",timeline:[]},
-            {id:2,name:"Williamson Heating",phone:"219-374-9830",email:"",industry:"HVAC",status:"NEW",source:"Search",notes:"Serves Cedar Lake",timeline:[]},
-            {id:3,name:"EcoEdge Systems",phone:"",email:"info@ecoedgesystems.com",industry:"HVAC",status:"NEW",source:"Search",notes:"",timeline:[]},
-            {id:4,name:"South County Mechanical",phone:"",email:"",industry:"HVAC",status:"NEW",source:"Search",notes:"Top rated",timeline:[]},
-            {id:5,name:"Reichelt Plumbing",phone:"219-322-4906",email:"contact@reicheltplumbing.com",industry:"Plumbing",status:"NEW",source:"Search",notes:"",timeline:[]},
-            {id:6,name:"Downing Plumbing",phone:"",email:"info@downingplumbing.com",industry:"Plumbing",status:"NEW",source:"Search",notes:"",timeline:[]},
-            {id:7,name:"Green Light Electric",phone:"219-671-6312",email:"greenlight@electric.com",industry:"Electrical",status:"NEW",source:"Search",notes:"",timeline:[]},
-            {id:8,name:"Hulsey Electric",phone:"",email:"",industry:"Electrical",status:"NEW",source:"Search",notes:"",timeline:[]},
-            {id:9,name:"Midwestern Electric",phone:"219-397-4444",email:"info@midwestern.com",industry:"Electrical",status:"NEW",source:"Search",notes:"45+ years",timeline:[]},
-            {id:10,name:"Summers Plumbing",phone:"",email:"info@summersphc.com",industry:"Plumbing",status:"NEW",source:"Search",notes:"24/7",timeline:[]},
-            {id:11,name:"Indiana HVAC Pros",phone:"607-300-1320",email:"",industry:"HVAC",status:"NEW",source:"Search",notes:"",timeline:[]},
-            {id:12,name:"Carlson's Electric",phone:"",email:"",industry:"Electrical",status:"NEW",source:"Search",notes:"",timeline:[]},
-        ];
+      <article class="card">
+        <h2>Queues & Pipeline Snapshot</h2>
+        <div id="pipelineSummary" class="small"></div>
+        <hr style="border-color:var(--border); margin:1rem 0;" />
+        <h3>Duplicate Detection</h3>
+        <p class="muted small">Checks exact match on business name, email, or phone.</p>
+        <div id="duplicateList" class="small"></div>
+      </article>
+    </section>
 
-        let currentLeadId = null;
+    <section class="card">
+      <h2>Lead Database</h2>
+      <div class="actions" style="margin: 0.5rem 0 1rem;">
+        <input id="searchInput" placeholder="Search business, pipeline, email, funding status..." style="max-width: 420px;" />
+      </div>
+      <div style="overflow:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Business</th><th>Pipeline</th><th>Free Video</th><th>Video Request</th><th>Follow-up</th><th>Temp</th><th>Funding</th><th>Email Quality</th><th>Source URL</th><th>DAC $</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="leadTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 
-        function renderKanban() {
-            const cols = {NEW:[],CONTACTED:[],QUALIFIED:[],APPLICATION:[],FUNDED:[]};
-            leads.forEach(l => cols[l.status].push(l));
-            
-            ['NEW','CONTACTED','QUALIFIED','APPLICATION','FUNDED'].forEach(status => {
-                const col = document.getElementById('col-'+status);
-                col.innerHTML = cols[status].map(l => `
-                    <div class="card" onclick="openDetail(${l.id})">
-                        <div class="card-name">${l.name}</div>
-                        <div class="card-info">📞 ${l.phone || 'No phone'}</div>
-                        <div class="card-info">✉️ ${l.email || 'No email'}</div>
-                        <div class="card-tags">
-                            <span class="tag tag-${l.industry}">${l.industry}</span>
-                        </div>
-                    </div>
-                `).join('');
-                document.getElementById('count-'+status).textContent = cols[status].length;
-            });
-            
-            document.getElementById('total').textContent = leads.length;
-            document.getElementById('new').textContent = cols.NEW.length;
-            document.getElementById('contacted').textContent = cols.CONTACTED.length;
-            document.getElementById('qualified').textContent = cols.QUALIFIED.length;
-            document.getElementById('application').textContent = cols.APPLICATION.length;
-            document.getElementById('funded').textContent = cols.FUNDED.length;
+  <script>
+    const STORAGE_KEY = 'gabriel-impact-crm-v1';
+    const pipelines = ['HVAC', 'Plumbing', 'Electrical', 'Roofing', 'Construction', 'Bankers', 'Former DAC'];
+
+    const form = document.getElementById('leadForm');
+    const tableBody = document.getElementById('leadTableBody');
+    const dashboard = document.getElementById('dashboard');
+    const pipelineSummary = document.getElementById('pipelineSummary');
+    const duplicateList = document.getElementById('duplicateList');
+    const searchInput = document.getElementById('searchInput');
+    const fileInput = document.getElementById('fileInput');
+
+    form.pipeline.innerHTML = pipelines.map(p => `<option value="${p}">${p}</option>`).join('');
+
+    let state = loadState();
+    let activeFileMode = null;
+
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { leads: [] };
+      try {
+        const parsed = JSON.parse(raw);
+        return { leads: Array.isArray(parsed.leads) ? parsed.leads : [] };
+      } catch {
+        return { leads: [] };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function uid() {
+      return `${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+    }
+
+    function normalize(s) {
+      return String(s || '').trim().toLowerCase();
+    }
+
+    function isDuplicate(candidate, skipId = '') {
+      const name = normalize(candidate.businessName);
+      const email = normalize(candidate.email);
+      const phone = normalize(candidate.phone);
+      return state.leads.some(lead => {
+        if (lead.id === skipId) return false;
+        return (name && normalize(lead.businessName) === name)
+          || (email && normalize(lead.email) === email)
+          || (phone && normalize(lead.phone) === phone);
+      });
+    }
+
+    function enforceRules(lead, skipId = '') {
+      if (isDuplicate(lead, skipId)) {
+        throw new Error('Duplicate detected: business name, email, or phone already exists.');
+      }
+      if (lead.isVerifiedContact === 'yes' && !normalize(lead.sourceUrl)) {
+        throw new Error('Source URL is required for verified contacts.');
+      }
+      if (lead.email && lead.email.includes(' ')) {
+        throw new Error('Email appears invalid (contains spaces).');
+      }
+    }
+
+    function leadFromForm() {
+      const fd = new FormData(form);
+      return {
+        id: fd.get('id') || uid(),
+        businessName: fd.get('businessName').trim(),
+        contactName: fd.get('contactName').trim(),
+        pipeline: fd.get('pipeline'),
+        phone: fd.get('phone').trim(),
+        email: fd.get('email').trim(),
+        emailQuality: fd.get('emailQuality'),
+        isVerifiedContact: fd.get('isVerifiedContact'),
+        sourceUrl: fd.get('sourceUrl').trim(),
+        freeVideoStatus: fd.get('freeVideoStatus'),
+        videoRequestStatus: fd.get('videoRequestStatus'),
+        followUpDate: fd.get('followUpDate'),
+        leadTemperature: fd.get('leadTemperature'),
+        fundingInterest: fd.get('fundingInterest'),
+        dacCommission: Number(fd.get('dacCommission') || 0),
+        notes: fd.get('notes').trim(),
+        updatedAt: new Date().toISOString()
+      };
+    }
+
+    function dashboardMetrics(leads) {
+      const now = new Date().toISOString().slice(0, 10);
+      const warmHot = leads.filter(l => ['warm', 'hot'].includes(l.leadTemperature)).length;
+      return [
+        { label: 'Total Leads', value: leads.length },
+        { label: 'Follow-up Queue (Due)', value: leads.filter(l => l.followUpDate && l.followUpDate <= now).length },
+        { label: 'Warm/Hot Queue', value: warmHot },
+        { label: 'Funding Interested+', value: leads.filter(l => ['interested', 'active_conversation'].includes(l.fundingInterest)).length },
+        { label: 'Video Requests Active', value: leads.filter(l => ['requested', 'script_ready', 'recording_done'].includes(l.videoRequestStatus)).length },
+        { label: 'DAC Commission Total', value: `$${leads.reduce((a, b) => a + (Number(b.dacCommission) || 0), 0).toFixed(2)}` }
+      ];
+    }
+
+    function renderDashboard(filteredLeads) {
+      dashboard.innerHTML = dashboardMetrics(filteredLeads).map(m => `
+        <article class="card">
+          <div class="metric">${m.value}</div>
+          <div class="muted small">${m.label}</div>
+        </article>
+      `).join('');
+    }
+
+    function renderPipelineSummary(leads) {
+      const now = new Date().toISOString().slice(0, 10);
+      const lines = [];
+      for (const pipe of pipelines) {
+        const inPipe = leads.filter(l => l.pipeline === pipe);
+        lines.push(`<div><span class="pill">${pipe}</span> ${inPipe.length} leads</div>`);
+      }
+      lines.push(`<div style="margin-top:.5rem;"><span class="pill">Follow-up Queue</span> ${leads.filter(l => l.followUpDate && l.followUpDate <= now).length}</div>`);
+      lines.push(`<div><span class="pill warm">Warm Queue</span> ${leads.filter(l => l.leadTemperature === 'warm').length}</div>`);
+      lines.push(`<div><span class="pill hot">Hot Queue</span> ${leads.filter(l => l.leadTemperature === 'hot').length}</div>`);
+      lines.push(`<div><span class="pill">Funding Interest</span> ${leads.filter(l => l.fundingInterest !== 'not_discussed').length}</div>`);
+      pipelineSummary.innerHTML = lines.join('');
+    }
+
+    function renderDuplicates() {
+      const seen = new Map();
+      const dupes = [];
+      for (const lead of state.leads) {
+        for (const k of [normalize(lead.businessName), normalize(lead.email), normalize(lead.phone)]) {
+          if (!k) continue;
+          if (seen.has(k) && seen.get(k) !== lead.id) {
+            dupes.push(`${lead.businessName} duplicates ${k}`);
+          } else {
+            seen.set(k, lead.id);
+          }
+        }
+      }
+      duplicateList.innerHTML = dupes.length
+        ? dupes.map(d => `<div class="pill bad">${d}</div>`).join('')
+        : '<span class="pill ok">No duplicates detected</span>';
+    }
+
+    function renderTable() {
+      const q = normalize(searchInput.value);
+      const filtered = state.leads.filter(l => {
+        if (!q) return true;
+        return [l.businessName, l.pipeline, l.email, l.fundingInterest, l.freeVideoStatus, l.videoRequestStatus, l.notes]
+          .some(v => normalize(v).includes(q));
+      });
+
+      renderDashboard(filtered);
+      renderPipelineSummary(filtered);
+
+      tableBody.innerHTML = filtered.map(l => `
+        <tr>
+          <td><strong>${l.businessName}</strong><br/><span class="small muted">${l.contactName || '-'}</span></td>
+          <td>${l.pipeline}</td>
+          <td>${l.freeVideoStatus}</td>
+          <td>${l.videoRequestStatus}</td>
+          <td>${l.followUpDate || '-'}</td>
+          <td><span class="pill ${l.leadTemperature === 'hot' ? 'hot' : l.leadTemperature === 'warm' ? 'warm' : ''}">${l.leadTemperature}</span></td>
+          <td>${l.fundingInterest}</td>
+          <td><span class="pill ${l.emailQuality === 'verified' ? 'ok' : (l.emailQuality === 'invalid' ? 'bad' : '')}">${l.emailQuality}</span></td>
+          <td>${l.sourceUrl ? `<a href="${l.sourceUrl}" target="_blank" rel="noreferrer">Source</a>` : '-'}</td>
+          <td>$${Number(l.dacCommission || 0).toFixed(2)}</td>
+          <td>
+            <button onclick="editLead('${l.id}')">Edit</button>
+            <button onclick="deleteLead('${l.id}')">Delete</button>
+          </td>
+        </tr>
+      `).join('') || '<tr><td colspan="11" class="muted">No leads yet. Add your first real lead.</td></tr>';
+
+      renderDuplicates();
+    }
+
+    function clearForm() {
+      form.reset();
+      form.id.value = '';
+      form.pipeline.value = pipelines[0];
+      form.emailQuality.value = 'unknown';
+      form.isVerifiedContact.value = 'no';
+      form.freeVideoStatus.value = 'not_offered';
+      form.videoRequestStatus.value = 'none';
+      form.leadTemperature.value = 'cold';
+      form.fundingInterest.value = 'not_discussed';
+      form.dacCommission.value = '0';
+    }
+
+    window.editLead = function(id) {
+      const lead = state.leads.find(l => l.id === id);
+      if (!lead) return;
+      Object.entries(lead).forEach(([k, v]) => {
+        if (form[k]) form[k].value = v;
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.deleteLead = function(id) {
+      if (!confirm('Delete this lead?')) return;
+      state.leads = state.leads.filter(l => l.id !== id);
+      saveState();
+      renderTable();
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      try {
+        const lead = leadFromForm();
+        enforceRules(lead, form.id.value || '');
+
+        const idx = state.leads.findIndex(l => l.id === lead.id);
+        if (idx >= 0) state.leads[idx] = lead;
+        else state.leads.unshift(lead);
+
+        saveState();
+        clearForm();
+        renderTable();
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    document.getElementById('resetFormBtn').addEventListener('click', clearForm);
+    searchInput.addEventListener('input', renderTable);
+
+    function downloadFile(name, content, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function toCSV(rows) {
+      const headers = ['id','businessName','contactName','pipeline','phone','email','emailQuality','isVerifiedContact','sourceUrl','freeVideoStatus','videoRequestStatus','followUpDate','leadTemperature','fundingInterest','dacCommission','notes','updatedAt'];
+      const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+      return [headers.join(','), ...rows.map(r => headers.map(h => esc(r[h])).join(','))].join('\n');
+    }
+
+    function parseCSV(text) {
+      const lines = text.split(/\r?\n/).filter(Boolean);
+      if (lines.length < 2) return [];
+      const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, ''));
+      return lines.slice(1).map(line => {
+        const parts = line.match(/("(?:[^"]|"")*"|[^,]+)/g) || [];
+        const obj = {};
+        headers.forEach((h, i) => {
+          obj[h] = (parts[i] || '').replace(/^"|"$/g, '').replace(/""/g, '"');
+        });
+        obj.dacCommission = Number(obj.dacCommission || 0);
+        return obj;
+      });
+    }
+
+    document.getElementById('exportCsvBtn').addEventListener('click', () => {
+      const csv = toCSV(state.leads);
+      downloadFile(`gabriel-crm-${new Date().toISOString().slice(0,10)}.csv`, csv, 'text/csv');
+    });
+
+    document.getElementById('exportJsonBtn').addEventListener('click', () => {
+      downloadFile(`gabriel-crm-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(state, null, 2), 'application/json');
+    });
+
+    document.getElementById('importCsvBtn').addEventListener('click', () => {
+      activeFileMode = 'csv';
+      fileInput.value = '';
+      fileInput.click();
+    });
+
+    document.getElementById('importJsonBtn').addEventListener('click', () => {
+      activeFileMode = 'json';
+      fileInput.value = '';
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const text = await file.text();
+
+      try {
+        let incoming = [];
+        if (activeFileMode === 'csv') {
+          incoming = parseCSV(text);
+        } else {
+          const parsed = JSON.parse(text);
+          incoming = Array.isArray(parsed.leads) ? parsed.leads : [];
         }
 
-        function openDetail(id) {
-            currentLeadId = id;
-            const l = leads.find(x => x.id === id);
-            document.getElementById('detailName').textContent = l.name;
-            document.getElementById('detailStatus').value = l.status;
-            document.getElementById('detailPhone').textContent = l.phone || '-';
-            document.getElementById('detailEmail').textContent = l.email || '-';
-            document.getElementById('detailIndustry').textContent = l.industry;
-            document.getElementById('detailSource').textContent = l.source;
-            document.getElementById('detailNotes').value = l.notes;
-            
-            const timeline = l.timeline.length ? l.timeline.map(t => `
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-time">${t.time}</div>
-                        <div class="timeline-msg">${t.msg}</div>
-                    </div>
-                </div>
-            `).join('') : '<div style="color:var(--text2);font-size:13px;">No activity yet</div>';
-            
-            document.getElementById('detailTimeline').innerHTML = '<div class="detail-label">Activity Timeline</div>' + timeline;
-            document.getElementById('detailPanel').classList.add('open');
+        const clean = [];
+        for (const item of incoming) {
+          const lead = {
+            id: item.id || uid(),
+            businessName: (item.businessName || '').trim(),
+            contactName: (item.contactName || '').trim(),
+            pipeline: pipelines.includes(item.pipeline) ? item.pipeline : pipelines[0],
+            phone: (item.phone || '').trim(),
+            email: (item.email || '').trim(),
+            emailQuality: item.emailQuality || 'unknown',
+            isVerifiedContact: item.isVerifiedContact || 'no',
+            sourceUrl: (item.sourceUrl || '').trim(),
+            freeVideoStatus: item.freeVideoStatus || 'not_offered',
+            videoRequestStatus: item.videoRequestStatus || 'none',
+            followUpDate: item.followUpDate || '',
+            leadTemperature: item.leadTemperature || 'cold',
+            fundingInterest: item.fundingInterest || 'not_discussed',
+            dacCommission: Number(item.dacCommission || 0),
+            notes: (item.notes || '').trim(),
+            updatedAt: item.updatedAt || new Date().toISOString()
+          };
+          if (!lead.businessName) continue;
+          enforceRules(lead, '');
+          clean.push(lead);
         }
 
-        function closeDetail() {
-            document.getElementById('detailPanel').classList.remove('open');
-        }
+        state.leads = clean;
+        saveState();
+        renderTable();
+        clearForm();
+        alert(`Imported ${clean.length} leads.`);
+      } catch (err) {
+        alert(`Import failed: ${err.message}`);
+      }
+    });
 
-        function updateStatus() {
-            const l = leads.find(x => x.id === currentLeadId);
-            l.status = document.getElementById('detailStatus').value;
-            l.notes = document.getElementById('detailNotes').value;
-            l.timeline.unshift({time:new Date().toLocaleString(),msg:`Status changed to ${l.status}`});
-            renderKanban();
-            closeDetail();
-        }
-
-        function deleteLead() {
-            if(confirm('Delete this lead?')) {
-                leads = leads.filter(x => x.id !== currentLeadId);
-                renderKanban();
-                closeDetail();
-            }
-        }
-
-        function openModal(type) {
-            document.getElementById('modal').classList.add('open');
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('open');
-        }
-
-        function saveLead() {
-            const name = document.getElementById('modalName').value;
-            const phone = document.getElementById('modalPhone').value;
-            const email = document.getElementById('modalEmail').value;
-            const industry = document.getElementById('modalIndustry').value;
-            
-            if(!name) return alert('Name required');
-            
-            leads.push({
-                id: Date.now(),
-                name, phone, email, industry,
-                status: 'NEW',
-                source: 'Manual',
-                notes: '',
-                timeline:[{time:new Date().toLocaleString(),msg:'Lead created'}]
-            });
-            
-            renderKanban();
-            closeModal();
-        }
-
-        function refreshData() {
-            renderKanban();
-            alert('Data refreshed!');
-        }
-
-        function showView(view) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        // Initialize
-        renderKanban();
-    </script>
+    clearForm();
+    renderTable();
+  </script>
 </body>
 </html>
