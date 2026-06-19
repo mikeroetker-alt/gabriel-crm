@@ -21,6 +21,7 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 - `/gabriel-crm/home/` — public free-video-first funnel
 - `/gabriel-crm/tools/` — public tools index
 - `/gabriel-crm/tools/visibility-snapshot/` — public Visibility Snapshot Tool
+- `/gabriel-crm/tools/pricing-proposal/` — public Pricing & Proposal Calculator
 
 ## Hard rules
 
@@ -41,8 +42,9 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 2. Add or update one prospect.
 3. Generate a visibility snapshot.
 4. Score relationship warmth, visibility need, and readiness.
-5. Create a human-reviewed draft or proposal only after the prospect context is clear.
-6. Export/backup the local data at the end of each work session.
+5. Use the Pricing & Proposal Calculator to create a paid next-step range only when the prospect context is clear.
+6. Create a human-reviewed draft or proposal only after the prospect context is clear.
+7. Export/backup the local data at the end of each work session.
 
 ## Completed build pieces
 
@@ -51,13 +53,13 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 - CSV export/import.
 - JSON backup/restore.
 - Visibility Snapshot Tool.
+- Pricing & Proposal Calculator.
 - Tools landing page.
 - Revenue-engine documentation.
 - Capital referral path guardrail documentation.
 - Test checklist issue created in GitHub.
+- Static GitHub Pages workflow added; public deployment still needs confirmation in GitHub Pages settings.
 
 ## Next build target
 
-Build a safe client-facing profile/spotlight worksheet that creates printable approved business profile copy without auto-sending, auto-posting, scraping, or claims.
-
-If connector safety blocks that class of file again, the next safest build is a route-test checklist page or a local-only pricing/proposal calculator.
+Confirm GitHub Pages deployment and test all current routes. After that, build the next safe public offer page or worksheet only if connector safety allows it.
