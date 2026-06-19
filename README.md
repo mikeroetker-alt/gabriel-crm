@@ -41,6 +41,12 @@ Recommended setup for this static repo:
 
 After that, test the routes listed above.
 
+## QA and setup docs
+
+- `docs/PAGES_SETUP.md` — GitHub Pages setup and deploy-failure guardrails.
+- `docs/QA_CHECKLIST.md` — route, tool, export, and guardrail smoke-test checklist.
+- `docs/DAC_LINK_RULE.md` — assigned capital referral path guardrail.
+
 ## Templates
 
 - `templates/warm-prospect-import-template.csv` — command-center-ready CSV starter template.
@@ -84,6 +90,8 @@ After that, test the routes listed above.
 - Tools landing page.
 - Revenue-engine documentation.
 - Capital referral path guardrail documentation.
+- Pages setup documentation.
+- QA checklist documentation.
 - Test checklist issue created in GitHub.
 - GitHub Pages Actions workflow changed to manual-only after deploy failures; branch-based Pages is recommended.
 
