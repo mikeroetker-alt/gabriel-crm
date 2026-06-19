@@ -28,7 +28,7 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 
 ## Deployment status
 
-Automatic GitHub Actions deployment has been changed to manual-only because the deploy job was failing before Pages settings were confirmed.
+The GitHub Actions Pages workflow is manual-only now. It should not run on future pushes.
 
 Recommended setup for this static repo:
 
