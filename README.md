@@ -22,6 +22,7 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 - `/gabriel-crm/tools/` — public tools index
 - `/gabriel-crm/tools/visibility-snapshot/` — public Visibility Snapshot Tool
 - `/gabriel-crm/tools/pricing-proposal/` — public Pricing & Proposal Calculator
+- `/gabriel-crm/tools/offer-builder/` — public Offer Page Builder
 
 ## Hard rules
 
@@ -43,8 +44,9 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 3. Generate a visibility snapshot.
 4. Score relationship warmth, visibility need, and readiness.
 5. Use the Pricing & Proposal Calculator to create a paid next-step range only when the prospect context is clear.
-6. Create a human-reviewed draft or proposal only after the prospect context is clear.
-7. Export/backup the local data at the end of each work session.
+6. Use the Offer Page Builder to draft a clean paid-service page or proposal insert when needed.
+7. Create a human-reviewed draft or proposal only after the prospect context is clear.
+8. Export/backup the local data at the end of each work session.
 
 ## Completed build pieces
 
@@ -54,6 +56,7 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 - JSON backup/restore.
 - Visibility Snapshot Tool.
 - Pricing & Proposal Calculator.
+- Offer Page Builder.
 - Tools landing page.
 - Revenue-engine documentation.
 - Capital referral path guardrail documentation.
@@ -62,4 +65,4 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 
 ## Next build target
 
-Confirm GitHub Pages deployment and test all current routes. After that, build the next safe public offer page or worksheet only if connector safety allows it.
+Confirm GitHub Pages deployment and test all current routes. After that, improve the command center so it links directly to each public tool from inside the dashboard.
