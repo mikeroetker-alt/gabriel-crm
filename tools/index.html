@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel Growth Engine — Tools</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: #334155;
+      --primary: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header, main { max-width: 980px; margin: 0 auto; padding: 1rem; }
+    header { border-bottom: 1px solid var(--border); }
+    h1 { margin-bottom: 0.25rem; }
+    a { color: var(--accent); }
+    .muted { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .card {
+      display: block;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .card:hover { border-color: var(--accent); }
+    .pill {
+      display: inline-block;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 999px;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gabriel Growth Engine Tools</h1>
+    <p class="muted">Static sales and operations tools for Gabriel Impact Group. No API calls, no auto-sending, no hidden data collection.</p>
+    <p><a href="../">Back to Command Center</a></p>
+  </header>
+  <main>
+    <section class="grid">
+      <a class="card" href="visibility-snapshot/">
+        <span class="pill">Ready</span>
+        <h2>Visibility Snapshot Tool</h2>
+        <p>Create a printable, copyable preliminary visibility snapshot for a local business. Designed for free-value-first outreach and warm follow-up.</p>
+      </a>
+      <article class="card">
+        <span class="pill">Next</span>
+        <h2>Client Spotlight Template</h2>
+        <p>Future tool: generate a clean local business spotlight page draft for approved prospects.</p>
+      </article>
+      <article class="card">
+        <span class="pill">Next</span>
+        <h2>Offer Page Builder</h2>
+        <p>Future tool: create static offer pages for video upgrades, local visibility, SEO/AEO, reputation, GHL setup, and funding readiness.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
