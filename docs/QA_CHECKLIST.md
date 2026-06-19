@@ -28,7 +28,8 @@ On `/gabriel-crm/`:
 
 - Confirm launchpad links open the correct tools.
 - Add a demo prospect record.
-- Confirm relationship warmth, visibility need, funding readiness, and revenue priority scores appear.
+- Confirm relationship warmth, service fit, funding readiness, and revenue priority scores appear.
+- Confirm do-not-contact records cannot be saved into the active revenue queue.
 - Generate a visibility snapshot.
 - Generate a funding readiness note and confirm it includes a preliminary-screen-only disclaimer.
 - Generate a draft message and confirm it is draft-only.
@@ -36,6 +37,19 @@ On `/gabriel-crm/`:
 - Export CSV.
 - Export JSON backup.
 - Clear local data only after backing up if real data is present.
+
+## Intake CSV to Command Center import checks
+
+Use `tools/warm-prospect-intake/` and `/gabriel-crm/` together:
+
+- Add one normal warm prospect in the intake queue.
+- Add one do-not-contact prospect in the intake queue.
+- Export the command-center CSV from the intake queue.
+- Import that CSV into the root command center.
+- Confirm the normal prospect imports with business name, website, local area, relationship source, warmth, lead temperature, verified contact/source URL, service fit, funding readiness, monthly revenue, follow-up date, research notes, and relationship notes preserved.
+- Confirm any do-not-contact row is skipped and does not enter the active revenue queue.
+- Confirm the command center import summary reports added, updated, skipped DNC, and skipped missing-business counts.
+- Confirm importing can either replace existing records or merge/update existing records.
 
 ## Visibility Snapshot Tool checks
 
@@ -84,5 +98,6 @@ The platform is not considered ready for daily use until:
 - Every route loads.
 - All local-only tools generate output.
 - CSV export works.
+- Intake CSV import works into the command center without importing do-not-contact records.
 - No automatic email/posting/funding application behavior exists.
 - The DAC path guardrail is preserved.
