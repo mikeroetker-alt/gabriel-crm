@@ -26,9 +26,16 @@ The app is a local-first command center for moving warm or manually researched p
 - Human approval required before outreach.
 - Do not mix Gabriel Faith Alliance nonprofit language into Gabriel Impact Group paid-service conversion.
 
+## Current Pages
+
+- `/gabriel-crm/` — internal revenue command center.
+- `/gabriel-crm/home/` — public funnel page.
+- `/gabriel-crm/tools/` — tools landing page.
+- `/gabriel-crm/tools/visibility-snapshot/` — public printable visibility snapshot tool.
+
 ## What the Current App Does
 
-The root command center at `/gabriel-crm/` now includes:
+The root command center at `/gabriel-crm/` includes:
 
 - Prospect database.
 - Priority queue.
@@ -45,6 +52,17 @@ The root command center at `/gabriel-crm/` now includes:
 - JSON backup / restore.
 - CSV import.
 - Demo local-business leads.
+
+The public tool at `/gabriel-crm/tools/visibility-snapshot/` includes:
+
+- Manual business inputs.
+- Manual visibility observations.
+- Opportunity scoring.
+- Printable output.
+- Copyable output.
+- No API calls.
+- No login.
+- No data collection or transmission.
 
 ## How Mike Uses It Daily
 
@@ -63,25 +81,33 @@ All funding output must preserve this concept:
 
 > This is a preliminary readiness screen only, not an approval, offer, promise, quote, or guarantee.
 
+## Completed Codex / Assistant Build Steps
+
+- Built the internal Revenue Command Center at the root app.
+- Added `docs/REVENUE_ENGINE.md` to preserve operating rules and next steps.
+- Added `/tools/visibility-snapshot/` as a public printable static snapshot generator.
+- Added `/tools/` as a simple landing page for current and future tools.
+
 ## Suggested Next Codex Task
 
-Build a dedicated `/tools/visibility-snapshot/` public-facing static page that lets Mike manually enter a business and produce a clean printable snapshot without exposing the internal command center.
+Build a dedicated `/client-spotlight-template/` static page that lets Mike create a clean client spotlight draft for an approved local business.
 
 Requirements:
 
-- Keep it static and GitHub Pages compatible.
+- Static and GitHub Pages compatible.
 - No API calls.
 - No login.
-- No public access to the internal lead database.
+- No automatic posting.
+- No data collection or transmission.
 - Output should be printable and copyable.
-- Include clear Gabriel Impact Group branding.
+- Include Gabriel Impact Group branding only.
 - Do not include Gabriel Faith Alliance nonprofit language.
-- Do not collect or transmit form data.
+- Include sections for business story, services, service area, trust points, photos/video placeholder notes, local SEO terms, and manual share draft.
 
 ## Future Codex Tasks
 
-1. Add public printable visibility snapshot page.
+1. Add client spotlight page generator/template.
 2. Add public request form placeholder with manual instructions, not live sending.
-3. Add client spotlight page template.
-4. Add offer pages for video upgrades, local visibility, SEO/AEO, reputation, GHL setup, and funding readiness.
-5. Add a test checklist for public links, mobile layout, and no accidental command-center exposure.
+3. Add offer pages for video upgrades, local visibility, SEO/AEO, reputation, GHL setup, and funding readiness.
+4. Add a test checklist for public links, mobile layout, and no accidental command-center exposure.
+5. Add a simple README link map for all public GitHub Pages routes.
