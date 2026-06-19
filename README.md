@@ -26,6 +26,21 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 - `/gabriel-crm/tools/pricing-proposal/` — public Pricing & Proposal Calculator
 - `/gabriel-crm/tools/offer-builder/` — public Offer Page Builder
 
+## Deployment status
+
+Automatic GitHub Actions deployment has been changed to manual-only because the deploy job was failing before Pages settings were confirmed.
+
+Recommended setup for this static repo:
+
+1. Open GitHub repo settings.
+2. Go to **Pages**.
+3. Set **Build and deployment** source to **Deploy from a branch**.
+4. Choose branch: `main`.
+5. Choose folder: `/ (root)`.
+6. Save.
+
+After that, test the routes listed above.
+
 ## Templates
 
 - `templates/warm-prospect-import-template.csv` — command-center-ready CSV starter template.
@@ -70,8 +85,8 @@ Expected GitHub Pages routes, assuming Pages is enabled for this repo:
 - Revenue-engine documentation.
 - Capital referral path guardrail documentation.
 - Test checklist issue created in GitHub.
-- Static GitHub Pages workflow added; public deployment still needs confirmation in GitHub Pages settings.
+- GitHub Pages Actions workflow changed to manual-only after deploy failures; branch-based Pages is recommended.
 
 ## Next build target
 
-Confirm GitHub Pages deployment and test all current routes. After that, tighten the root command center CSV importer so it handles every field exported by the Warm Prospect Intake Queue.
+Confirm GitHub Pages deployment using branch-based Pages and test all current routes. After that, tighten the root command center CSV importer so it handles every field exported by the Warm Prospect Intake Queue.
