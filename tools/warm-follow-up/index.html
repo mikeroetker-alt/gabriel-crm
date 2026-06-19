@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warm Relationship Follow-Up Builder — Gabriel Impact Group</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel2: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --primary: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+    header, main { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+    header { border-bottom: 1px solid var(--border); }
+    h1, h2, h3 { margin-top: 0; }
+    a { color: var(--accent); }
+    .muted { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1rem; margin: 1rem 0; }
+    label { display: block; font-weight: 700; margin: 0.75rem 0 0.25rem; }
+    input, select, textarea { width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem; background: #020617; color: var(--text); font: inherit; }
+    textarea { min-height: 95px; resize: vertical; }
+    button { border: 0; border-radius: 10px; padding: 0.75rem 1rem; font-weight: 800; cursor: pointer; margin: 0.35rem 0.35rem 0.35rem 0; }
+    .primary { background: var(--primary); color: #052e16; }
+    .secondary { background: var(--accent); color: #082f49; }
+    .ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .danger { color: #fecaca; border-color: var(--danger); }
+    .output { white-space: pre-wrap; background: #020617; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; min-height: 180px; }
+    .pill { display: inline-block; border: 1px solid var(--primary); color: var(--primary); border-radius: 999px; padding: 0.15rem 0.55rem; font-size: 0.75rem; margin-right: 0.35rem; }
+    .warn { border-color: var(--warn); color: var(--warn); }
+    .checklist li { margin: 0.35rem 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <p><a href="../">← Back to Tools</a> · <a href="../../">Command Center</a></p>
+    <h1>Warm Relationship Follow-Up Builder</h1>
+    <p class="muted">Create a gentle, relationship-first follow-up for people you already know or have legitimate prior context with. Draft only. No auto-send. No guessed emails. No pressure.</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <span class="pill">GIG only</span>
+      <span class="pill warn">Draft only</span>
+      <span class="pill warn">No funding promises</span>
+      <h2>Follow-Up Inputs</h2>
+      <div class="grid">
+        <div>
+          <label for="contactName">Contact name</label>
+          <input id="contactName" value="Stephen" />
+        </div>
+        <div>
+          <label for="businessName">Business / organization</label>
+          <input id="businessName" value="Texas Storm Shelter" />
+        </div>
+        <div>
+          <label for="relationshipContext">Relationship context</label>
+          <select id="relationshipContext">
+            <option>Prior client / prior marketing relationship</option>
+            <option>Long-time friend / advisor</option>
+            <option>Past conversation / mutual connection</option>
+            <option>Recent inbound reply</option>
+            <option>Referral from trusted person</option>
+          </select>
+        </div>
+        <div>
+          <label for="tone">Tone</label>
+          <select id="tone">
+            <option>Soft value-add</option>
+            <option>Personal check-in</option>
+            <option>Helpful observation</option>
+            <option>Ask permission to send notes</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="priorContext">What is the honest prior context?</label>
+      <textarea id="priorContext">I had a past SEO/digital marketing connection to Texas Storm Shelter and remember earlier ranking/visibility work connected to the business.</textarea>
+
+      <label for="valueAdd">What useful thing can we offer without selling?</label>
+      <textarea id="valueAdd">A simple visibility/history snapshot comparing what I remember from the old search presence with the current market and a few practical observations.</textarea>
+
+      <label for="avoid">What should this message avoid?</label>
+      <textarea id="avoid">Do not lead with funding. Do not mention approval, guaranteed financing, or pressure. Do not sound like a cold agency pitch. Do not mix in Gabriel Faith Alliance nonprofit language.</textarea>
+
+      <label for="callToAction">Soft call to action</label>
+      <select id="callToAction">
+        <option>Would it be useful if I sent that over?</option>
+        <option>No need to reply if timing is not right.</option>
+        <option>I can send a short note if helpful.</option>
+        <option>Open to a quick look when you have a minute?</option>
+      </select>
+
+      <button class="primary" onclick="generateFollowUp()">Generate Warm Follow-Up Draft</button>
+      <button class="secondary" onclick="copyDraft()">Copy Draft</button>
+      <button class="ghost" onclick="loadTexasStormShelter()">Load Texas Storm Shelter Example</button>
+      <button class="ghost" onclick="loadFriendTest()">Load Friend/Test Example</button>
+    </section>
+
+    <section class="panel">
+      <h2>Draft Output</h2>
+      <div id="output" class="output">Click “Generate Warm Follow-Up Draft.”</div>
+    </section>
+
+    <section class="panel">
+      <h2>Guardrails</h2>
+      <ul class="checklist">
+        <li>This tool drafts text only. It does not send emails or messages.</li>
+        <li>Use only with real relationship context, replies, referrals, or manually approved prospects.</li>
+        <li>No guessed contact information. Verified contact paths only.</li>
+        <li>Do not promise funding, approvals, terms, rankings, traffic, or results.</li>
+        <li>Keep GIG paid-service language separate from GFA nonprofit/faith-charity language.</li>
+        <li>Mike must review and approve before any message is sent.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    function clean(value) {
+      return String(value || '').trim();
+    }
+
+    function generateFollowUp() {
+      const contact = clean(document.getElementById('contactName').value) || 'there';
+      const business = clean(document.getElementById('businessName').value) || 'your business';
+      const relationship = clean(document.getElementById('relationshipContext').value);
+      const tone = clean(document.getElementById('tone').value);
+      const prior = clean(document.getElementById('priorContext').value);
+      const value = clean(document.getElementById('valueAdd').value);
+      const avoid = clean(document.getElementById('avoid').value);
+      const cta = clean(document.getElementById('callToAction').value);
+
+      const subject = `Subject: Quick thought on ${business}`;
+      const body = `Hi ${contact},\n\nYou came to mind again recently, and I wanted to reach out in a low-pressure way.\n\n${prior}\n\nI am not reaching out with a hard pitch. I was thinking it may be useful to put together ${value.charAt(0).toLowerCase() + value.slice(1)}\n\n${cta}\n\nEither way, I hope you, your family, and everyone connected to ${business} are doing well.\n\nMike`;
+
+      const internal = `\n\n---\nINTERNAL NOTES — DO NOT SEND\nRelationship context: ${relationship}\nTone: ${tone}\nAvoid: ${avoid}\nGuardrail: Draft only. Human approval required before sending. No funding promises. No GFA/nonprofit language.`;
+
+      document.getElementById('output').textContent = `${subject}\n\n${body}${internal}`;
+    }
+
+    async function copyDraft() {
+      const text = document.getElementById('output').textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        alert('Draft copied. Review before sending.');
+      } catch (error) {
+        alert('Copy failed. Select the draft text and copy manually.');
+      }
+    }
+
+    function loadTexasStormShelter() {
+      document.getElementById('contactName').value = 'Stephen';
+      document.getElementById('businessName').value = 'Texas Storm Shelter';
+      document.getElementById('relationshipContext').value = 'Prior client / prior marketing relationship';
+      document.getElementById('tone').value = 'Soft value-add';
+      document.getElementById('priorContext').value = 'I had a past SEO/digital marketing connection to Texas Storm Shelter and remember earlier ranking/visibility work connected to the business.';
+      document.getElementById('valueAdd').value = 'A simple visibility/history snapshot comparing what I remember from the old search presence with the current market and a few practical observations.';
+      document.getElementById('avoid').value = 'Do not lead with funding. Do not mention approval, guaranteed financing, or pressure. Do not sound like a cold agency pitch. Do not mix in Gabriel Faith Alliance nonprofit language.';
+      document.getElementById('callToAction').value = 'Would it be useful if I sent that over?';
+      generateFollowUp();
+    }
+
+    function loadFriendTest() {
+      document.getElementById('contactName').value = 'John';
+      document.getElementById('businessName').value = 'Oil Patch Trucking AI Readiness';
+      document.getElementById('relationshipContext').value = 'Long-time friend / advisor';
+      document.getElementById('tone').value = 'Personal check-in';
+      document.getElementById('priorContext').value = 'You are a long-time friend, so this should be treated as a safe internal workflow test rather than a sales opportunity.';
+      document.getElementById('valueAdd').value = 'A quick internal test snapshot of the AI readiness concept so we can see whether the workflow produces anything useful.';
+      document.getElementById('avoid').value = 'Do not sell, pressure, pitch, or imply any obligation. Treat this as a friend/test workflow only.';
+      document.getElementById('callToAction').value = 'No need to reply if timing is not right.';
+      generateFollowUp();
+    }
+
+    generateFollowUp();
+  </script>
+</body>
+</html>
