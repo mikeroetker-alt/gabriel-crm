@@ -5,7 +5,108 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gabriel Growth Engine — Revenue Command Center</title>
   <style>
-    :root{--bg:#0f172a;--panel:#111827;--panel2:#1f2937;--panel3:#020617;--text:#e5e7eb;--muted:#94a3b8;--border:#334155;--green:#22c55e;--blue:#38bdf8;--gold:#f59e0b;--red:#ef4444}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}header{position:sticky;top:0;z-index:10;background:var(--panel3);border-bottom:1px solid var(--border);padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}h1,h2,h3{margin-top:0}h1{font-size:1.25rem;margin-bottom:.2rem}h2{font-size:1.05rem}a{color:var(--blue)}.tagline,.muted{color:var(--muted)}.small{font-size:.84rem}.container{padding:1rem;display:grid;gap:1rem}.grid{display:grid;gap:1rem}.cols2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}.cols4{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}.card,.banner{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1rem}.banner{background:linear-gradient(90deg,rgba(20,83,45,.45),rgba(12,74,110,.35));border-color:#166534}.tool{background:var(--panel2);display:block;text-decoration:none;color:var(--text);transition:.15s}.tool:hover{border-color:var(--blue);transform:translateY(-1px)}label{display:block;color:#cbd5e1;font-size:.82rem;margin-bottom:.25rem}input,select,textarea,button{width:100%;border-radius:8px;border:1px solid var(--border);background:var(--panel2);color:var(--text);padding:.58rem .68rem;font:inherit}textarea{min-height:90px;resize:vertical}button{cursor:pointer;font-weight:700;background:#0b1220}button:hover{border-color:var(--blue)}button:active{transform:translateY(1px)}.btn-green{background:#14532d;border-color:#166534}.btn-blue{background:#0c4a6e;border-color:#0369a1}.btn-red{background:#450a0a;border-color:#991b1b}.actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}.actions button,.actions a{width:auto}.pill{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:.15rem .5rem;margin:0 .25rem .25rem 0;font-size:.74rem}.ok{color:var(--green);border-color:var(--green)}.warn{color:var(--gold);border-color:var(--gold)}.hot{color:var(--red);border-color:var(--red)}.blue{color:var(--blue);border-color:var(--blue)}table{width:100%;border-collapse:collapse;font-size:.86rem}th,td{text-align:left;border-bottom:1px solid var(--border);padding:.55rem;vertical-align:top}th{font-size:.74rem;color:#cbd5e1;text-transform:uppercase}.metric{font-size:1.5rem;font-weight:800}.output{white-space:pre-wrap;background:var(--panel3);border:1px solid var(--border);border-radius:10px;padding:1rem;min-height:180px}.tabbar{display:flex;flex-wrap:wrap;gap:.5rem}.tabbar button{width:auto}.tabbar button.active{background:#14532d;border-color:#166534}.view{display:none}.view.active{display:grid;gap:1rem}.selected-row{outline:2px solid var(--green);outline-offset:-2px;background:rgba(34,197,94,.08)}.notice{border:1px solid var(--green);background:rgba(20,83,45,.35);border-radius:10px;padding:.7rem;margin:.5rem 0}.row-actions{display:grid;gap:.35rem;min-width:150px}.big-test{font-size:1rem;padding:.9rem 1.1rem;border-width:2px}.selected-card{border-color:var(--green);box-shadow:0 0 0 1px rgba(34,197,94,.25)}@media print{header,.no-print,form,table,button,.tabbar{display:none!important}body,.card,.banner,.output{background:white;color:#111;border-color:#ddd}.view{display:block!important}}
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel2: #1f2937;
+      --panel3: #020617;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --border: #334155;
+      --green: #22c55e;
+      --blue: #38bdf8;
+      --gold: #f59e0b;
+      --red: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height: 1.45;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--panel3);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    h1, h2, h3 { margin-top: 0; }
+    h1 { font-size: 1.25rem; margin-bottom: .2rem; }
+    h2 { font-size: 1.05rem; }
+    a { color: var(--blue); }
+    .tagline, .muted { color: var(--muted); }
+    .small { font-size: .84rem; }
+    .container { padding: 1rem; display: grid; gap: 1rem; }
+    .grid { display: grid; gap: 1rem; }
+    .cols2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .cols4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .card, .banner {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .banner {
+      background: linear-gradient(90deg, rgba(20,83,45,.45), rgba(12,74,110,.35));
+      border-color: #166534;
+    }
+    .tool { background: var(--panel2); display: block; text-decoration: none; color: var(--text); transition: .15s; }
+    .tool:hover { border-color: var(--blue); transform: translateY(-1px); }
+    label { display: block; color: #cbd5e1; font-size: .82rem; margin-bottom: .25rem; }
+    input, select, textarea, button {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      color: var(--text);
+      padding: .58rem .68rem;
+      font: inherit;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    button { cursor: pointer; font-weight: 700; background: #0b1220; }
+    button:hover { border-color: var(--blue); }
+    button:active { transform: translateY(1px); }
+    .btn-green { background: #14532d; border-color: #166534; }
+    .btn-blue { background: #0c4a6e; border-color: #0369a1; }
+    .btn-red { background: #450a0a; border-color: #991b1b; }
+    .actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+    .actions button, .actions a { width: auto; }
+    .pill { display: inline-block; border: 1px solid var(--border); border-radius: 999px; padding: .15rem .5rem; margin: 0 .25rem .25rem 0; font-size: .74rem; }
+    .ok { color: var(--green); border-color: var(--green); }
+    .warn { color: var(--gold); border-color: var(--gold); }
+    .hot { color: var(--red); border-color: var(--red); }
+    .blue { color: var(--blue); border-color: var(--blue); }
+    .fail { color: var(--red); border-color: var(--red); }
+    table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+    th, td { text-align: left; border-bottom: 1px solid var(--border); padding: .55rem; vertical-align: top; }
+    th { font-size: .74rem; color: #cbd5e1; text-transform: uppercase; }
+    .metric { font-size: 1.5rem; font-weight: 800; }
+    .output { white-space: pre-wrap; background: var(--panel3); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; min-height: 180px; }
+    .tabbar { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .tabbar button { width: auto; }
+    .tabbar button.active { background: #14532d; border-color: #166534; }
+    .view { display: none; }
+    .view.active { display: grid; gap: 1rem; }
+    .selected-row { outline: 2px solid var(--green); outline-offset: -2px; background: rgba(34,197,94,.08); }
+    .notice { border: 1px solid var(--green); background: rgba(20,83,45,.35); border-radius: 10px; padding: .7rem; margin: .5rem 0; }
+    .row-actions { display: grid; gap: .35rem; min-width: 150px; }
+    .big-test { font-size: 1rem; padding: .9rem 1.1rem; border-width: 2px; }
+    .selected-card { border-color: var(--green); box-shadow: 0 0 0 1px rgba(34,197,94,.25); }
+    .diagnostic-pass { border-color: var(--green); box-shadow: 0 0 0 1px rgba(34,197,94,.25); }
+    .diagnostic-fail { border-color: var(--red); box-shadow: 0 0 0 1px rgba(239,68,68,.25); }
+    @media print {
+      header, .no-print, form, table, button, .tabbar { display: none !important; }
+      body, .card, .banner, .output { background: white; color: #111; border-color: #ddd; }
+      .view { display: block !important; }
+    }
   </style>
 </head>
 <body>
@@ -16,110 +117,384 @@
     <div class="tagline small">Static / GitHub Pages compatible. Local-first. No paid APIs. No auto-sending. Funding stays back-end only.</div>
   </div>
   <div class="actions no-print">
-    <a href="home/">Public Funnel</a><a href="tools/">Tools</a>
-    <button id="exportCsvBtn">Export CSV</button><button id="exportJsonBtn">Backup JSON</button><button id="importCsvBtn">Import CSV</button><button id="importJsonBtn">Restore JSON</button>
+    <a href="home/">Public Funnel</a>
+    <a href="tools/">Tools</a>
+    <button id="exportCsvBtn">Export CSV</button>
+    <button id="exportJsonBtn">Backup JSON</button>
+    <button id="importCsvBtn">Import CSV</button>
+    <button id="importJsonBtn">Restore JSON</button>
     <input id="fileInput" type="file" accept=".csv,.json" style="display:none" />
   </div>
 </header>
+
 <main class="container">
-  <section class="banner"><strong>Operating rule:</strong> Codex builds the system. Mike approves relationship-sensitive outreach. Nothing here sends emails, posts to social, promises funding, or mixes Gabriel Faith Alliance nonprofit language into Gabriel Impact Group paid conversion.</section>
+  <section class="banner">
+    <strong>Operating rule:</strong> Codex builds the system. Mike approves relationship-sensitive outreach. Nothing here sends emails, posts to social, promises funding, or mixes Gabriel Faith Alliance nonprofit language into Gabriel Impact Group paid conversion.
+  </section>
+
   <section class="grid cols4 no-print" aria-label="Tool launchpad">
     <a class="card tool" href="tools/warm-prospect-intake/"><strong>Warm Prospect Intake</strong><br><span class="small muted">Research and qualify before import.</span></a>
     <a class="card tool" href="tools/visibility-snapshot/"><strong>Visibility Snapshot</strong><br><span class="small muted">Create printable first-look audit notes.</span></a>
     <a class="card tool" href="tools/pricing-proposal/"><strong>Pricing & Proposal</strong><br><span class="small muted">Build paid offer ranges and proposal copy.</span></a>
     <a class="card tool" href="tools/offer-builder/"><strong>Offer Builder</strong><br><span class="small muted">Draft paid offer pages.</span></a>
   </section>
+
+  <section class="card no-print" id="diagnosticsCard">
+    <h2>Self-Test / Diagnostics</h2>
+    <p class="small muted">This checks whether the core browser workflow is working here: storage, Mike test record, selected record, snapshot, proposal, CSV, and JSON backup.</p>
+    <div class="actions">
+      <button id="loadAndTestBtn" class="btn-green big-test">Load Mike Test Record + Run Self-Test</button>
+      <button id="runSelfTestBtn" class="btn-blue">Run Self-Test Only</button>
+    </div>
+    <div id="diagnosticsSummary" class="notice" style="display:none"></div>
+    <div id="diagnosticsOutput" class="output" style="min-height:90px">Self-test not run yet.</div>
+  </section>
+
   <section class="grid cols4" id="dashboard"></section>
+
   <nav class="tabbar no-print">
-    <button data-view="prospects" class="active">Prospects</button><button data-view="snapshot">Snapshot</button><button data-view="funding">Funding Readiness</button><button data-view="drafts">Drafts</button><button data-view="proposal">Proposal</button>
+    <button data-view="prospects" class="active">Prospects</button>
+    <button data-view="snapshot">Snapshot</button>
+    <button data-view="funding">Funding Readiness</button>
+    <button data-view="drafts">Drafts</button>
+    <button data-view="proposal">Proposal</button>
   </nav>
+
   <section id="prospects" class="view active">
     <div class="grid cols2">
       <article class="card">
         <h2>Add / Edit Prospect</h2>
         <p class="small muted">Use for warm relationships, referrals, and manually researched local businesses. Do not use guessed emails.</p>
-        <div class="actions no-print" style="margin-bottom:1rem"><button id="loadTestBtn" type="button" class="btn-green big-test">Load Mike Test Record + Generate Snapshot</button></div>
+        <div class="actions no-print" style="margin-bottom:1rem">
+          <button id="loadTestBtn" type="button" class="btn-green big-test">Load Mike Test Record + Generate Snapshot</button>
+        </div>
         <form id="leadForm">
           <div class="grid cols2">
-            <div><label>Business Name *</label><input name="businessName" required></div><div><label>Contact Name</label><input name="contactName"></div>
-            <div><label>Website URL</label><input name="websiteUrl" type="url" placeholder="https://..."></div><div><label>Local Area *</label><input name="localArea" required placeholder="Lowell / Crown Point / NWI"></div>
-            <div><label>Industry</label><select name="pipeline"></select></div><div><label>Relationship / Source</label><input name="relationshipSource" placeholder="Past client, referral, local research..."></div>
-            <div><label>Lead Temperature</label><select name="leadTemperature"><option>cold</option><option>warm</option><option>hot</option></select></div><div><label>Relationship Warmth</label><select name="relationshipWarmth"><option>unknown</option><option>weak</option><option>known</option><option>past_client</option><option>referral</option><option>active_interest</option></select></div>
-            <div><label>Email</label><input name="email" type="email" placeholder="Only real known email addresses"></div><div><label>Email Quality</label><select name="emailQuality"><option>unknown</option><option>verified</option><option>risky</option><option>invalid</option><option>missing</option></select></div>
-            <div><label>Phone</label><input name="phone"></div><div><label>Verified Contact?</label><select name="isVerifiedContact"><option>no</option><option>yes</option></select></div>
-            <div><label>Source URL for verified contact</label><input name="sourceUrl" type="url"></div><div><label>Do Not Contact?</label><select name="doNotContact"><option>no</option><option>yes</option></select></div>
-            <div><label>Service Fit</label><select name="serviceFit"><option>unknown</option><option>free_video</option><option>visibility_snapshot</option><option>paid_video</option><option>local_visibility</option><option>website_seo_aeo</option><option>reputation</option><option>crm_ghl_setup</option><option>funding_back_end_only</option></select></div><div><label>Next Follow-up Date</label><input name="followUpDate" type="date"></div>
-            <div><label>Free Video Status</label><select name="freeVideoStatus"><option>not_offered</option><option>offered</option><option>requested</option><option>in_production</option><option>delivered</option></select></div><div><label>Paid Video Upgrade</label><select name="videoUpgradeStatus"><option>none</option><option>presented</option><option>accepted</option><option>active</option><option>complete</option></select></div>
-            <div><label>Local Visibility</label><select name="gbpStatus"><option>not_started</option><option>drafting</option><option>active</option><option>consistent</option></select></div><div><label>Website Trust / SEO-AEO</label><select name="websiteTrustStatus"><option>not_started</option><option>audit</option><option>in_progress</option><option>improved</option></select></div>
-            <div><label>Funding Readiness</label><select name="fundingReadiness"><option>not_discussed</option><option>monitoring</option><option>qualified</option><option>active_conversation</option></select></div><div><label>Monthly Revenue Range</label><select name="monthlyRevenue"><option>unknown</option><option>under_15k</option><option>15k_20k</option><option>20k_50k</option><option>50k_100k</option><option>100k_plus</option></select></div>
-            <div><label>Time in Business</label><select name="timeInBusiness"><option>unknown</option><option>under_6_months</option><option>6_12_months</option><option>1_2_years</option><option>2_plus_years</option></select></div><div><label>Estimated Credit Score</label><select name="creditScore"><option>unknown</option><option>under_600</option><option>600_649</option><option>650_699</option><option>700_plus</option></select></div>
-            <div><label>Funding Desired</label><input name="fundingDesired" placeholder="$25k, $50k..."></div><div><label>Purpose of Funds</label><input name="useOfFunds" placeholder="payoff, expansion, equipment..."></div>
-            <div><label>Existing Debt</label><select name="existingDebt"><option>unknown</option><option>none</option><option>manageable</option><option>heavy</option><option>urgent_payoff</option></select></div><div><label>Urgency</label><select name="urgency"><option>unknown</option><option>low</option><option>soon</option><option>urgent</option></select></div>
-            <div><label>One-Time Revenue Estimate ($)</label><input name="revenueOneTime" type="number" min="0" step="0.01" value="0"></div><div><label>Monthly Revenue Estimate ($)</label><input name="revenueMonthly" type="number" min="0" step="0.01" value="0"></div>
+            <div><label>Business Name *</label><input name="businessName" required></div>
+            <div><label>Contact Name</label><input name="contactName"></div>
+            <div><label>Website URL</label><input name="websiteUrl" type="url" placeholder="https://..."></div>
+            <div><label>Local Area *</label><input name="localArea" required placeholder="Lowell / Crown Point / NWI"></div>
+            <div><label>Industry</label><select name="pipeline"></select></div>
+            <div><label>Relationship / Source</label><input name="relationshipSource" placeholder="Past client, referral, local research..."></div>
+            <div><label>Lead Temperature</label><select name="leadTemperature"><option>cold</option><option>warm</option><option>hot</option></select></div>
+            <div><label>Relationship Warmth</label><select name="relationshipWarmth"><option>unknown</option><option>weak</option><option>known</option><option>past_client</option><option>referral</option><option>active_interest</option></select></div>
+            <div><label>Email</label><input name="email" type="email" placeholder="Only real known email addresses"></div>
+            <div><label>Email Quality</label><select name="emailQuality"><option>unknown</option><option>verified</option><option>risky</option><option>invalid</option><option>missing</option></select></div>
+            <div><label>Phone</label><input name="phone"></div>
+            <div><label>Verified Contact?</label><select name="isVerifiedContact"><option>no</option><option>yes</option></select></div>
+            <div><label>Source URL for verified contact</label><input name="sourceUrl" type="url"></div>
+            <div><label>Do Not Contact?</label><select name="doNotContact"><option>no</option><option>yes</option></select></div>
+            <div><label>Service Fit</label><select name="serviceFit"><option>unknown</option><option>free_video</option><option>visibility_snapshot</option><option>paid_video</option><option>local_visibility</option><option>website_seo_aeo</option><option>reputation</option><option>crm_ghl_setup</option><option>funding_back_end_only</option></select></div>
+            <div><label>Next Follow-up Date</label><input name="followUpDate" type="date"></div>
+            <div><label>Free Video Status</label><select name="freeVideoStatus"><option>not_offered</option><option>offered</option><option>requested</option><option>in_production</option><option>delivered</option></select></div>
+            <div><label>Paid Video Upgrade</label><select name="videoUpgradeStatus"><option>none</option><option>presented</option><option>accepted</option><option>active</option><option>complete</option></select></div>
+            <div><label>Local Visibility</label><select name="gbpStatus"><option>not_started</option><option>drafting</option><option>active</option><option>consistent</option></select></div>
+            <div><label>Website Trust / SEO-AEO</label><select name="websiteTrustStatus"><option>not_started</option><option>audit</option><option>in_progress</option><option>improved</option></select></div>
+            <div><label>Funding Readiness</label><select name="fundingReadiness"><option>not_discussed</option><option>monitoring</option><option>qualified</option><option>active_conversation</option></select></div>
+            <div><label>Monthly Revenue Range</label><select name="monthlyRevenue"><option>unknown</option><option>under_15k</option><option>15k_20k</option><option>20k_50k</option><option>50k_100k</option><option>100k_plus</option></select></div>
+            <div><label>Time in Business</label><select name="timeInBusiness"><option>unknown</option><option>under_6_months</option><option>6_12_months</option><option>1_2_years</option><option>2_plus_years</option></select></div>
+            <div><label>Estimated Credit Score</label><select name="creditScore"><option>unknown</option><option>under_600</option><option>600_649</option><option>650_699</option><option>700_plus</option></select></div>
+            <div><label>Funding Desired</label><input name="fundingDesired" placeholder="$25k, $50k..."></div>
+            <div><label>Purpose of Funds</label><input name="useOfFunds" placeholder="payoff, expansion, equipment..."></div>
+            <div><label>Existing Debt</label><select name="existingDebt"><option>unknown</option><option>none</option><option>manageable</option><option>heavy</option><option>urgent_payoff</option></select></div>
+            <div><label>Urgency</label><select name="urgency"><option>unknown</option><option>low</option><option>soon</option><option>urgent</option></select></div>
+            <div><label>One-Time Revenue Estimate ($)</label><input name="revenueOneTime" type="number" min="0" step="0.01" value="0"></div>
+            <div><label>Monthly Revenue Estimate ($)</label><input name="revenueMonthly" type="number" min="0" step="0.01" value="0"></div>
           </div>
           <div><label>Visibility Notes</label><textarea name="visibilityNotes" placeholder="Website trust, Google visibility, reviews, social, CTA observations..."></textarea></div>
           <div><label>Notes</label><textarea name="notes" placeholder="Relationship context, business need, next step..."></textarea></div>
           <input name="id" type="hidden"><input name="updatedAt" type="hidden">
-          <div class="actions"><button class="btn-green" type="submit">Save Prospect</button><button id="resetFormBtn" type="button">Clear</button><button id="loadDemoBtn" type="button">Load Demo Leads</button></div>
+          <div class="actions">
+            <button class="btn-green" type="submit">Save Prospect</button>
+            <button id="resetFormBtn" type="button">Clear</button>
+            <button id="loadDemoBtn" type="button">Load Demo Leads</button>
+          </div>
           <div id="formNotice" class="small muted"></div>
         </form>
       </article>
-      <article class="card" id="selectedCard"><h2>Priority Queue</h2><p class="small muted">Ranked by warmth, need, funding readiness, and revenue potential.</p><div id="priorityQueue"></div><hr style="border-color:var(--border)"><h2>Selected Prospect</h2><div id="selectedSummary" class="small muted">No prospect selected yet.</div></article>
+      <article class="card" id="selectedCard">
+        <h2>Priority Queue</h2>
+        <p class="small muted">Ranked by warmth, need, funding readiness, and revenue potential.</p>
+        <div id="priorityQueue"></div>
+        <hr style="border-color:var(--border)">
+        <h2>Selected Prospect</h2>
+        <div id="selectedSummary" class="small muted">No prospect selected yet.</div>
+      </article>
     </div>
-    <article class="card"><h2>Lead / Client Database</h2><div class="actions no-print" style="margin:.5rem 0 1rem"><input id="searchInput" placeholder="Search business, area, status, notes..." style="max-width:520px"><button id="clearDataBtn" class="btn-red">Clear All Local Data</button></div><div style="overflow:auto"><table><thead><tr><th>Business</th><th>Area</th><th>Score</th><th>Next Action</th><th>Temp</th><th>Fit</th><th>Status</th><th>Funding</th><th>Revenue</th><th>Follow-up</th><th>Actions</th></tr></thead><tbody id="leadTableBody"></tbody></table></div></article>
+    <article class="card">
+      <h2>Lead / Client Database</h2>
+      <div class="actions no-print" style="margin:.5rem 0 1rem">
+        <input id="searchInput" placeholder="Search business, area, status, notes..." style="max-width:520px">
+        <button id="clearDataBtn" class="btn-red">Clear All Local Data</button>
+      </div>
+      <div style="overflow:auto">
+        <table>
+          <thead><tr><th>Business</th><th>Area</th><th>Score</th><th>Next Action</th><th>Temp</th><th>Fit</th><th>Status</th><th>Funding</th><th>Revenue</th><th>Follow-up</th><th>Actions</th></tr></thead>
+          <tbody id="leadTableBody"></tbody>
+        </table>
+      </div>
+    </article>
   </section>
+
   <section id="snapshot" class="view"><article class="card"><h2>Visibility Snapshot</h2><p class="small muted">Select a prospect, then generate a fast trust-building snapshot.</p><div class="actions no-print"><button id="generateSnapshotBtn" class="btn-green">Generate Snapshot</button><button id="copySnapshotBtn">Copy</button><button id="printSnapshotBtn">Print</button></div><div id="snapshotOutput" class="output">No snapshot generated yet.</div></article></section>
-  <section id="funding" class="view"><article class="card"><h2>Funding Readiness</h2><p class="small muted">Back-end screen only. This is never an approval, offer, or guarantee.</p><div class="actions no-print"><button id="generateFundingBtn" class="btn-green">Generate Readiness Screen</button><button id="copyFundingBtn">Copy</button><button id="printFundingBtn">Print</button></div><div id="fundingOutput" class="output">No funding readiness screen generated yet.</div></article></section>
-  <section id="drafts" class="view"><article class="card"><h2>Human-Approved Drafts</h2><p class="small muted">Draft-only. Nothing sends from this page.</p><div class="actions no-print"><select id="draftType" style="max-width:260px"><option value="soft">Soft warm follow-up</option><option value="snapshot">Visibility snapshot offer</option><option value="video">Free business spotlight/video</option><option value="funding">Funding conversation only if appropriate</option></select><button id="generateDraftBtn" class="btn-green">Generate Draft</button><button id="copyDraftBtn">Copy</button></div><div id="draftOutput" class="output">No draft generated yet.</div></article></section>
+  <section id="funding" class="view"><article class="card"><h2>Funding Readiness</h2><p class="small muted">Back-end screen only. This is never an approval, offer, or guarantee.</p><div class="actions no-print"><button id="generateFundingBtn" class="btn-green">Generate Readiness Screen</button><button id="copyFundingBtn">Copy</button><button id="printFundingBtn">Print</button></div><div id="fundingOutput" class="output">No funding screen generated yet.</div></article></section>
+  <section id="drafts" class="view"><article class="card"><h2>Draft Message</h2><p class="small muted">Draft only. Human review required before sending.</p><div class="actions no-print"><select id="draftType" style="max-width:240px"><option value="soft">Soft relationship note</option><option value="snapshot">Snapshot offer</option><option value="proposal">Proposal follow-up</option></select><button id="generateDraftBtn" class="btn-green">Generate Draft</button><button id="copyDraftBtn">Copy</button></div><div id="draftOutput" class="output">No draft generated yet.</div></article></section>
   <section id="proposal" class="view"><article class="card"><h2>Proposal Builder</h2><p class="small muted">Simple internal proposal starter. Pricing can be changed before sending.</p><div class="actions no-print"><button id="generateProposalBtn" class="btn-green">Generate Proposal</button><button id="copyProposalBtn">Copy</button><button id="printProposalBtn">Print</button></div><div id="proposalOutput" class="output">No proposal generated yet.</div></article></section>
 </main>
+
 <script>
-const STORAGE_KEY='gabriel-growth-engine-v2';
-const pipelines=['Home Services','Contractors','Professional Services','Retail','Health & Wellness','Hospitality','Other Local Business'];
-const fields=['id','businessName','contactName','websiteUrl','localArea','pipeline','relationshipSource','relationshipWarmth','leadTemperature','email','emailQuality','phone','isVerifiedContact','sourceUrl','doNotContact','serviceFit','followUpDate','freeVideoStatus','videoUpgradeStatus','gbpStatus','websiteTrustStatus','fundingReadiness','monthlyRevenue','timeInBusiness','creditScore','fundingDesired','useOfFunds','existingDebt','urgency','revenueOneTime','revenueMonthly','visibilityNotes','notes','updatedAt'];
-const allowed={leadTemperature:['cold','warm','hot'],relationshipWarmth:['unknown','weak','known','past_client','referral','active_interest'],emailQuality:['unknown','verified','risky','invalid','missing'],isVerifiedContact:['no','yes'],doNotContact:['no','yes'],serviceFit:['unknown','free_video','visibility_snapshot','paid_video','local_visibility','website_seo_aeo','reputation','crm_ghl_setup','funding_back_end_only'],freeVideoStatus:['not_offered','offered','requested','in_production','delivered'],videoUpgradeStatus:['none','presented','accepted','active','complete'],gbpStatus:['not_started','drafting','active','consistent'],websiteTrustStatus:['not_started','audit','in_progress','improved'],fundingReadiness:['not_discussed','monitoring','qualified','active_conversation'],monthlyRevenue:['unknown','under_15k','15k_20k','20k_50k','50k_100k','100k_plus'],timeInBusiness:['unknown','under_6_months','6_12_months','1_2_years','2_plus_years'],creditScore:['unknown','under_600','600_649','650_699','700_plus'],existingDebt:['unknown','none','manageable','heavy','urgent_payoff'],urgency:['unknown','low','soon','urgent']};
-const form=document.getElementById('leadForm'), tableBody=document.getElementById('leadTableBody'), dashboard=document.getElementById('dashboard'), searchInput=document.getElementById('searchInput'), fileInput=document.getElementById('fileInput'), notice=document.getElementById('formNotice');
-let activeFileMode=null;let state=loadState();let selectedId=state.selectedId||'';
-form.elements.pipeline.innerHTML=pipelines.map(p=>`<option>${p}</option>`).join('');
-function uid(){return `${Date.now()}-${Math.floor(Math.random()*100000)}`}
-function norm(v){return String(v||'').trim().toLowerCase()}function num(v){return Number(v||0)}function yesNo(v){return ['yes','true','1','y'].includes(norm(v))?'yes':'no'}function pick(v,allowedList,fallback){v=String(v||'').trim();return allowedList.includes(v)?v:fallback}function escHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);const parsed=raw?JSON.parse(raw):{leads:[]};if(!Array.isArray(parsed.leads))parsed.leads=[];return parsed}catch{return{leads:[]}}}
-function saveState(){state.selectedId=selectedId;localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
-function setNotice(msg,good=true){notice.innerHTML=msg?`<div class="notice" style="border-color:${good?'var(--green)':'var(--red)'}">${escHtml(msg)}</div>`:''}
-function leadFromForm(){const fd=new FormData(form);const lead={};fields.forEach(f=>lead[f]=(fd.get(f)||'').toString().trim());lead.id=lead.id||uid();lead.pipeline=lead.pipeline||pipelines[0];lead.revenueOneTime=num(lead.revenueOneTime);lead.revenueMonthly=num(lead.revenueMonthly);lead.doNotContact=lead.doNotContact||'no';lead.serviceFit=lead.serviceFit||'unknown';lead.updatedAt=new Date().toISOString();return lead}
-function enforce(lead,skip=''){if(!lead.businessName)throw new Error('Business name is required.');if(!lead.localArea)throw new Error('Local area is required.');if(lead.doNotContact==='yes')throw new Error('Do-not-contact records should not be saved into the active revenue queue.');if(lead.email&&lead.email.includes(' '))throw new Error('Email appears invalid.');if(lead.isVerifiedContact==='yes'&&!lead.sourceUrl)throw new Error('Source URL is required for verified contacts.');const dup=state.leads.some(l=>l.id!==skip&&((norm(l.businessName)&&norm(l.businessName)===norm(lead.businessName))||(norm(l.email)&&norm(l.email)===norm(lead.email))||(norm(l.phone)&&norm(l.phone)===norm(lead.phone))));if(dup)throw new Error('Duplicate detected by business, email, or phone.')}
-function score(l){let s=0;if(!l||l.doNotContact==='yes')return 0;if(['warm','hot'].includes(l.leadTemperature))s+=l.leadTemperature==='hot'?25:15;if(['past_client','referral','active_interest'].includes(l.relationshipWarmth))s+=25;if(['visibility_snapshot','paid_video','local_visibility','website_seo_aeo','reputation','crm_ghl_setup'].includes(l.serviceFit))s+=12;if(['weak','missing','not_started','audit'].includes(l.websiteTrustStatus))s+=10;if(['offered','requested','delivered'].includes(l.freeVideoStatus))s+=10;if(['qualified','active_conversation'].includes(l.fundingReadiness))s+=15;s+=Math.min(15,Math.floor((num(l.revenueOneTime)+num(l.revenueMonthly)*3)/500));return s}
-function nextAction(l){if(!l)return 'Select a prospect';if(l.doNotContact==='yes')return 'Do not contact';if(l.emailQuality==='risky'||l.emailQuality==='invalid')return 'Research contact first';if(l.serviceFit==='free_video'||l.freeVideoStatus==='not_offered')return 'Create free value angle';if(l.serviceFit==='visibility_snapshot'||l.websiteTrustStatus==='audit')return 'Create visibility snapshot';if(l.serviceFit==='paid_video'||l.videoUpgradeStatus==='presented')return 'Prepare paid video upgrade';if(l.serviceFit==='local_visibility')return 'Prepare local visibility offer';if(l.serviceFit==='website_seo_aeo')return 'Prepare website/SEO-AEO offer';if(l.serviceFit==='funding_back_end_only'||['qualified','active_conversation'].includes(l.fundingReadiness))return 'Funding talk only if need is clear';return 'Warm follow-up'}
-function selected(){return state.leads.find(l=>l.id===selectedId)||null}function money(l){return `$${num(l.revenueOneTime).toFixed(0)} + $${num(l.revenueMonthly).toFixed(0)}/mo`}
-function render(){const q=norm(searchInput.value);const leads=state.leads.filter(l=>!q||fields.some(f=>norm(l[f]).includes(q)));dashboard.innerHTML=[['Total Prospects',state.leads.length],['Warm / Hot',state.leads.filter(l=>['warm','hot'].includes(l.leadTemperature)).length],['Actionable Fit',state.leads.filter(l=>l.serviceFit&&l.serviceFit!=='unknown').length],['Potential Revenue',`$${state.leads.reduce((a,l)=>a+num(l.revenueOneTime)+num(l.revenueMonthly)*3,0).toFixed(0)}`]].map(m=>`<article class="card"><div class="metric">${m[1]}</div><div class="metric-label">${m[0]}</div></article>`).join('');const ranked=[...state.leads].sort((a,b)=>score(b)-score(a)).slice(0,8);document.getElementById('priorityQueue').innerHTML=ranked.length?ranked.map(l=>`<div style="margin-bottom:.6rem"><strong>${escHtml(l.businessName)}</strong> <span class="pill ${l.leadTemperature==='hot'?'hot':l.leadTemperature==='warm'?'warn':'blue'}">${escHtml(l.leadTemperature)}</span><br><span class="small muted">Score ${score(l)} • ${escHtml(nextAction(l))}</span></div>`).join(''):'<span class="pill ok">No prospects yet</span>';const s=selected();document.getElementById('selectedCard').classList.toggle('selected-card',!!s);document.getElementById('selectedSummary').innerHTML=s?`<strong>${escHtml(s.businessName)}</strong><br>${escHtml(s.localArea)} • ${escHtml(s.pipeline)}<br>Fit: ${escHtml(s.serviceFit||'unknown')}<br>Score ${score(s)} • ${escHtml(nextAction(s))}<br><span class="pill ok">Selected</span> ${s.websiteUrl?`<a href="${escHtml(s.websiteUrl)}" target="_blank" rel="noreferrer">Website</a>`:''}`:'No prospect selected yet. Click Select on a database row.';tableBody.innerHTML=leads.map(l=>`<tr class="${l.id===selectedId?'selected-row':''}"><td><strong>${escHtml(l.businessName)}</strong><br><span class="small muted">${escHtml(l.contactName||'-')}</span></td><td>${escHtml(l.localArea)}</td><td>${score(l)}</td><td>${escHtml(nextAction(l))}</td><td><span class="pill ${l.leadTemperature==='hot'?'hot':l.leadTemperature==='warm'?'warn':''}">${escHtml(l.leadTemperature)}</span></td><td>${escHtml(l.serviceFit||'unknown')}</td><td>${escHtml(l.freeVideoStatus)} / ${escHtml(l.websiteTrustStatus)}</td><td>${escHtml(l.fundingReadiness)}</td><td>${money(l)}</td><td>${escHtml(l.followUpDate||'-')}</td><td><div class="row-actions"><button type="button" data-action="edit" data-id="${escHtml(l.id)}">Edit</button><button type="button" class="btn-green" data-action="select" data-id="${escHtml(l.id)}">Select</button><button type="button" class="btn-red" data-action="delete" data-id="${escHtml(l.id)}">Delete</button></div></td></tr>`).join('')||'<tr><td colspan="11" class="muted">No records yet.</td></tr>'}
-function setField(name,value){if(form.elements[name])form.elements[name].value=value??''}
-function clearForm(){form.reset();fields.forEach(f=>setField(f,''));setField('pipeline',pipelines[0]);setField('leadTemperature','cold');setField('relationshipWarmth','unknown');setField('emailQuality','unknown');setField('isVerifiedContact','no');setField('doNotContact','no');setField('serviceFit','unknown');setField('freeVideoStatus','not_offered');setField('videoUpgradeStatus','none');setField('gbpStatus','not_started');setField('websiteTrustStatus','not_started');setField('fundingReadiness','not_discussed');setField('monthlyRevenue','unknown');setField('timeInBusiness','unknown');setField('creditScore','unknown');setField('existingDebt','unknown');setField('urgency','unknown');setField('revenueOneTime','0');setField('revenueMonthly','0')}
-function editLead(id){const l=state.leads.find(x=>x.id===id);if(!l)return;fields.forEach(f=>setField(f,l[f]??''));selectedId=id;saveState();render();showView('prospects');window.scrollTo({top:0,behavior:'smooth'});setNotice('Record loaded into the edit form.')}
-function selectLead(id){const l=state.leads.find(x=>x.id===id);if(!l){setNotice('Could not find that record.',false);return}selectedId=id;saveState();render();setOut('snapshotOutput',snapshot(l));showView('snapshot');setNotice(`${l.businessName} is selected. Snapshot generated.`);setTimeout(()=>document.getElementById('snapshotOutput').scrollIntoView({behavior:'smooth',block:'start'}),50)}
-function deleteLead(id){const l=state.leads.find(x=>x.id===id);if(!l)return;if(!confirm(`Delete ${l.businessName}?`))return;state.leads=state.leads.filter(x=>x.id!==id);if(selectedId===id)selectedId='';saveState();render();setNotice('Record deleted.')}
-function showView(id){document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id))}
-function mikeTestRecord(){return{id:'mike-internal-test-record',businessName:'Gabriel Impact Group Test Record',contactName:'Mike Roetker',websiteUrl:'https://mikeroetker-alt.github.io/gabriel-crm/',localArea:'Lowell / Northwest Indiana',pipeline:'Professional Services',relationshipSource:'Internal QA test',relationshipWarmth:'active_interest',leadTemperature:'warm',email:'',emailQuality:'missing',phone:'',isVerifiedContact:'no',sourceUrl:'https://mikeroetker-alt.github.io/gabriel-crm/',doNotContact:'no',serviceFit:'website_seo_aeo',followUpDate:'',freeVideoStatus:'not_offered',videoUpgradeStatus:'none',gbpStatus:'not_started',websiteTrustStatus:'audit',fundingReadiness:'not_discussed',monthlyRevenue:'unknown',timeInBusiness:'unknown',creditScore:'unknown',fundingDesired:'',useOfFunds:'',existingDebt:'unknown',urgency:'low',revenueOneTime:0,revenueMonthly:0,visibilityNotes:'Internal QA test record. Use this to test selection, snapshot generation, proposal generation, CSV export, and JSON backup. No outreach. No sales pitch.',notes:'Internal test only. Do not send outreach. Do not contact anyone. This record exists to validate the Gabriel Growth Engine workflow.',updatedAt:new Date().toISOString()}}
-function loadTestRecord(){const rec=mikeTestRecord();const i=state.leads.findIndex(l=>l.id===rec.id||norm(l.businessName)===norm(rec.businessName));if(i>=0)state.leads[i]={...state.leads[i],...rec};else state.leads.unshift(rec);selectedId=rec.id;saveState();render();setOut('snapshotOutput',snapshot(rec));showView('snapshot');setNotice('Mike internal test record loaded, selected, and snapshot generated.');setTimeout(()=>document.getElementById('snapshotOutput').scrollIntoView({behavior:'smooth',block:'start'}),50)}
-function loadDemoLeads(){const demo=[mikeTestRecord(),{id:'demo-local-hvac',businessName:'Demo HVAC Company',contactName:'Owner',websiteUrl:'',localArea:'Northwest Indiana',pipeline:'Home Services',relationshipSource:'Demo only',relationshipWarmth:'weak',leadTemperature:'warm',emailQuality:'missing',isVerifiedContact:'no',doNotContact:'no',serviceFit:'visibility_snapshot',freeVideoStatus:'not_offered',videoUpgradeStatus:'none',gbpStatus:'not_started',websiteTrustStatus:'audit',fundingReadiness:'not_discussed',monthlyRevenue:'unknown',timeInBusiness:'unknown',creditScore:'unknown',existingDebt:'unknown',urgency:'low',revenueOneTime:0,revenueMonthly:0,visibilityNotes:'Demo record only.',notes:'Use for testing only.',updatedAt:new Date().toISOString()}];demo.forEach(d=>{const i=state.leads.findIndex(l=>l.id===d.id);if(i>=0)state.leads[i]={...state.leads[i],...d};else state.leads.unshift(d)});selectedId=demo[0].id;saveState();render();setOut('snapshotOutput',snapshot(demo[0]));showView('snapshot');setNotice('Demo records loaded. Mike test record is selected and snapshot generated.')}
-function snapshot(l){return l?`Gabriel Impact Group — Preliminary Visibility Snapshot\n\nBusiness: ${l.businessName}\nArea: ${l.localArea}\nWebsite: ${l.websiteUrl||'Not listed'}\nRelationship/source: ${l.relationshipSource||'Not recorded'}\nService fit: ${l.serviceFit||'unknown'}\n\nFirst look:\n${l.visibilityNotes||'Preliminary review needed. Focus on website trust, Google visibility, reviews, content consistency, and clear next-step calls to action.'}\n\nLikely opportunities:\n- Free business spotlight or short visibility review\n- Website trust and conversion improvements\n- SEO/AEO structure so the business is clearer to search and AI answer engines\n- Reputation and review-building support where appropriate\n- Local visibility / weekly content consistency\n\nRecommended next action: ${nextAction(l)}\n\nNote: This is a preliminary snapshot, not a full technical audit.`:'Select a prospect first.'}
-function funding(l){if(!l)return'Select a prospect first.';let fit='Maybe funding fit / needs more information';if(['20k_50k','50k_100k','100k_plus'].includes(l.monthlyRevenue)&&['1_2_years','2_plus_years'].includes(l.timeInBusiness))fit='Likely funding fit for review';if(['under_15k'].includes(l.monthlyRevenue)||l.timeInBusiness==='under_6_months')fit='Probably not ready yet';return`Funding Readiness Screen\n\nBusiness: ${l.businessName}\nMonthly revenue: ${l.monthlyRevenue}\nTime in business: ${l.timeInBusiness}\nEstimated credit: ${l.creditScore}\nFunding desired: ${l.fundingDesired||'Not recorded'}\nUse of funds: ${l.useOfFunds||'Not recorded'}\nExisting debt: ${l.existingDebt}\nUrgency: ${l.urgency}\n\nPreliminary status: ${fit}\n\nDisclaimer: This is only an internal readiness screen. It is not an approval, offer, guarantee, or promise of funding. Any funding conversation must be handled separately and honestly.`}
-function draft(l,type){if(!l)return'Select a prospect first.';if(type==='funding')return`Hi ${l.contactName||'there'},\n\nI wanted to ask a careful question, not make a pitch. If business funding or debt restructuring ever becomes relevant, I may have a resource worth discussing. No promises, no pressure, and only if it actually fits your situation.\n\nEither way, I hope you are doing well.\n\nMike`;if(type==='video')return`Hi ${l.contactName||'there'},\n\nI am testing a simple free business spotlight idea and thought of ${l.businessName}. I can create a short visibility/video concept at no charge, just as a helpful first look. No obligation.\n\nMike`;if(type==='snapshot')return`Hi ${l.contactName||'there'},\n\nI took a quick first look at ${l.businessName}'s online visibility and saw a few areas that may be worth tightening up. Nothing dramatic, just practical improvements around trust, clarity, and being easier to find.\n\nI can send the short snapshot if helpful.\n\nMike`;return`Hi ${l.contactName||'there'},\n\nYou came to mind recently, and I hope you are doing well. I am rebuilding some practical AI/video/visibility tools for local businesses and wanted to keep you in mind as I test the process.\n\nNo pitch here — just reconnecting and making sure I am building something genuinely useful.\n\nMike`}
-function proposal(l){return l?`Gabriel Impact Group — Internal Proposal Starter\n\nProspect: ${l.businessName}\nArea: ${l.localArea}\nPrimary fit: ${l.serviceFit}\nRecommended next action: ${nextAction(l)}\n\nStarter package idea:\n1. Free visibility snapshot / business spotlight concept\n2. Website trust and conversion cleanup\n3. SEO/AEO structure and local visibility improvements\n4. Optional reputation/content support\n5. Funding discussion only if the business need is real and appropriate\n\nInternal pricing placeholder:\n- One-time: $${num(l.revenueOneTime).toFixed(0)}\n- Monthly: $${num(l.revenueMonthly).toFixed(0)}/mo\n\nNotes:\n${l.notes||'Add relationship context, decision-maker status, and next step before sending anything.'}\n\nImportant: human review required before this becomes an outbound message or proposal.`:'Select a prospect first.'}
-function setOut(id,text){document.getElementById(id).textContent=text}function copyOut(id){navigator.clipboard.writeText(document.getElementById(id).textContent||'')}
-function toCsv(rows){return[fields.join(','),...rows.map(r=>fields.map(f=>`"${String(r[f]??'').replace(/"/g,'""')}"`).join(','))].join('\n')}
-function parseCsv(text){const rows=[];let row=[],cell='',q=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(q&&c==='"'&&n==='"'){cell+='"';i++;continue}if(c==='"'){q=!q;continue}if(c===','&&!q){row.push(cell);cell='';continue}if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))rows.push(row);row=[];cell='';continue}cell+=c}row.push(cell);if(row.some(v=>v.trim()))rows.push(row);if(rows.length<2)return[];const headers=rows[0].map(mapHeader);return rows.slice(1).map(r=>{const o={};headers.forEach((h,i)=>{if(h)o[h]=(r[i]||'').trim()});return o})}
-function mapHeader(h){const k=String(h||'').toLowerCase().replace(/[^a-z0-9]/g,'');const alias={business:'businessName',businessname:'businessName',company:'businessName',companyname:'businessName',contact:'contactName',contactname:'contactName',name:'contactName',website:'websiteUrl',websiteurl:'websiteUrl',url:'websiteUrl',localarea:'localArea',area:'localArea',city:'localArea',market:'localArea',industry:'pipeline',category:'pipeline',source:'relationshipSource',relationshipsource:'relationshipSource',relationship:'relationshipSource',relationshipwarmth:'relationshipWarmth',warmth:'relationshipWarmth',leadtemperature:'leadTemperature',temperature:'leadTemperature',emailquality:'emailQuality',verifiedcontact:'isVerifiedContact',isverifiedcontact:'isVerifiedContact',sourceurl:'sourceUrl',proof:'sourceUrl',donotcontact:'doNotContact',dnc:'doNotContact',servicefit:'serviceFit',fit:'serviceFit',fundingfit:'fundingReadiness',fundingreadiness:'fundingReadiness',monthlyrevenue:'monthlyRevenue',monthlyrevenuerange:'monthlyRevenue',followupdate:'followUpDate',nextfollowupdate:'followUpDate',researchnotes:'visibilityNotes',visibilitynotes:'visibilityNotes',relationshipnotes:'notes',notes:'notes'};return alias[k]||fields.find(f=>f.toLowerCase()===k)||''}
-function normalizeImportRow(x){if(yesNo(x.doNotContact)==='yes')return{skip:'do_not_contact'};if(!x.businessName)return{skip:'missing_business'};const lead={};fields.forEach(f=>lead[f]=(x[f]||'').toString().trim());lead.id=lead.id||uid();lead.localArea=lead.localArea||'Unknown / Needs research';lead.pipeline=pipelines.includes(lead.pipeline)?lead.pipeline:'Other Local Business';for(const key in allowed){if(key==='isVerifiedContact'||key==='doNotContact')continue;lead[key]=pick(lead[key],allowed[key],allowed[key][0])}lead.isVerifiedContact=yesNo(lead.isVerifiedContact);lead.doNotContact='no';lead.revenueOneTime=num(lead.revenueOneTime);lead.revenueMonthly=num(lead.revenueMonthly);lead.updatedAt=new Date().toISOString();return{lead}}
-function importRows(rows,replace=false){let added=0,updated=0,skipped=0;if(replace){state.leads=[];selectedId=''}rows.forEach(r=>{const res=normalizeImportRow(r);if(res.skip){skipped++;return}const lead=res.lead;const i=state.leads.findIndex(l=>l.id===lead.id||norm(l.businessName)===norm(lead.businessName)||(lead.email&&norm(l.email)===norm(lead.email)));if(i>=0){state.leads[i]={...state.leads[i],...lead};updated++}else{state.leads.unshift(lead);added++}});saveState();render();setNotice(`Import complete: ${added} added, ${updated} updated, ${skipped} skipped.`)}
-function download(name,type,content){const blob=new Blob([content],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}
-form.addEventListener('submit',e=>{e.preventDefault();try{const lead=leadFromForm();enforce(lead,form.elements.id.value);const i=state.leads.findIndex(l=>l.id===lead.id);if(i>=0)state.leads[i]=lead;else state.leads.unshift(lead);selectedId=lead.id;saveState();clearForm();render();setNotice('Prospect saved and selected.')}catch(err){setNotice(err.message,false);alert(err.message)}});
-searchInput.addEventListener('input',render);document.getElementById('resetFormBtn').addEventListener('click',clearForm);document.getElementById('loadTestBtn').addEventListener('click',loadTestRecord);document.getElementById('loadDemoBtn').addEventListener('click',loadDemoLeads);document.getElementById('clearDataBtn').addEventListener('click',()=>{if(confirm('Clear all local Command Center data in this browser?')){state={leads:[]};selectedId='';saveState();render();setNotice('All local data cleared.')}});document.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>showView(btn.dataset.view)));
-tableBody.addEventListener('click',e=>{const btn=e.target.closest('button[data-action]');if(!btn)return;const id=btn.dataset.id;const action=btn.dataset.action;if(action==='edit')editLead(id);if(action==='select')selectLead(id);if(action==='delete')deleteLead(id)});
-document.getElementById('generateSnapshotBtn').addEventListener('click',()=>setOut('snapshotOutput',snapshot(selected())));document.getElementById('copySnapshotBtn').addEventListener('click',()=>copyOut('snapshotOutput'));document.getElementById('printSnapshotBtn').addEventListener('click',()=>window.print());document.getElementById('generateFundingBtn').addEventListener('click',()=>setOut('fundingOutput',funding(selected())));document.getElementById('copyFundingBtn').addEventListener('click',()=>copyOut('fundingOutput'));document.getElementById('printFundingBtn').addEventListener('click',()=>window.print());document.getElementById('generateDraftBtn').addEventListener('click',()=>setOut('draftOutput',draft(selected(),document.getElementById('draftType').value)));document.getElementById('copyDraftBtn').addEventListener('click',()=>copyOut('draftOutput'));document.getElementById('generateProposalBtn').addEventListener('click',()=>setOut('proposalOutput',proposal(selected())));document.getElementById('copyProposalBtn').addEventListener('click',()=>copyOut('proposalOutput'));document.getElementById('printProposalBtn').addEventListener('click',()=>window.print());
-document.getElementById('exportCsvBtn').addEventListener('click',()=>download('gabriel-growth-engine-leads.csv','text/csv',toCsv(state.leads)));document.getElementById('exportJsonBtn').addEventListener('click',()=>download('gabriel-growth-engine-backup.json','application/json',JSON.stringify(state,null,2)));document.getElementById('importCsvBtn').addEventListener('click',()=>{activeFileMode='csv';fileInput.value='';fileInput.click()});document.getElementById('importJsonBtn').addEventListener('click',()=>{activeFileMode='json';fileInput.value='';fileInput.click()});
-fileInput.addEventListener('change',()=>{const file=fileInput.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{if(activeFileMode==='json'){const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.leads))throw new Error('JSON backup must include a leads array.');if(confirm('Replace current local data with this JSON backup? Cancel will merge/update instead.')){state=parsed;selectedId=state.selectedId||'';saveState();render();setNotice('JSON restored.')}else{importRows(parsed.leads,false)}}else{importRows(parseCsv(reader.result),false)}}catch(err){setNotice(err.message,false);alert(err.message)}};reader.readAsText(file)});
-clearForm();render();
-if(new URLSearchParams(window.location.search).has('mike')){loadTestRecord();}
+const STORAGE_KEY = 'gabriel-growth-engine-v2';
+const pipelines = ['Home Services','Contractors','Professional Services','Retail','Health & Wellness','Hospitality','Other Local Business'];
+const fields = ['id','businessName','contactName','websiteUrl','localArea','pipeline','relationshipSource','relationshipWarmth','leadTemperature','email','emailQuality','phone','isVerifiedContact','sourceUrl','doNotContact','serviceFit','followUpDate','freeVideoStatus','videoUpgradeStatus','gbpStatus','websiteTrustStatus','fundingReadiness','monthlyRevenue','timeInBusiness','creditScore','fundingDesired','useOfFunds','existingDebt','urgency','revenueOneTime','revenueMonthly','visibilityNotes','notes','updatedAt'];
+const allowed = {
+  leadTemperature:['cold','warm','hot'], relationshipWarmth:['unknown','weak','known','past_client','referral','active_interest'], emailQuality:['unknown','verified','risky','invalid','missing'], isVerifiedContact:['no','yes'], doNotContact:['no','yes'], serviceFit:['unknown','free_video','visibility_snapshot','paid_video','local_visibility','website_seo_aeo','reputation','crm_ghl_setup','funding_back_end_only'], freeVideoStatus:['not_offered','offered','requested','in_production','delivered'], videoUpgradeStatus:['none','presented','accepted','active','complete'], gbpStatus:['not_started','drafting','active','consistent'], websiteTrustStatus:['not_started','audit','in_progress','improved'], fundingReadiness:['not_discussed','monitoring','qualified','active_conversation'], monthlyRevenue:['unknown','under_15k','15k_20k','20k_50k','50k_100k','100k_plus'], timeInBusiness:['unknown','under_6_months','6_12_months','1_2_years','2_plus_years'], creditScore:['unknown','under_600','600_649','650_699','700_plus'], existingDebt:['unknown','none','manageable','heavy','urgent_payoff'], urgency:['unknown','low','soon','urgent']
+};
+
+const form = document.getElementById('leadForm');
+const tableBody = document.getElementById('leadTableBody');
+const dashboard = document.getElementById('dashboard');
+const searchInput = document.getElementById('searchInput');
+const fileInput = document.getElementById('fileInput');
+const notice = document.getElementById('formNotice');
+const diagnosticsCard = document.getElementById('diagnosticsCard');
+const diagnosticsSummary = document.getElementById('diagnosticsSummary');
+const diagnosticsOutput = document.getElementById('diagnosticsOutput');
+let activeFileMode = null;
+let state = loadState();
+let selectedId = state.selectedId || '';
+
+form.elements.pipeline.innerHTML = pipelines.map(p => `<option>${p}</option>`).join('');
+
+function uid(){ return `${Date.now()}-${Math.floor(Math.random()*100000)}`; }
+function norm(v){ return String(v || '').trim().toLowerCase(); }
+function num(v){ return Number(v || 0); }
+function yesNo(v){ return ['yes','true','1','y'].includes(norm(v)) ? 'yes' : 'no'; }
+function pick(v, allowedList, fallback){ v = String(v || '').trim(); return allowedList.includes(v) ? v : fallback; }
+function escHtml(v){ return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : { leads: [] };
+    if (!Array.isArray(parsed.leads)) parsed.leads = [];
+    return parsed;
+  } catch {
+    return { leads: [] };
+  }
+}
+function saveState(){ state.selectedId = selectedId; localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function setNotice(msg, good = true){ notice.innerHTML = msg ? `<div class="notice" style="border-color:${good ? 'var(--green)' : 'var(--red)'}">${escHtml(msg)}</div>` : ''; }
+
+function selected(){ return state.leads.find(l => l.id === selectedId) || null; }
+function money(l){ return `$${num(l.revenueOneTime).toFixed(0)} + $${num(l.revenueMonthly).toFixed(0)}/mo`; }
+function score(l){
+  let s = 0;
+  if (!l || l.doNotContact === 'yes') return 0;
+  if (['warm','hot'].includes(l.leadTemperature)) s += l.leadTemperature === 'hot' ? 25 : 15;
+  if (['past_client','referral','active_interest'].includes(l.relationshipWarmth)) s += 25;
+  if (['visibility_snapshot','paid_video','local_visibility','website_seo_aeo','reputation','crm_ghl_setup'].includes(l.serviceFit)) s += 12;
+  if (['not_started','audit'].includes(l.websiteTrustStatus)) s += 10;
+  if (['offered','requested','delivered'].includes(l.freeVideoStatus)) s += 10;
+  if (['qualified','active_conversation'].includes(l.fundingReadiness)) s += 15;
+  s += Math.min(15, Math.floor((num(l.revenueOneTime) + num(l.revenueMonthly) * 3) / 500));
+  return s;
+}
+function nextAction(l){
+  if (!l) return 'Select a prospect';
+  if (l.doNotContact === 'yes') return 'Do not contact';
+  if (l.emailQuality === 'risky' || l.emailQuality === 'invalid') return 'Research contact first';
+  if (l.serviceFit === 'free_video' || l.freeVideoStatus === 'not_offered') return 'Create free value angle';
+  if (l.serviceFit === 'visibility_snapshot' || l.websiteTrustStatus === 'audit') return 'Create visibility snapshot';
+  if (l.serviceFit === 'paid_video' || l.videoUpgradeStatus === 'presented') return 'Prepare paid video upgrade';
+  if (l.serviceFit === 'local_visibility') return 'Prepare local visibility offer';
+  if (l.serviceFit === 'website_seo_aeo') return 'Prepare website/SEO-AEO offer';
+  if (l.serviceFit === 'funding_back_end_only' || ['qualified','active_conversation'].includes(l.fundingReadiness)) return 'Funding talk only if need is clear';
+  return 'Warm follow-up';
+}
+
+function mikeTestRecord(){
+  return {
+    id:'mike-internal-test-record', businessName:'Gabriel Impact Group Test Record', contactName:'Mike Roetker', websiteUrl:'https://mikeroetker-alt.github.io/gabriel-crm/', localArea:'Lowell / Northwest Indiana', pipeline:'Professional Services', relationshipSource:'Internal QA test', relationshipWarmth:'active_interest', leadTemperature:'warm', email:'', emailQuality:'missing', phone:'', isVerifiedContact:'no', sourceUrl:'https://mikeroetker-alt.github.io/gabriel-crm/', doNotContact:'no', serviceFit:'website_seo_aeo', followUpDate:'', freeVideoStatus:'not_offered', videoUpgradeStatus:'none', gbpStatus:'not_started', websiteTrustStatus:'audit', fundingReadiness:'not_discussed', monthlyRevenue:'unknown', timeInBusiness:'unknown', creditScore:'unknown', fundingDesired:'', useOfFunds:'', existingDebt:'unknown', urgency:'low', revenueOneTime:0, revenueMonthly:0, visibilityNotes:'Internal QA test record. Use this to test selection, snapshot generation, proposal generation, CSV export, and JSON backup. No outreach. No sales pitch.', notes:'Internal test only. Do not send outreach. Do not contact anyone. This record exists to validate the Gabriel Growth Engine workflow.', updatedAt:new Date().toISOString()
+  };
+}
+function upsertLead(rec){
+  const i = state.leads.findIndex(l => l.id === rec.id || norm(l.businessName) === norm(rec.businessName));
+  if (i >= 0) state.leads[i] = { ...state.leads[i], ...rec };
+  else state.leads.unshift(rec);
+  selectedId = rec.id;
+  saveState();
+}
+function loadTestRecord(){
+  const rec = mikeTestRecord();
+  upsertLead(rec);
+  render();
+  setOut('snapshotOutput', snapshot(rec));
+  showView('snapshot');
+  setNotice('Mike internal test record loaded, selected, and snapshot generated.');
+  return rec;
+}
+function loadDemoLeads(){
+  [mikeTestRecord(), { id:'demo-local-hvac', businessName:'Demo HVAC Company', contactName:'Owner', websiteUrl:'', localArea:'Northwest Indiana', pipeline:'Home Services', relationshipSource:'Demo only', relationshipWarmth:'weak', leadTemperature:'warm', emailQuality:'missing', isVerifiedContact:'no', doNotContact:'no', serviceFit:'visibility_snapshot', freeVideoStatus:'not_offered', videoUpgradeStatus:'none', gbpStatus:'not_started', websiteTrustStatus:'audit', fundingReadiness:'not_discussed', monthlyRevenue:'unknown', timeInBusiness:'unknown', creditScore:'unknown', existingDebt:'unknown', urgency:'low', revenueOneTime:0, revenueMonthly:0, visibilityNotes:'Demo record only.', notes:'Use for testing only.', updatedAt:new Date().toISOString() }].forEach(upsertLead);
+  selectedId = 'mike-internal-test-record';
+  saveState();
+  render();
+  setOut('snapshotOutput', snapshot(selected()));
+  showView('snapshot');
+  setNotice('Demo records loaded. Mike test record is selected and snapshot generated.');
+}
+
+function snapshot(l){
+  return l ? `Gabriel Impact Group — Preliminary Visibility Snapshot\n\nBusiness: ${l.businessName}\nArea: ${l.localArea}\nWebsite: ${l.websiteUrl || 'Not listed'}\nRelationship/source: ${l.relationshipSource || 'Not recorded'}\nService fit: ${l.serviceFit || 'unknown'}\n\nFirst look:\n${l.visibilityNotes || 'Preliminary review needed. Focus on website trust, Google visibility, reviews, content consistency, and clear next-step calls to action.'}\n\nLikely opportunities:\n- Free business spotlight or short visibility review\n- Website trust and conversion improvements\n- SEO/AEO structure so the business is clearer to search and AI answer engines\n- Reputation and review-building support where appropriate\n- Local visibility / weekly content consistency\n\nRecommended next action: ${nextAction(l)}\n\nNote: This is a preliminary snapshot, not a full technical audit.` : 'Select a prospect first.';
+}
+function funding(l){
+  if (!l) return 'Select a prospect first.';
+  let fit = 'Maybe funding fit / needs more information';
+  if (['20k_50k','50k_100k','100k_plus'].includes(l.monthlyRevenue) && ['2_plus_years','1_2_years'].includes(l.timeInBusiness)) fit = 'Potential funding conversation if owner has real need.';
+  if (['under_15k'].includes(l.monthlyRevenue)) fit = 'Likely not ready for typical business funding path.';
+  return `Funding Readiness Screen\n\nBusiness: ${l.businessName}\nMonthly revenue: ${l.monthlyRevenue}\nTime in business: ${l.timeInBusiness}\nCredit: ${l.creditScore}\nExisting debt: ${l.existingDebt}\nUrgency: ${l.urgency}\n\nInternal read: ${fit}\n\nImportant: This is not an approval, promise, quote, or offer. Funding stays back-end only and is discussed only when appropriate.`;
+}
+function draft(l, type){
+  if (!l) return 'Select a prospect first.';
+  if (type === 'snapshot') return `Hi ${l.contactName || 'there'},\n\nI was looking at ${l.businessName} and put together a quick visibility snapshot. No pressure and no pitch — just a few observations that may help with trust, search visibility, and clearer next steps online.\n\nWould you like me to send it over?\n\nMike`;
+  if (type === 'proposal') return `Hi ${l.contactName || 'there'},\n\nBased on the snapshot, I put together a simple internal proposal outline for improving visibility, trust, and conversion. I can adjust the scope before anything formal.\n\nMike`;
+  return `Hi ${l.contactName || 'there'},\n\nYou came to mind today and I hope you and everyone at ${l.businessName} are doing well. I am building a practical AI-assisted visibility workflow and used a safe internal test version to sharpen the process.\n\nNo pressure at all — just wanted to reconnect.\n\nMike`;
+}
+function proposal(l){
+  return l ? `Gabriel Impact Group — Internal Proposal Starter\n\nProspect: ${l.businessName}\nArea: ${l.localArea}\nPrimary fit: ${l.serviceFit}\nRecommended next action: ${nextAction(l)}\n\nStarter package idea:\n1. Free visibility snapshot / business spotlight concept\n2. Website trust and conversion cleanup\n3. SEO/AEO structure and local visibility improvements\n4. Optional reputation/content support\n5. Funding discussion only if the business need is real and appropriate\n\nInternal pricing placeholder:\n- One-time: $${num(l.revenueOneTime).toFixed(0)}\n- Monthly: $${num(l.revenueMonthly).toFixed(0)}/mo\n\nNotes:\n${l.notes || 'Add relationship context, decision-maker status, and next step before sending anything.'}\n\nImportant: human review required before this becomes an outbound message or proposal.` : 'Select a prospect first.';
+}
+
+function setOut(id, text){ document.getElementById(id).textContent = text; }
+function copyOut(id){ navigator.clipboard.writeText(document.getElementById(id).textContent || ''); }
+function toCsv(rows){ return [fields.join(','), ...rows.map(r => fields.map(f => `"${String(r[f] ?? '').replace(/"/g,'""')}"`).join(','))].join('\n'); }
+function download(name, type, content){ const blob = new Blob([content], { type }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); URL.revokeObjectURL(a.href); }
+
+function render(){
+  const q = norm(searchInput.value);
+  const leads = state.leads.filter(l => !q || fields.some(f => norm(l[f]).includes(q)));
+  dashboard.innerHTML = [
+    ['Total Prospects', state.leads.length],
+    ['Warm / Hot', state.leads.filter(l => ['warm','hot'].includes(l.leadTemperature)).length],
+    ['Actionable Fit', state.leads.filter(l => l.serviceFit && l.serviceFit !== 'unknown').length],
+    ['Potential Revenue', `$${state.leads.reduce((a,l) => a + num(l.revenueOneTime) + num(l.revenueMonthly) * 3, 0).toFixed(0)}`]
+  ].map(m => `<article class="card"><div class="metric">${m[1]}</div><div class="metric-label">${m[0]}</div></article>`).join('');
+
+  const ranked = [...state.leads].sort((a,b) => score(b) - score(a)).slice(0,8);
+  document.getElementById('priorityQueue').innerHTML = ranked.length ? ranked.map(l => `<div style="margin-bottom:.6rem"><strong>${escHtml(l.businessName)}</strong> <span class="pill ${l.leadTemperature === 'hot' ? 'hot' : l.leadTemperature === 'warm' ? 'warn' : 'blue'}">${escHtml(l.leadTemperature)}</span><br><span class="small muted">Score ${score(l)} • ${escHtml(nextAction(l))}</span></div>`).join('') : '<span class="pill ok">No prospects yet</span>';
+
+  const s = selected();
+  document.getElementById('selectedCard').classList.toggle('selected-card', !!s);
+  document.getElementById('selectedSummary').innerHTML = s ? `<strong>${escHtml(s.businessName)}</strong><br>${escHtml(s.localArea)} • ${escHtml(s.pipeline)}<br>Fit: ${escHtml(s.serviceFit || 'unknown')}<br>Score ${score(s)} • ${escHtml(nextAction(s))}<br><span class="pill ok">Selected</span> ${s.websiteUrl ? `<a href="${escHtml(s.websiteUrl)}" target="_blank" rel="noreferrer">Website</a>` : ''}` : 'No prospect selected yet. Click Select on a database row.';
+
+  tableBody.innerHTML = leads.map(l => `<tr class="${l.id === selectedId ? 'selected-row' : ''}"><td><strong>${escHtml(l.businessName)}</strong><br><span class="small muted">${escHtml(l.contactName || '-')}</span></td><td>${escHtml(l.localArea)}</td><td>${score(l)}</td><td>${escHtml(nextAction(l))}</td><td><span class="pill ${l.leadTemperature === 'hot' ? 'hot' : l.leadTemperature === 'warm' ? 'warn' : ''}">${escHtml(l.leadTemperature)}</span></td><td>${escHtml(l.serviceFit || 'unknown')}</td><td>${escHtml(l.freeVideoStatus || '-')} / ${escHtml(l.websiteTrustStatus || '-')}</td><td>${escHtml(l.fundingReadiness || '-')}</td><td>${money(l)}</td><td>${escHtml(l.followUpDate || '-')}</td><td><div class="row-actions"><button type="button" data-action="edit" data-id="${escHtml(l.id)}">Edit</button><button type="button" class="btn-green" data-action="select" data-id="${escHtml(l.id)}">Select</button><button type="button" class="btn-red" data-action="delete" data-id="${escHtml(l.id)}">Delete</button></div></td></tr>`).join('') || '<tr><td colspan="11" class="muted">No records yet.</td></tr>';
+}
+function setField(name, value){ if (form.elements[name]) form.elements[name].value = value ?? ''; }
+function clearForm(){
+  form.reset(); fields.forEach(f => setField(f,''));
+  setField('pipeline', pipelines[0]); setField('leadTemperature','cold'); setField('relationshipWarmth','unknown'); setField('emailQuality','unknown'); setField('isVerifiedContact','no'); setField('doNotContact','no'); setField('serviceFit','unknown'); setField('freeVideoStatus','not_offered'); setField('videoUpgradeStatus','none'); setField('gbpStatus','not_started'); setField('websiteTrustStatus','not_started'); setField('fundingReadiness','not_discussed'); setField('monthlyRevenue','unknown'); setField('timeInBusiness','unknown'); setField('creditScore','unknown'); setField('existingDebt','unknown'); setField('urgency','unknown'); setField('revenueOneTime','0'); setField('revenueMonthly','0');
+}
+function leadFromForm(){
+  const fd = new FormData(form); const lead = {};
+  fields.forEach(f => lead[f] = (fd.get(f) || '').toString().trim());
+  lead.id = lead.id || uid(); lead.pipeline = lead.pipeline || pipelines[0]; lead.revenueOneTime = num(lead.revenueOneTime); lead.revenueMonthly = num(lead.revenueMonthly); lead.doNotContact = lead.doNotContact || 'no'; lead.serviceFit = lead.serviceFit || 'unknown'; lead.updatedAt = new Date().toISOString();
+  return lead;
+}
+function enforce(lead, skip = ''){
+  if (!lead.businessName) throw new Error('Business name is required.');
+  if (!lead.localArea) throw new Error('Local area is required.');
+  if (lead.doNotContact === 'yes') throw new Error('Do-not-contact records should not be saved into the active revenue queue.');
+  if (lead.email && lead.email.includes(' ')) throw new Error('Email appears invalid.');
+  if (lead.isVerifiedContact === 'yes' && !lead.sourceUrl) throw new Error('Source URL is required for verified contacts.');
+  const dup = state.leads.some(l => l.id !== skip && ((norm(l.businessName) && norm(l.businessName) === norm(lead.businessName)) || (norm(l.email) && norm(l.email) === norm(lead.email)) || (norm(l.phone) && norm(l.phone) === norm(lead.phone))));
+  if (dup) throw new Error('Duplicate detected by business, email, or phone.');
+}
+function editLead(id){ const l = state.leads.find(x => x.id === id); if (!l) return; fields.forEach(f => setField(f, l[f] ?? '')); selectedId = id; saveState(); render(); showView('prospects'); window.scrollTo({ top:0, behavior:'smooth' }); setNotice('Record loaded into the edit form.'); }
+function selectLead(id){ const l = state.leads.find(x => x.id === id); if (!l){ setNotice('Could not find that record.', false); return; } selectedId = id; saveState(); render(); setOut('snapshotOutput', snapshot(l)); showView('snapshot'); setNotice(`${l.businessName} is selected. Snapshot generated.`); }
+function deleteLead(id){ const l = state.leads.find(x => x.id === id); if (!l) return; if (!confirm(`Delete ${l.businessName}?`)) return; state.leads = state.leads.filter(x => x.id !== id); if (selectedId === id) selectedId = ''; saveState(); render(); setNotice('Record deleted.'); }
+function showView(id){ document.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === id)); document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === id)); }
+
+function parseCsv(text){
+  const rows=[]; let row=[], cell='', q=false;
+  for(let i=0;i<text.length;i++){ const c=text[i], n=text[i+1]; if(q&&c==='"'&&n==='"'){cell+='"';i++;continue} if(c==='"'){q=!q;continue} if(c===','&&!q){row.push(cell);cell='';continue} if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))rows.push(row);row=[];cell='';continue} cell+=c; }
+  row.push(cell); if(row.some(v=>v.trim())) rows.push(row); if(rows.length<2) return [];
+  const headers = rows[0].map(mapHeader);
+  return rows.slice(1).map(r => { const o={}; headers.forEach((h,i)=>{ if(h) o[h]=(r[i]||'').trim(); }); return o; });
+}
+function mapHeader(h){ const k=String(h||'').toLowerCase().replace(/[^a-z0-9]/g,''); const alias={business:'businessName',businessname:'businessName',company:'businessName',companyname:'businessName',contact:'contactName',contactname:'contactName',name:'contactName',website:'websiteUrl',websiteurl:'websiteUrl',url:'websiteUrl',localarea:'localArea',area:'localArea',city:'localArea',market:'localArea',industry:'pipeline',category:'pipeline',source:'relationshipSource',relationshipsource:'relationshipSource',relationship:'relationshipSource',relationshipwarmth:'relationshipWarmth',warmth:'relationshipWarmth',leadtemperature:'leadTemperature',temperature:'leadTemperature',emailquality:'emailQuality',verifiedcontact:'isVerifiedContact',isverifiedcontact:'isVerifiedContact',sourceurl:'sourceUrl',proof:'sourceUrl',donotcontact:'doNotContact',dnc:'doNotContact',servicefit:'serviceFit',fit:'serviceFit',fundingfit:'fundingReadiness',fundingreadiness:'fundingReadiness',monthlyrevenue:'monthlyRevenue',monthlyrevenuerange:'monthlyRevenue',followupdate:'followUpDate',nextfollowupdate:'followUpDate',researchnotes:'visibilityNotes',visibilitynotes:'visibilityNotes',relationshipnotes:'notes',notes:'notes'}; return alias[k] || fields.find(f => f.toLowerCase() === k) || ''; }
+function normalizeImportRow(x){ if(yesNo(x.doNotContact)==='yes') return {skip:'do_not_contact'}; if(!x.businessName) return {skip:'missing_business'}; const lead={}; fields.forEach(f=>lead[f]=(x[f]||'').toString().trim()); lead.id=lead.id||uid(); lead.localArea=lead.localArea||'Unknown / Needs research'; lead.pipeline=pipelines.includes(lead.pipeline)?lead.pipeline:'Other Local Business'; for(const key in allowed){ if(key==='isVerifiedContact'||key==='doNotContact') continue; lead[key]=pick(lead[key],allowed[key],allowed[key][0]); } lead.isVerifiedContact=yesNo(lead.isVerifiedContact); lead.doNotContact='no'; lead.revenueOneTime=num(lead.revenueOneTime); lead.revenueMonthly=num(lead.revenueMonthly); lead.updatedAt=new Date().toISOString(); return {lead}; }
+function importRows(rows, replace=false){ let added=0,updated=0,skipped=0; if(replace){ state.leads=[]; selectedId=''; } rows.forEach(r=>{ const res=normalizeImportRow(r); if(res.skip){ skipped++; return; } const lead=res.lead; const i=state.leads.findIndex(l=>l.id===lead.id||norm(l.businessName)===norm(lead.businessName)||(lead.email&&norm(l.email)===norm(lead.email))); if(i>=0){state.leads[i]={...state.leads[i],...lead};updated++;} else {state.leads.unshift(lead);added++;} }); saveState(); render(); setNotice(`Import complete: ${added} added, ${updated} updated, ${skipped} skipped.`); }
+
+function runDiagnostics(options = {}){
+  const results = [];
+  const check = (name, pass, detail='') => results.push({ name, pass: !!pass, detail });
+  try {
+    check('App JavaScript loaded', true, 'Diagnostics function executed.');
+    let storageOk = false;
+    try { localStorage.setItem('__gge_selftest__','ok'); storageOk = localStorage.getItem('__gge_selftest__') === 'ok'; localStorage.removeItem('__gge_selftest__'); } catch {}
+    check('Browser local storage available', storageOk, storageOk ? 'Can save local records and backups.' : 'Browser blocked local storage.');
+    if (options.loadMike) loadTestRecord();
+    const mike = state.leads.find(l => l.id === 'mike-internal-test-record');
+    check('Mike test record exists', !!mike, mike ? mike.businessName : 'Click Load Mike Test Record + Run Self-Test.');
+    check('Selected record exists', !!selected(), selected() ? selected().businessName : 'No selected record.');
+    const snap = snapshot(selected());
+    check('Snapshot generator works', snap.includes('Preliminary Visibility Snapshot') && snap.includes('Gabriel Impact Group'), 'Generated snapshot text.');
+    const prop = proposal(selected());
+    check('Proposal generator works', prop.includes('Internal Proposal Starter') && prop.includes('human review'), 'Generated proposal text.');
+    const csv = toCsv(state.leads);
+    check('CSV export ready', csv.startsWith(fields.join(',')) && csv.includes('businessName'), 'CSV content can be generated.');
+    const json = JSON.stringify(state, null, 2);
+    check('JSON backup ready', json.includes('leads') && json.includes('selectedId'), 'JSON backup content can be generated.');
+    check('No auto-send tools present', !document.querySelector('[data-send-email], [data-auto-post]'), 'This page does not send outreach.');
+    check('GIG/GFA separation reminder present', document.body.textContent.includes('Gabriel Faith Alliance') && document.body.textContent.includes('Gabriel Impact Group'), 'Paid/nonprofit guardrail is visible.');
+  } catch (err) {
+    check('Diagnostics runtime', false, err.message || String(err));
+  }
+  const passed = results.filter(r => r.pass).length;
+  const failed = results.length - passed;
+  const allPass = failed === 0;
+  diagnosticsCard.classList.toggle('diagnostic-pass', allPass);
+  diagnosticsCard.classList.toggle('diagnostic-fail', !allPass);
+  diagnosticsSummary.style.display = 'block';
+  diagnosticsSummary.style.borderColor = allPass ? 'var(--green)' : 'var(--red)';
+  diagnosticsSummary.innerHTML = allPass ? '<strong>PASS:</strong> Command Center core workflow is functioning in this browser.' : `<strong>FAIL:</strong> ${failed} item(s) need attention.`;
+  diagnosticsOutput.textContent = results.map(r => `${r.pass ? '✅ PASS' : '❌ FAIL'} — ${r.name}${r.detail ? `\n   ${r.detail}` : ''}`).join('\n');
+  if (selected()) {
+    setOut('snapshotOutput', snapshot(selected()));
+    setOut('proposalOutput', proposal(selected()));
+  }
+  render();
+  return allPass;
+}
+
+form.addEventListener('submit', e => { e.preventDefault(); try { const lead = leadFromForm(); enforce(lead, form.elements.id.value); const i = state.leads.findIndex(l => l.id === lead.id); if(i >= 0) state.leads[i] = lead; else state.leads.unshift(lead); selectedId = lead.id; saveState(); clearForm(); render(); setNotice('Prospect saved and selected.'); } catch(err) { setNotice(err.message, false); alert(err.message); } });
+searchInput.addEventListener('input', render);
+document.getElementById('resetFormBtn').addEventListener('click', clearForm);
+document.getElementById('loadTestBtn').addEventListener('click', () => { loadTestRecord(); runDiagnostics(); });
+document.getElementById('loadAndTestBtn').addEventListener('click', () => { runDiagnostics({ loadMike:true }); });
+document.getElementById('runSelfTestBtn').addEventListener('click', () => { runDiagnostics(); });
+document.getElementById('loadDemoBtn').addEventListener('click', loadDemoLeads);
+document.getElementById('clearDataBtn').addEventListener('click', () => { if(confirm('Clear all local Command Center data in this browser?')) { state={leads:[]}; selectedId=''; saveState(); render(); setNotice('All local data cleared.'); runDiagnostics(); } });
+document.querySelectorAll('[data-view]').forEach(btn => btn.addEventListener('click', () => showView(btn.dataset.view)));
+tableBody.addEventListener('click', e => { const btn = e.target.closest('button[data-action]'); if(!btn) return; const id=btn.dataset.id; const action=btn.dataset.action; if(action==='edit') editLead(id); if(action==='select') selectLead(id); if(action==='delete') deleteLead(id); });
+document.getElementById('generateSnapshotBtn').addEventListener('click', () => setOut('snapshotOutput', snapshot(selected())));
+document.getElementById('copySnapshotBtn').addEventListener('click', () => copyOut('snapshotOutput'));
+document.getElementById('printSnapshotBtn').addEventListener('click', () => window.print());
+document.getElementById('generateFundingBtn').addEventListener('click', () => setOut('fundingOutput', funding(selected())));
+document.getElementById('copyFundingBtn').addEventListener('click', () => copyOut('fundingOutput'));
+document.getElementById('printFundingBtn').addEventListener('click', () => window.print());
+document.getElementById('generateDraftBtn').addEventListener('click', () => setOut('draftOutput', draft(selected(), document.getElementById('draftType').value)));
+document.getElementById('copyDraftBtn').addEventListener('click', () => copyOut('draftOutput'));
+document.getElementById('generateProposalBtn').addEventListener('click', () => setOut('proposalOutput', proposal(selected())));
+document.getElementById('copyProposalBtn').addEventListener('click', () => copyOut('proposalOutput'));
+document.getElementById('printProposalBtn').addEventListener('click', () => window.print());
+document.getElementById('exportCsvBtn').addEventListener('click', () => download('gabriel-growth-engine-leads.csv', 'text/csv', toCsv(state.leads)));
+document.getElementById('exportJsonBtn').addEventListener('click', () => download('gabriel-growth-engine-backup.json', 'application/json', JSON.stringify(state, null, 2)));
+document.getElementById('importCsvBtn').addEventListener('click', () => { activeFileMode='csv'; fileInput.value=''; fileInput.click(); });
+document.getElementById('importJsonBtn').addEventListener('click', () => { activeFileMode='json'; fileInput.value=''; fileInput.click(); });
+fileInput.addEventListener('change', () => { const file=fileInput.files[0]; if(!file) return; const reader=new FileReader(); reader.onload=()=>{ try { if(activeFileMode==='json'){ const parsed=JSON.parse(reader.result); if(!Array.isArray(parsed.leads)) throw new Error('JSON backup must include a leads array.'); if(confirm('Replace current local data with this JSON backup? Cancel will merge/update instead.')) { state=parsed; selectedId=state.selectedId||''; saveState(); render(); setNotice('JSON restored.'); } else { importRows(parsed.leads, false); } } else { importRows(parseCsv(reader.result), false); } } catch(err) { setNotice(err.message, false); alert(err.message); } }; reader.readAsText(file); });
+
+clearForm();
+render();
+if (new URLSearchParams(window.location.search).has('mike')) { runDiagnostics({ loadMike:true }); }
 </script>
 </body>
 </html>
