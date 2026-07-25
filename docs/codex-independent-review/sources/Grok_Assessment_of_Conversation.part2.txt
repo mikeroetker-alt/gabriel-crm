@@ -1,0 +1,94 @@
+bly useful for Grok video generation and other asynchronous, multi-step jobs.
+The architecture I now recommend
+Kimi K3 and Swarm
+Research prospects, analyze websites and Google profiles, develop personalization, draft outreach and create batch reports.
+GHL Starter
+Store contacts and opportunity stages, manage approvals, send outreach, run follow-ups, monitor replies, book appointments and maintain the authoritative pipeline record.
+GHL Custom Webhooks
+Directly call straightforward external APIs where the request and response can be handled within a workflow.
+Small Codex-built middleware
+Handle Grok’s asynchronous video process, retries, file storage, complicated data transformations and any API that GHL cannot reliably manage.
+Codex
+Build and test the integrations and repair anything that breaks.
+ChatGPT
+Review strategy, verify factual claims, analyze results and challenge Kimi’s conclusions.
+You
+Approve prospect contact, media, spending and major changes; then handle qualified conversations and close clients.
+Kimi’s proposed five-business test is exactly right
+Before annual subscriptions or major upgrades, we should test:
+
+Five real Lowell-area prospects.
+Kimi research quality.
+Verified-email success.
+One Grok video and matching image per prospect.
+Data movement into GHL.
+Approval and outreach.
+Time, cost, Kimi credit consumption and failure points.
+
+That test will answer the questions that neither Kimi nor I can reliably answer from product documentation alone.
+Final judgment
+This latest Kimi answer is credible and strategically useful. It still made one unverified interpretation about Swarm limits and one overly restrictive claim about GHL’s API abilities, but those are far less serious than the errors in its original assessment.
+The system remains viable at approximately $225 per month in fixed subscriptions, plus modest usage costs. We should plan for lightweight middleware but only build the parts the five-prospect test proves necessary.
+Most importantly, this exchange validates our proposed structure: Kimi and I should challenge one another, Codex should test the technical claims, and the live system—not any AI’s confidence—determines the truth.
+Pasted text(34).txt
+Document
+Worked for 26s
+This is Kimi’s strongest answer so far, but it still reads partly like Kimi grading itself. I would not yet treat its conclusion—“K3 is the best option”—as proven.
+What Kimi got right
+Kimi correctly defined the top position as operational intelligence and execution planning, not unlimited authority. It placed you above every AI, kept GHL as the persistent CRM/workflow backbone, assigned Codex the technical-build role, and assigned me independent verification. That structure is sound.
+It was also candid about its limitations:
+
+It should not replace GHL.
+It should not operate without verification.
+Current prices, APIs, and product features must be checked.
+High-impact actions still require your approval.
+
+That candor increases my confidence in the response.
+The biggest correction: K3 did not make those first-response errors
+The response says K3 “just demonstrated” that it hallucinates because it previously got Kimi pricing, GHL API access, and account limits wrong.
+But your pasted conversation shows that the platform switched to K2.6 Instant, and the earlier poor assessment also came from K2/K2.6—not a properly selected K3 reasoning session.
+Therefore:
+We cannot use K2.6’s bad first answer as direct evidence that K3 will make the same mistakes at the same frequency.
+K3 can certainly still hallucinate, but it deserves a separate evaluation.
+Kimi’s comparison table understates ChatGPT and Codex
+Context window
+Kimi claims:
+
+K3: one million tokens
+ChatGPT: 128,000 tokens
+
+That comparison is incomplete.
+K3 officially supports a one-million-token context window.
+Current GPT-5.6 API models also support approximately 1.05 million tokens, while manually selected Thinking inside standard ChatGPT has a different product-level context limit.
+So Kimi does not have an uncontested million-token advantage over the entire OpenAI ecosystem. It may have an advantage in how conveniently that context is packaged with Swarm, Work, and Claw, but its table is not an apples-to-apples comparison.
+Browser and computer operation
+Kimi says ChatGPT and Codex have no browser automation.
+That is also too absolute. GPT-5.6 is designed for computer use, and Codex can reproduce problems in browsers, test live flows, inspect systems, and work through coordinated agent teams.
+Kimi still has a practical advantage because Claw and WebBridge are clearly centered around general browser and desktop operation. But “Kimi: yes; ChatGPT/Codex: no” is not accurate.
+Codex’s strategic range
+Kimi says Codex cannot strategize across an entire business pipeline. That is too categorical. Codex is primarily a builder, but OpenAI now describes it as capable of research, synthesis, tool integration, automation, browser testing, and coordinated teams of agents.
+Still, I agree that Codex should not be our primary sales and marketing strategist. Its strongest role remains building, testing, deploying, and maintaining the machinery.
+Where K3 genuinely appears strongest
+K3 currently has the most natural single-platform combination of:
+
+one-million-token context,
+K3-powered Agent Swarm,
+up to 300 temporary sub-agents,
+more than 4,000 tool calls in suitable tasks,
+Kimi Claw for persistent automation,
+Kimi Work for browser, file, document, and code tasks,
+and Kimi Code for technical execution.
+
+That combination makes K3 the leading candidate for:
+
+researching batches of prospects,
+dividing work among specialized agents,
+drafting personalized materials,
+operating browser workflows,
+preparing websites, audits, proposals, and reports,
+and directing the daily production queue.
+
+But “leading candidate” and “proven best” are not the same thing.
+One major operational issue: credits
+K3 and K3 Swarm consume membership credits, while K2.6 chat ordinarily does not.
+Kimi’s
