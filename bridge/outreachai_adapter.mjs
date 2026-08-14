@@ -36,6 +36,8 @@ export function validateContactsEnvelope(envelope) {
       throw new TypeError(`response.contacts[${index}] must be an object`);
     }
     assertNonEmptyString(contact.id, `response.contacts[${index}].id`);
+    assertNonEmptyString(contact.pipeline, `response.contacts[${index}].pipeline`);
+    assertNonEmptyString(contact.stage, `response.contacts[${index}].stage`);
     if (ids.has(contact.id)) throw new Error(`duplicate contact id: ${contact.id}`);
     ids.add(contact.id);
   }
