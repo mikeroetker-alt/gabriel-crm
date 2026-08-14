@@ -43,7 +43,9 @@ Value-free discovery established the following structure without committing or d
 - `outreachai_adapter.mjs` — dependency-injected, GET-only adapter targeting the verified tRPC route and translating the sanitized tRPC shape into the internal contact shape.
 - `fixtures/contacts-page.synthetic.json` — legacy synthetic internal envelope containing no prospect data.
 - `fixtures/contacts-list-trpc.synthetic.json` — synthetic tRPC envelope matching only the verified structural metadata.
+- `fixtures/authorized-contract-capture.template.json` — metadata-only template for a future authorized sanitized contract capture.
 - `AUTHENTICATED_CONTRACT_GAPS.md` — verified metadata and the remaining contract details that still require an authorized sanitized capture.
+- `RECONCILIATION_PLAN.md` — aggregate-only plan for resolving the 1,508-vs-1,395 count discrepancy without inspecting prospect values.
 
 No API keys, OAuth tokens, database credentials, prospect exports, or private contact records are committed here.
 
