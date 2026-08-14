@@ -90,3 +90,36 @@ The audit used the authenticated GitHub connector because this Codex environment
 4. Run the documented QA checklist against every restored route and exercise CSV import/export, JSON backup/restore, request email/copy behavior, and each tool.
 5. Confirm GitHub Pages is configured for `main` and `/ (root)`, then smoke-test the root, `/home/`, `/request/`, and `/tools/` URLs.
 6. Update this file with the recovery commit/PR, exact validation output, verified deployment state, remaining blockers, and the next action.
+
+## OutreachAI read-adapter follow-up — 2026-08-14
+
+### Completed work
+
+- Recreated the repository-only change described for unavailable commit `32f92a1` on top of base commit `4e54963bd2b3968a2ff5494a85eef6beef9b8ef7`.
+- Added a dependency-injected contacts adapter that constructs only `GET` requests and validates HTTP responses, pagination, totals, stable unique IDs, and optional pipeline aggregates.
+- Added a synthetic contact envelope and six contract tests; no credentials, private prospect data, production writes, outreach, or deployment were used.
+- Documented the authenticated, sanitized response metadata needed before replacing the synthetic contract with a verified live contract.
+
+### Files changed
+
+- `bridge/outreachai_adapter.mjs`
+- `bridge/fixtures/contacts-page.synthetic.json`
+- `bridge/AUTHENTICATED_CONTRACT_GAPS.md`
+- `bridge/README.md`
+- `test/outreachai_adapter.test.mjs`
+- `package.json`
+- `PROJECT_STATUS.md`
+
+### Validation commands and exact results
+
+- `npm test` — passed: 6 tests, 0 failures.
+- `python3 -m py_compile bridge/scrape_outreach.py` — passed.
+- `node --check bridge/import_contacts.mjs` — passed.
+- `node --check bridge/outreachai_adapter.mjs` — passed.
+- `git diff --check` — passed.
+
+### Assumptions, blockers, and next actions
+
+- Assumption: the synthetic endpoint and envelope are scaffolding, not claims about the unavailable authenticated production contract.
+- Publication blocker: commit `32f92a1` was not present in this checkout and could not be fetched because outbound GitHub access returned HTTP 403, so its described repository-only changes were recreated against the stated base rather than copied from the object.
+- Next: apply or review this committed diff through the connected GitHub API, then replace synthetic paths only after obtaining the non-secret metadata listed in `bridge/AUTHENTICATED_CONTRACT_GAPS.md`.
