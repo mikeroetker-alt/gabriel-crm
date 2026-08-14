@@ -1,0 +1,25 @@
+{
+  "contacts": [
+    { "id": "fixture-contact-001", "pipeline": "HVAC", "stage": "New Lead" },
+    { "id": "fixture-contact-002", "pipeline": "Bank", "stage": "Qualified" },
+    { "id": "fixture-contact-003", "pipeline": "Construction", "stage": "Follow Up" }
+  ],
+  "total": 1508,
+  "page": { "limit": 100, "nextCursor": "fixture-cursor-page-2" },
+  "countsByPipeline": {
+    "HVAC": 108,
+    "Bank": 108,
+    "DAC": 108,
+    "Personal Dev": 108,
+    "Plumbing": 108,
+    "Electrical": 108,
+    "Restaurants": 108,
+    "Auto Repair": 108,
+    "Trucking": 108,
+    "Roofing": 108,
+    "Healthcare": 108,
+    "Landscaping": 108,
+    "Retail": 106,
+    "Construction": 106
+  }
+}
