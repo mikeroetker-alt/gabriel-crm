@@ -102,6 +102,7 @@ The audit used the authenticated GitHub connector because this Codex environment
 
 ### Files changed
 
+- `.gitignore`
 - `bridge/outreachai_adapter.mjs`
 - `bridge/fixtures/contacts-page.synthetic.json`
 - `bridge/AUTHENTICATED_CONTRACT_GAPS.md`
