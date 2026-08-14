@@ -35,6 +35,16 @@ test("stable contact IDs are required and unique", () => {
   assert.throws(() => validateContactsEnvelope(duplicate), /duplicate contact id/);
 });
 
+test("contact pipeline and stage must be non-empty strings", () => {
+  const invalidPipeline = structuredClone(fixture);
+  invalidPipeline.contacts[0].pipeline = null;
+  assert.throws(() => validateContactsEnvelope(invalidPipeline), /pipeline/);
+
+  const invalidStage = structuredClone(fixture);
+  invalidStage.contacts[0].stage = 42;
+  assert.throws(() => validateContactsEnvelope(invalidStage), /stage/);
+});
+
 test("cursor metadata is either null or a non-empty string", () => {
   const invalid = structuredClone(fixture);
   invalid.page.nextCursor = "";
