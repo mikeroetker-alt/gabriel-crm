@@ -97,7 +97,7 @@ The audit used the authenticated GitHub connector because this Codex environment
 
 - Recreated the repository-only change described for unavailable commit `32f92a1` on top of base commit `4e54963bd2b3968a2ff5494a85eef6beef9b8ef7`.
 - Added a dependency-injected contacts adapter that constructs only `GET` requests and validates HTTP responses, pagination, totals, stable unique IDs, and optional pipeline aggregates.
-- Added a synthetic contact envelope and six contract tests; no credentials, private prospect data, production writes, outreach, or deployment were used.
+- Added a synthetic contact envelope and seven contract tests; no credentials, private prospect data, production writes, outreach, or deployment were used.
 - Documented the authenticated, sanitized response metadata needed before replacing the synthetic contract with a verified live contract.
 
 ### Files changed
@@ -113,7 +113,7 @@ The audit used the authenticated GitHub connector because this Codex environment
 
 ### Validation commands and exact results
 
-- `npm test` — passed: 6 tests, 0 failures.
+- `npm test` — passed: 7 tests, 0 failures.
 - `python3 -m py_compile bridge/scrape_outreach.py` — passed.
 - `node --check bridge/import_contacts.mjs` — passed.
 - `node --check bridge/outreachai_adapter.mjs` — passed.
