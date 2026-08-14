@@ -1,0 +1,13 @@
+{
+  "result": {
+    "data": {
+      "json": {
+        "contacts": [
+          { "id": "fixture-trpc-001", "pipeline": "HVAC", "status": "New Lead" },
+          { "id": "fixture-trpc-002", "pipeline": "Bank", "status": "Qualified" }
+        ],
+        "total": 1508
+      }
+    }
+  }
+}
