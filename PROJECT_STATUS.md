@@ -90,3 +90,82 @@ The audit used the authenticated GitHub connector because this Codex environment
 4. Run the documented QA checklist against every restored route and exercise CSV import/export, JSON backup/restore, request email/copy behavior, and each tool.
 5. Confirm GitHub Pages is configured for `main` and `/ (root)`, then smoke-test the root, `/home/`, `/request/`, and `/tools/` URLs.
 6. Update this file with the recovery commit/PR, exact validation output, verified deployment state, remaining blockers, and the next action.
+
+## OutreachAI read-adapter follow-up — 2026-08-14
+
+### Completed work
+
+- Recreated the repository-only change described for unavailable commit `32f92a1` on top of base commit `4e54963bd2b3968a2ff5494a85eef6beef9b8ef7`.
+- Added a dependency-injected contacts adapter that constructs only `GET` requests and validates HTTP responses, pagination, totals, stable unique IDs, and optional pipeline aggregates.
+- Added a synthetic contact envelope and seven contract tests; no credentials, private prospect data, production writes, outreach, or deployment were used.
+- Documented the authenticated, sanitized response metadata needed before replacing the synthetic contract with a verified live contract.
+
+### Files changed
+
+- `.gitignore`
+- `bridge/outreachai_adapter.mjs`
+- `bridge/fixtures/contacts-page.synthetic.json`
+- `bridge/AUTHENTICATED_CONTRACT_GAPS.md`
+- `bridge/README.md`
+- `test/outreachai_adapter.test.mjs`
+- `package.json`
+- `PROJECT_STATUS.md`
+
+### Validation commands and exact results
+
+- `npm test` — passed: 7 tests, 0 failures.
+- `python3 -m py_compile bridge/scrape_outreach.py` — passed.
+- `node --check bridge/import_contacts.mjs` — passed.
+- `node --check bridge/outreachai_adapter.mjs` — passed.
+- `git diff --check` — passed.
+
+### Assumptions, blockers, and next actions
+
+- Assumption: the synthetic endpoint and envelope are scaffolding, not claims about the unavailable authenticated production contract.
+- Publication blocker: commit `32f92a1` was not present in this checkout and could not be fetched because outbound GitHub access returned HTTP 403, so its described repository-only changes were recreated against the stated base rather than copied from the object.
+- Next: apply or review this committed diff through the connected GitHub API, then replace synthetic paths only after obtaining the non-secret metadata listed in `bridge/AUTHENTICATED_CONTRACT_GAPS.md`.
+
+## OutreachAI tRPC translation follow-up — 2026-08-14
+
+### Completed work
+
+- Replaced the synthetic `/api/contacts` request assumption with the sanitized, verified read route `GET /api/trpc/contacts.list`.
+- Added a translation function for the observed `result.data.json.contacts` plus `result.data.json.total` envelope.
+- Normalized the verified live workflow field `status` to the bridge's internal `stage` field.
+- Kept unverified pagination, filters, cursors, and aggregate response fields disabled; the adapter rejects unsupported options before issuing a request.
+- Added a synthetic-only tRPC fixture containing no prospect data.
+- Expanded the contract suite to 10 tests covering the legacy internal fixture, tRPC translation, GET-only route construction, rejection of unverified options, stable IDs, normalized workflow fields, malformed tRPC envelopes, optional legacy cursor validation, and optional legacy aggregate validation.
+- Updated bridge documentation to distinguish verified tRPC metadata from remaining unknowns and to prohibit further live endpoint probing during repository-only work.
+- Added a metadata-only authorized contract-capture template.
+- Added an aggregate-only plan for reconciling the 1,508 Contacts-page count with the 1,395 Dashboard count without accessing prospect values.
+- No live OutreachAI endpoint calls, production writes, outreach, deployments, credential changes, or prospect-value access were performed by ChatGPT during this follow-up.
+
+### Files changed in this follow-up
+
+- `bridge/outreachai_adapter.mjs`
+- `test/outreachai_adapter.test.mjs`
+- `bridge/fixtures/contacts-list-trpc.synthetic.json`
+- `bridge/README.md`
+- `bridge/AUTHENTICATED_CONTRACT_GAPS.md`
+- `bridge/fixtures/authorized-contract-capture.template.json`
+- `bridge/RECONCILIATION_PLAN.md`
+- `PROJECT_STATUS.md`
+
+### Validation performed by ChatGPT
+
+- `npm test` against the exact new adapter/test/fixture contents — passed: 10 tests, 0 failures.
+- `node --check bridge/outreachai_adapter.mjs` — passed.
+- `node --check test/outreachai_adapter.test.mjs` — passed.
+- Python probe compilation was not re-run in this ChatGPT follow-up because `bridge/scrape_outreach.py` was unchanged; Codex has been asked to run the full safe check set independently.
+
+### Remaining verified unknowns / genuine blocker
+
+Further live probing is intentionally stopped because the discovered tRPC route unexpectedly returned a production contact. The remaining live-contract details must come from an authorized metadata-only capture, not additional prospect-value inspection.
+
+Still unknown: tRPC input/filter schema, pagination semantics, stable-ID scope/type guarantees, complete pipeline/status value rules, rate-limit/cache/version metadata, tenant scoping, aggregate endpoints, and count/deduplication/lifecycle semantics needed to resolve the 1,508-vs-1,395 discrepancy.
+
+### Next safe action
+
+- Codex independently reviews the current PR head, reruns the safe test/syntax/compile checks, checks for secrets/private prospect data, and fixes any repository-only defects it finds.
+- Do not merge or deploy PR #14 without Michael's explicit approval.
+- Do not call the live OutreachAI endpoint again unless an authorized metadata-only capture procedure is explicitly approved.

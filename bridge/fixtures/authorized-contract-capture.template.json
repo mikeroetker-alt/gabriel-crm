@@ -1,0 +1,44 @@
+{
+  "capturePurpose": "Authorized metadata-only OutreachAI read-contract capture",
+  "containsProspectValues": false,
+  "route": "/api/trpc/contacts.list",
+  "method": "GET",
+  "request": {
+    "queryOrInputFields": [],
+    "nonSecretHeaders": []
+  },
+  "response": {
+    "contactsPath": "result.data.json.contacts",
+    "totalPath": "result.data.json.total",
+    "contactFields": [
+      { "name": "id", "type": null, "nullable": null },
+      { "name": "pipeline", "type": null, "nullable": null },
+      { "name": "status", "type": null, "nullable": null }
+    ],
+    "pagination": {
+      "present": null,
+      "fields": [],
+      "semantics": null
+    },
+    "aggregates": {
+      "present": null,
+      "fields": []
+    },
+    "cacheHeaders": [],
+    "rateLimitHeaders": [],
+    "schemaVersion": null
+  },
+  "countSemantics": {
+    "tenantScope": null,
+    "deduplicationRule": null,
+    "lifecycleExclusions": null
+  },
+  "privacyChecklist": {
+    "authorizationMaterialRemoved": true,
+    "contactValuesRemoved": true,
+    "emailsRemoved": true,
+    "phonesRemoved": true,
+    "namesRemoved": true,
+    "addressesRemoved": true
+  }
+}
