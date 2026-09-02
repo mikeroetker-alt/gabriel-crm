@@ -29,6 +29,9 @@ A saved import bridge additionally supports `Banks` and `Brokers` as normalized 
 
 - `scrape_outreach.py` — read-only probe for likely REST/tRPC contact endpoints on the exact OutreachAI app.
 - `import_contacts.mjs` — sanitized importer previously used to map an OutreachAI contact export into a SQL leads table with duplicate checks.
+- `outreachai_adapter.mjs` — dependency-injected, GET-only contacts adapter with strict envelope validation.
+- `fixtures/contacts-page.synthetic.json` — synthetic contract envelope containing no prospect data.
+- `AUTHENTICATED_CONTRACT_GAPS.md` — metadata still needed from an authenticated, sanitized read before connecting the adapter to the live contract.
 
 No API keys, OAuth tokens, database credentials, prospect exports, or private contact records are committed here.
 
