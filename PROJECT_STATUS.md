@@ -90,3 +90,42 @@ The audit used the authenticated GitHub connector because this Codex environment
 4. Run the documented QA checklist against every restored route and exercise CSV import/export, JSON backup/restore, request email/copy behavior, and each tool.
 5. Confirm GitHub Pages is configured for `main` and `/ (root)`, then smoke-test the root, `/home/`, `/request/`, and `/tools/` URLs.
 6. Update this file with the recovery commit/PR, exact validation output, verified deployment state, remaining blockers, and the next action.
+
+## Rakazo / OutreachAI bridge publication — 2026-09-02
+
+### Direction confirmed
+
+- The active CRM to preserve is the Manus-hosted Outreach Automation Platform identified in Issue #9, not the obsolete static Gabriel CRM application that was removed from `main` in July.
+- Rakazo should integrate with that existing CRM through a controlled bridge rather than introducing another CRM.
+
+### Completed work
+
+- Created branch `rakazo-outreachai-bridge` from current `main`.
+- Published the safe read-only OutreachAI adapter patch that Codex had previously produced in Issue #13.
+- Added a synthetic response fixture with no private prospect records.
+- Added six contract tests covering GET-only behavior, pagination limits, stable IDs, cursor validation, aggregate counts, and endpoint construction.
+- Added documentation for the non-secret authenticated response metadata still needed before connecting the adapter to the live Manus CRM.
+- Added `.gitignore` and a minimal Node test package.
+- Updated `bridge/README.md` to document the adapter, fixture, and authenticated-contract gap file.
+
+### Files changed
+
+- `.gitignore`
+- `bridge/outreachai_adapter.mjs`
+- `bridge/fixtures/contacts-page.synthetic.json`
+- `bridge/AUTHENTICATED_CONTRACT_GAPS.md`
+- `bridge/README.md`
+- `test/outreachai_adapter.test.mjs`
+- `package.json`
+- `PROJECT_STATUS.md`
+
+### Validation
+
+- Codex previously validated the exact published patch with `npm test` (6 passed, 0 failed), Python compile checks, Node syntax checks, and `git diff --check` as recorded in Issue #13.
+- This ChatGPT GitHub-connector session published the previously validated repository-only patch but did not execute a separate Node runtime locally.
+
+### Safety boundary and blocker
+
+- No outreach was sent, no production data was changed, no credentials were committed, and no private prospect records were added.
+- The live CRM adapter remains intentionally disconnected until the exact authenticated read contract (paths, pagination semantics, response envelope, stable ID field, and rate-limit metadata) is captured in sanitized form.
+- After that read contract is verified, the next step is to map Rakazo's CRM/account bot to this bridge and keep all write actions approval-gated until separately tested.

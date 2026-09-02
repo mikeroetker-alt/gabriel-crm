@@ -1,0 +1,8 @@
+{
+  "name": "gabriel-crm-bridge",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}
