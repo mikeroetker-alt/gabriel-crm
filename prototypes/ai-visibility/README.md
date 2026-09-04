@@ -21,7 +21,7 @@ The Monthly Dashboard scenario selector demonstrates positive movement, little/n
 
 Every business, observation, citation, source, competitor, engagement event, and activity record is synthetic. The prototype makes no network requests and sends no outreach. It does not connect to the live CRM or any observation provider.
 
-The provider-neutral entities and interface are documented in [`docs/AI_VISIBILITY_DATA_CONTRACT.md`](../../docs/AI_VISIBILITY_DATA_CONTRACT.md).
+The provider-neutral entities and interface are documented in [`docs/AI_VISIBILITY_DATA_CONTRACT.md`](../../docs/AI_VISIBILITY_DATA_CONTRACT.md). The current provider, cost, stability, automation, exception, and kill-criteria plan is in [`docs/AI_VISIBILITY_FEASIBILITY_PLAN.md`](../../docs/AI_VISIBILITY_FEASIBILITY_PLAN.md).
 
 ## Validation
 
