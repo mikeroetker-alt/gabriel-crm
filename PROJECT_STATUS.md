@@ -91,22 +91,89 @@ The audit used the authenticated GitHub connector because this Codex environment
 5. Confirm GitHub Pages is configured for `main` and `/ (root)`, then smoke-test the root, `/home/`, `/request/`, and `/tools/` URLs.
 6. Update this file with the recovery commit/PR, exact validation output, verified deployment state, remaining blockers, and the next action.
 
-## Rakazo / OutreachAI bridge publication — 2026-09-02
+## Issue #22 AI Visibility prototype — 2026-09-03
 
-### Direction confirmed
+### Authorization and scope
 
-- The active CRM to preserve is the Manus-hosted Outreach Automation Platform identified in Issue #9, not the obsolete static Gabriel CRM application that was removed from `main` in July.
-- Rakazo should integrate with that existing CRM through a controlled bridge rather than introducing another CRM.
+- Mike explicitly authorized implementation of the prototype assets defined in Issue #22.
+- The work remains synthetic and local/repository-only. No outreach, live campaigns, vendor purchases, credentials, client-property edits, or public publishing are authorized.
 
 ### Completed work
 
-- Created branch `rakazo-outreachai-bridge` from current `main`.
-- Published the safe read-only OutreachAI adapter patch that Codex had previously produced in Issue #13.
-- Added a synthetic response fixture with no private prospect records.
-- Added six contract tests covering GET-only behavior, pagination limits, stable IDs, cursor validation, aggregate counts, and endpoint construction.
-- Added documentation for the non-secret authenticated response metadata still needed before connecting the adapter to the live Manus CRM.
-- Added `.gitignore` and a minimal Node test package.
-- Updated `bridge/README.md` to document the adapter, fixture, and authenticated-contract gap file.
+- Built a polished Free Local AI Visibility Snapshot without a fake composite score.
+- Built a Monthly Client Dashboard answering the four required questions: where the client appears, who appears more often, what GIG completed, and what needs attention.
+- Added deterministic positive-movement, flat-movement, and blocked/provider-unavailable demo scenarios.
+- Built an immutable-style monthly activity ledger that demonstrates value even when external metrics remain flat.
+- Built a synthetic Local Business Spotlight with source placeholders, factual-conflict blocking, one canonical-page framing, and quality disclosures.
+- Documented the provider-neutral observation, citation, controlled-work, engagement, Spotlight, CRM/Rakazo, exception, cancellation, and measurement contracts.
+- Added print styling and responsive desktop/mobile layouts.
+
+### Files changed
+
+- `prototypes/ai-visibility/index.html`
+- `prototypes/ai-visibility/styles.css`
+- `prototypes/ai-visibility/app.js`
+- `prototypes/ai-visibility/fixtures.js`
+- `prototypes/ai-visibility/README.md`
+- `docs/AI_VISIBILITY_DATA_CONTRACT.md`
+- `test/ai_visibility_fixture.test.mjs`
+- `PROJECT_STATUS.md`
+
+### Validation
+
+- `C:\Users\miker\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe --test` — passed: 16 tests, 0 failed (six Issue #22 fixture/safety tests plus ten existing bridge tests).
+- `git diff --check` — passed.
+- Desktop browser smoke test — passed for Snapshot, Dashboard, Work Ledger, and Spotlight; no console errors or warnings.
+- Dashboard scenario interaction — passed for the flat-movement scenario.
+- Mobile check at 390 × 844 — passed; primary navigation, scenario control, and report content remain available.
+
+### Real versus synthetic
+
+- The UI, calculation/display logic, scenario switching, print layout, responsive layout, data contract, and tests are implemented.
+- All business names, facts, observations, citations, competitors, activity records, engagement events, dates, hashes, and metrics are deterministic synthetic fixtures.
+- No provider or live CRM integration is enabled.
+
+### Optional/unverified integrations
+
+- OtterlyAI, Google Search Console Generative AI Performance, and Bing Webmaster Tools AI Performance remain optional and unverified.
+- Current pricing, feature availability, terms, and API/export support must be verified before selection or purchase.
+
+### Blockers and next action
+
+- No blocker prevents Mike from reviewing the prototype.
+- After Mike reviews and approves the product screens, the next recommended step is to refine the prototype from his feedback and approve a separate implementation phase for CRM integration or the public marketing website. Do not launch, buy a provider, collect live observations, or activate outreach without separate approval.
+
+### Post-review integrity refinement and feasibility gate
+
+- Replaced percentage-first fixtures with stored numerator/denominator evidence and calculated display rates.
+- Clarified the Free Snapshot's eligible-response denominators versus total cross-surface observations.
+- Made dashboard surface and evidence records scenario-specific so provider outages cannot show positive-scenario evidence.
+- Added first-class source/citation metrics.
+- Added a labeled trend scale and explicit client/competitor/other bar roles.
+- Changed the unresolved service area to `Pending verification` and made the synthetic Spotlight visibly unpublished and blocked.
+- Added invariant tests for fraction storage, scenario ownership, visual roles, and fail-closed unresolved facts.
+- Added `docs/AI_VISIBILITY_FEASIBILITY_PLAN.md` with an exact source map, fixed measurement design, public list-price cost bounds at 10/25/50/100 clients, automation targets, exception handling, vendor trial questions, and precommitted failure criteria.
+- Current research identifies OtterlyAI as the first provider candidate, not an approved purchase. Prompt-sharing semantics and API evidence fields remain unverified gates.
+- Google/Bing AI property reporting and Cloudflare first-party analytics remain secondary sources for GIG-controlled properties, not substitutes for cross-surface observation.
+
+Validation after refinement:
+
+- Node test runner — passed: 20 tests, 0 failed.
+- `git diff --check` — passed.
+- Browser regression — blocked/provider-unavailable scenario showed only scenario-specific unavailable evidence; positive evidence was absent.
+- Fail-closed Spotlight regression — passed: visible publishing-blocked state and `Pending verification` service area.
+- Browser console — no errors or warnings.
+
+Next gate: Mike reviews the corrected prototype and feasibility plan. No real-business study, provider purchase, live data collection, outreach, or public website is authorized yet.
+
+## OutreachAI read-adapter follow-up — 2026-08-14
+
+### Completed work
+
+- Recreated the repository-only change described for unavailable commit `32f92a1` on top of base commit `4e54963bd2b3968a2ff5494a85eef6beef9b8ef7`.
+- Added a dependency-injected contacts adapter that constructs only `GET` requests and validates HTTP responses, pagination, totals, stable unique IDs, and optional pipeline aggregates.
+- Added a synthetic contact envelope and seven contract tests; no credentials, private prospect data, production writes, outreach, or deployment were used.
+- Documented the authenticated, sanitized response metadata needed before replacing the synthetic contract with a verified live contract.
 
 ### Files changed
 
@@ -119,13 +186,110 @@ The audit used the authenticated GitHub connector because this Codex environment
 - `package.json`
 - `PROJECT_STATUS.md`
 
-### Validation
+### Validation commands and exact results
 
-- Codex previously validated the exact published patch with `npm test` (6 passed, 0 failed), Python compile checks, Node syntax checks, and `git diff --check` as recorded in Issue #13.
-- This ChatGPT GitHub-connector session published the previously validated repository-only patch but did not execute a separate Node runtime locally.
+- `npm test` — passed: 7 tests, 0 failures.
+- `python3 -m py_compile bridge/scrape_outreach.py` — passed.
+- `node --check bridge/import_contacts.mjs` — passed.
+- `node --check bridge/outreachai_adapter.mjs` — passed.
+- `git diff --check` — passed.
 
-### Safety boundary and blocker
+### Assumptions, blockers, and next actions
 
-- No outreach was sent, no production data was changed, no credentials were committed, and no private prospect records were added.
-- The live CRM adapter remains intentionally disconnected until the exact authenticated read contract (paths, pagination semantics, response envelope, stable ID field, and rate-limit metadata) is captured in sanitized form.
-- After that read contract is verified, the next step is to map Rakazo's CRM/account bot to this bridge and keep all write actions approval-gated until separately tested.
+- Assumption: the synthetic endpoint and envelope are scaffolding, not claims about the unavailable authenticated production contract.
+- Publication blocker: commit `32f92a1` was not present in this checkout and could not be fetched because outbound GitHub access returned HTTP 403, so its described repository-only changes were recreated against the stated base rather than copied from the object.
+- Next: apply or review this committed diff through the connected GitHub API, then replace synthetic paths only after obtaining the non-secret metadata listed in `bridge/AUTHENTICATED_CONTRACT_GAPS.md`.
+
+## OutreachAI tRPC translation follow-up — 2026-08-14
+
+### Completed work
+
+- Replaced the synthetic `/api/contacts` request assumption with the sanitized, verified read route `GET /api/trpc/contacts.list`.
+- Added a translation function for the observed `result.data.json.contacts` plus `result.data.json.total` envelope.
+- Normalized the verified live workflow field `status` to the bridge's internal `stage` field.
+- Kept unverified pagination, filters, cursors, and aggregate response fields disabled; the adapter rejects unsupported options before issuing a request.
+- Added a synthetic-only tRPC fixture containing no prospect data.
+- Expanded the contract suite to 10 tests covering the legacy internal fixture, tRPC translation, GET-only route construction, rejection of unverified options, stable IDs, normalized workflow fields, malformed tRPC envelopes, optional legacy cursor validation, and optional legacy aggregate validation.
+- Updated bridge documentation to distinguish verified tRPC metadata from remaining unknowns and to prohibit further live endpoint probing during repository-only work.
+- Added a metadata-only authorized contract-capture template.
+- Added an aggregate-only plan for reconciling the 1,508 Contacts-page count with the 1,395 Dashboard count without accessing prospect values.
+- No live OutreachAI endpoint calls, production writes, outreach, deployments, credential changes, or prospect-value access were performed by ChatGPT during this follow-up.
+
+### Files changed in this follow-up
+
+- `bridge/outreachai_adapter.mjs`
+- `test/outreachai_adapter.test.mjs`
+- `bridge/fixtures/contacts-list-trpc.synthetic.json`
+- `bridge/README.md`
+- `bridge/AUTHENTICATED_CONTRACT_GAPS.md`
+- `bridge/fixtures/authorized-contract-capture.template.json`
+- `bridge/RECONCILIATION_PLAN.md`
+- `PROJECT_STATUS.md`
+
+### Validation performed by ChatGPT
+
+- `npm test` against the exact new adapter/test/fixture contents — passed: 10 tests, 0 failures.
+- `node --check bridge/outreachai_adapter.mjs` — passed.
+- `node --check test/outreachai_adapter.test.mjs` — passed.
+- Python probe compilation was not re-run in this ChatGPT follow-up because `bridge/scrape_outreach.py` was unchanged; Codex has been asked to run the full safe check set independently.
+
+### Remaining verified unknowns / genuine blocker
+
+Further live probing is intentionally stopped because the discovered tRPC route unexpectedly returned a production contact. The remaining live-contract details must come from an authorized metadata-only capture, not additional prospect-value inspection.
+
+Still unknown: tRPC input/filter schema, pagination semantics, stable-ID scope/type guarantees, complete pipeline/status value rules, rate-limit/cache/version metadata, tenant scoping, aggregate endpoints, and count/deduplication/lifecycle semantics needed to resolve the 1,508-vs-1,395 discrepancy.
+
+### Next safe action
+
+- Codex independently reviews the current PR head, reruns the safe test/syntax/compile checks, checks for secrets/private prospect data, and fixes any repository-only defects it finds.
+- Do not merge or deploy PR #14 without Michael's explicit approval.
+- Do not call the live OutreachAI endpoint again unless an authorized metadata-only capture procedure is explicitly approved.
+
+## Local CRM recovery — 2026-08-29
+
+### Completed work
+
+- Reconstructed a local staging checkout from the last complete application commit `e4c0b68a50b437f73df22a688ae004dd759671f2`.
+- Added the read-only OutreachAI adapter, synthetic fixtures, tests, and documentation from draft PR #14 at head `b05993d6fcc91eadbd48500410c2dddfca442fa6`.
+- Preserved the application and adapter together on local branch `codex/recover-gabriel-crm` without changing GitHub, Manus, OutreachAI, credentials, or production data.
+- Located and aggregate-validated the authoritative local master CSV at `C:\Users\miker\OneDrive\Desktop\Email Lists\master_crm_import_all_pipelines.csv`: 1,331 rows comprising 300 HVAC, 356 Bank, and 675 Former DAC records.
+- Did not copy the private master CSV into the repository and did not import, send, deploy, or contact any lead.
+
+### Files changed
+
+- Restored the prior static CRM application, public pages, assets, documentation, templates, Pages workflow, and tools.
+- Added the PR #14 bridge directory, package/test files, synthetic fixtures, `AGENTS.md`, `.gitignore`, and this status record.
+
+### Validation commands and exact results
+
+- Static HTML inventory — 12 HTML files recovered; 11 have valid doctype/title structure. `funnel/index.html` is a two-byte historical placeholder and remains intentionally nonfunctional pending product review.
+- JSON parse validation — passed for all three files under `bridge/fixtures/`.
+- Likely-secret pattern scan — 0 hits.
+- Master CSV aggregate validation — passed: 1,331 rows; HVAC 300, Bank 356, Former DAC 675.
+- `npm test` — not run because Node.js/npm is not installed on this host.
+- Python compile check — not run because Python is not installed on this host.
+- Browser smoke test — not run because the browser security policy blocks direct `file://` navigation and no approved local server runtime is installed.
+
+### Blockers and next actions
+
+- Install or provide an approved JavaScript runtime before relying on the 10-test adapter suite locally.
+- Review and smoke-test the restored static routes through an approved local server before deployment.
+- Keep the 1,331-record CSV outside source control; design and validate a staging-only import path before loading it.
+- Do not merge PR #14, deploy, or activate outreach without Michael's explicit approval.
+
+### Staging import preparation
+
+- Added `bridge/prepare_master_import.ps1` to validate the legacy master CSV schema and transform it into the restored command-center field structure.
+- Generated an ignored, local-only review file at `staging/master_crm_review.csv`; private contact rows remain outside source control.
+- Validation passed with 1,331 input rows and 1,331 output rows: Bank 356, Former DAC 675, HVAC 300.
+- All 1,331 staging rows are deliberately marked `doNotContact=yes` and `importReady=no` so this preparation cannot activate outreach.
+- Used Contact Name as the display record when Company is blank; four source rows lack both fields and are explicitly marked `identityReviewRequired=yes` with unique review placeholders.
+- No records were imported into browser storage, a hosted database, GitHub, or OutreachAI.
+
+### Final adapter test — 2026-08-29
+
+- Executed the complete 10-case adapter suite through the Codex-provided JavaScript runtime because system Node/npm is not installed.
+- Result: 10 passed, 0 failed.
+- Covered legacy fixture validation, tRPC translation, GET-only route construction, unsupported-option rejection, unique IDs, pipeline/stage validation, required tRPC fields, malformed envelopes, cursor validation, and aggregate-count validation.
+- No live CRM endpoint, private lead data, sending action, database write, deployment, or GitHub mutation was involved.
+
