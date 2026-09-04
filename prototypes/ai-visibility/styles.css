@@ -124,6 +124,7 @@ p { line-height: 1.65; }
 .bar-track { height: 10px; overflow: hidden; border-radius: 99px; background: #e6e8e2; }
 .bar-fill { height: 100%; border-radius: inherit; background: var(--green); }
 .bar-fill.competitor { background: var(--gold); }
+.bar-fill.other { background: #9ba6a2; }
 .bar-value { text-align: right; font-weight: 800; }
 
 .surface-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
@@ -146,6 +147,8 @@ p { line-height: 1.65; }
 
 .trend { position: relative; height: 210px; margin-top: 18px; border-bottom: 1px solid #ced6d2; border-left: 1px solid #ced6d2; }
 .trend svg { width: 100%; height: 100%; overflow: visible; }
+.trend svg line { stroke: #dfe4e1; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.trend-y { position: absolute; inset: 0 auto 0 -38px; display: flex; flex-direction: column; justify-content: space-between; color: var(--muted); font-size: 10px; }
 .trend-labels { display: flex; justify-content: space-between; margin-top: 8px; color: var(--muted); font-size: 11px; }
 .legend { display: flex; gap: 14px; margin-top: 16px; color: var(--muted); font-size: 12px; }
 .legend i { display: inline-block; width: 9px; height: 9px; margin-right: 5px; border-radius: 50%; background: var(--green); }
@@ -165,6 +168,8 @@ p { line-height: 1.65; }
 .hash { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 
 .spotlight-hero { display: grid; grid-template-columns: 1.1fr .9fr; overflow: hidden; border-radius: 24px; background: var(--ink); color: #fff; box-shadow: var(--shadow); }
+.spotlight-blocked { padding: 12px 18px; border-radius: 12px 12px 0 0; color: #6f2e22; background: #f5d8d1; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-align: center; }
+.spotlight-blocked + .spotlight-hero { border-radius: 0 0 24px 24px; }
 .spotlight-copy { padding: clamp(30px, 5vw, 62px); }
 .spotlight-copy h1 { font-size: clamp(38px, 5vw, 60px); }
 .spotlight-copy p { color: #c8d5d2; }
