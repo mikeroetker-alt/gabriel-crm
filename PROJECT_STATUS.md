@@ -143,6 +143,29 @@ The audit used the authenticated GitHub connector because this Codex environment
 - No blocker prevents Mike from reviewing the prototype.
 - After Mike reviews and approves the product screens, the next recommended step is to refine the prototype from his feedback and approve a separate implementation phase for CRM integration or the public marketing website. Do not launch, buy a provider, collect live observations, or activate outreach without separate approval.
 
+### Post-review integrity refinement and feasibility gate
+
+- Replaced percentage-first fixtures with stored numerator/denominator evidence and calculated display rates.
+- Clarified the Free Snapshot's eligible-response denominators versus total cross-surface observations.
+- Made dashboard surface and evidence records scenario-specific so provider outages cannot show positive-scenario evidence.
+- Added first-class source/citation metrics.
+- Added a labeled trend scale and explicit client/competitor/other bar roles.
+- Changed the unresolved service area to `Pending verification` and made the synthetic Spotlight visibly unpublished and blocked.
+- Added invariant tests for fraction storage, scenario ownership, visual roles, and fail-closed unresolved facts.
+- Added `docs/AI_VISIBILITY_FEASIBILITY_PLAN.md` with an exact source map, fixed measurement design, public list-price cost bounds at 10/25/50/100 clients, automation targets, exception handling, vendor trial questions, and precommitted failure criteria.
+- Current research identifies OtterlyAI as the first provider candidate, not an approved purchase. Prompt-sharing semantics and API evidence fields remain unverified gates.
+- Google/Bing AI property reporting and Cloudflare first-party analytics remain secondary sources for GIG-controlled properties, not substitutes for cross-surface observation.
+
+Validation after refinement:
+
+- Node test runner — passed: 20 tests, 0 failed.
+- `git diff --check` — passed.
+- Browser regression — blocked/provider-unavailable scenario showed only scenario-specific unavailable evidence; positive evidence was absent.
+- Fail-closed Spotlight regression — passed: visible publishing-blocked state and `Pending verification` service area.
+- Browser console — no errors or warnings.
+
+Next gate: Mike reviews the corrected prototype and feasibility plan. No real-business study, provider purchase, live data collection, outreach, or public website is authorized yet.
+
 ## OutreachAI read-adapter follow-up — 2026-08-14
 
 ### Completed work
