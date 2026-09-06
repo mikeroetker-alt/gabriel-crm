@@ -1,5 +1,11 @@
 # AI Visibility measurement and economics feasibility plan
 
+> **2026-09-06 update:** See [provider validation packet](AI_VISIBILITY_PROVIDER_VALIDATION.md).
+> Official documentation now confirms saved-prompt reuse across brand reports
+> and documents raw-response API fields. Cross-workspace reuse, actual behavior,
+> full capture environment and commercial evidence rights remain unverified.
+> Historical estimates below are preserved; no provider or study is approved.
+
 **Status:** design only; no purchase, credential request, live-business collection, outreach, or public publishing authorized  
 **Prepared:** 2026-09-03  
 **Decision gate:** approve, revise, or abandon a private 5–10-business feasibility study only after reviewing this plan
