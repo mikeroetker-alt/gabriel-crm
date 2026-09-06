@@ -2,6 +2,39 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+## Latest session — AI Visibility validation, 2026-09-06
+
+- Continued at Mike's request in an isolated checkout of PR #23, head `5ac57a9`;
+  branch `codex/ai-visibility-validation`. PR #23 is open and unmerged. Reviewed
+  Issue #22, open issue inventory, current PR discussion (empty), instructions,
+  status, feasibility/data contracts and recent commits.
+- Confirmed from official documentation: saved prompts can feed multiple brand
+  reports without extra slots; public API documents raw response/run/citation
+  fields; manual raw exports are documented. These are documentation findings,
+  not measured trial results or approval of a provider.
+- Added `docs/AI_VISIBILITY_PROVIDER_VALIDATION.md` with sources, remaining gates,
+  first-client cost implications, request-budget arithmetic and a concrete
+  synthetic-only sandbox experiment. Linked it from the original feasibility
+  plan while preserving the original thresholds and historical assumptions.
+- Added offline `prototypes/ai-visibility/feasibility.mjs` and seven tests in
+  `test/ai_visibility_feasibility.test.mjs`. Missing/invalid values do not pass;
+  failures remain no-go; successful checks request review and grant no authority.
+- Validation in this checkout: Node executable
+  `C:/Users/miker/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe`
+  with `--test` — baseline 16 passed, final 23 passed, 0 failed.
+  `git diff --check` — passed. No build/lint/type-check scripts are configured.
+  Browser checks were not repeated because report UI and styles were unchanged.
+- The historical 20-test statement refers to a different local tree: the live
+  PR has ten visibility fixture tests and six bridge tests. No existing tests
+  were removed in this session.
+- No vendor contact, account signup, provider runtime call, real-business study,
+  payment, deployment, publishing, outreach or production CRM change occurred.
+- Remaining: verify sandbox access, actual payload completeness, capture
+  environment, cross-workspace behavior and commercial retention/report rights.
+  Do not interpret documentary progress as study or launch authorization.
+- Next: obtain a permitted no-cost sample/sandbox and review the resulting packet
+  before requesting a private real-data study. Preserve CRM/remediation safeguards.
+
 ## Working rules
 
 1. Read this file, `AGENTS.md`, recent commits, and the relevant GitHub issue before starting work.
