@@ -2,6 +2,18 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+## Latest session — two-day pilot sprint, 2026-09-08
+
+- Mike authorized immediate work toward a reviewable pilot workflow within two focused days. Outreach, billing, public publishing, provider purchase, and production CRM changes remain disabled pending their existing approval and acceptance gates.
+- Sent one authorized follow-up in the existing Otterly technical-evaluation email thread. It requests answers on shared observations, evidence/failure metadata, paid-client reporting and retention rights, and a no-cost sample or trial extension. No billing or purchase was authorized.
+- Added `config/model-routing.mjs`: provider-flexible routing by role capability, validation status, quality, budget, fallback provider, and optional independent critic. Outcomes record provider, model, cost, latency, and acceptance result; source does not permanently bind model vendors or prices.
+- Added `pilot/workflow.mjs`: fail-closed business verification, fact approval, evidence import, report review, Mike approval, and delivery states. Separate outreach eligibility requires verified email, named decision-maker, HTTPS source evidence, current unsuppressed state, no open exception, and Mike-specific approval.
+- Added `pilot/otterly-import.mjs` and `tools/import-otterly-export.mjs`: manual JSON normalization without an API key, preserving nulls and row hashes, distinguishing prompted mentions, and marking unavailable run/location/model metadata. The supplied four-row fictional export normalized successfully; all four mentions were prompted and all four lack required audit metadata, so it remains ineligible for headline reporting.
+- Added `tools/prepare-hvac-pilot.ps1`. It selected a private, ignored 20-row review cohort from 300 HVAC records and 49 unique valid-format email candidates. All 20 have contact name, company and phone; none has an HTTPS website/source in the master file, zero emails are deliverability-verified, and zero are outreach-ready. Private rows remain under ignored `private-pilot/` and were not printed, committed, imported, or sent.
+- Added `docs/PILOT_OPERATIONS.md`; ignored `staging/` and `private-pilot/`; added an Otterly import package script; and added seven synthetic tests in `test/pilot_workflow.test.mjs`.
+- Validation: bundled Node `--test` passed 30 tests, 0 failed; Node syntax checks passed for all `.mjs` files under config/pilot/tools/test; PowerShell parser passed for the HVAC preparation script; `git diff --check` passed. The current tests are offline/synthetic and do not establish production CRM, AgentMail, provider, or outreach readiness.
+- Next: research source URLs and decision-maker/business validity for the private 20-row cohort without sending; choose an approved email-verification mechanism; reconcile the current Manus checkpoint against Issue #20 controls; connect normalized observations and pilot states to a staging-only UI; then present the complete cohort/messages/workflow to Mike for approval.
+
 ## Latest session — AI Visibility validation, 2026-09-06
 
 - Continued at Mike's request in an isolated checkout of PR #23, head `5ac57a9`;
@@ -325,4 +337,5 @@ Still unknown: tRPC input/filter schema, pagination semantics, stable-ID scope/t
 - Result: 10 passed, 0 failed.
 - Covered legacy fixture validation, tRPC translation, GET-only route construction, unsupported-option rejection, unique IDs, pipeline/stage validation, required tRPC fields, malformed envelopes, cursor validation, and aggregate-count validation.
 - No live CRM endpoint, private lead data, sending action, database write, deployment, or GitHub mutation was involved.
+
 
