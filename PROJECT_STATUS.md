@@ -13,6 +13,8 @@ This file is the shared handoff point between ChatGPT and Codex.
 - Added `docs/PILOT_OPERATIONS.md`; ignored `staging/` and `private-pilot/`; added an Otterly import package script; and added seven synthetic tests in `test/pilot_workflow.test.mjs`.
 - Validation: bundled Node `--test` passed 30 tests, 0 failed; Node syntax checks passed for all `.mjs` files under config/pilot/tools/test; PowerShell parser passed for the HVAC preparation script; `git diff --check` passed. The current tests are offline/synthetic and do not establish production CRM, AgentMail, provider, or outreach readiness.
 - Next: research source URLs and decision-maker/business validity for the private 20-row cohort without sending; choose an approved email-verification mechanism; reconcile the current Manus checkpoint against Issue #20 controls; connect normalized observations and pilot states to a staging-only UI; then present the complete cohort/messages/workflow to Mike for approval.
+- Public-source research now confirms business evidence for 18 of the 20 private HVAC candidates; two remain blocked as ambiguous. The evidence manifest is stored only under ignored `private-pilot/`. No address has been treated as deliverability-verified and no outreach was sent.
+- Added provider-neutral outreach copy renderers and tests for the initial Snapshot message, follow-up, and proposed-service invitation. Every rendered message requires a private Snapshot URL and unsubscribe URL and includes sampling/outcome limitations. These templates have no delivery integration.
 
 ## Latest session — AI Visibility validation, 2026-09-06
 
