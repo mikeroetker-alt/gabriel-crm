@@ -18,6 +18,10 @@ Candidate models and prices belong in runtime configuration after current availa
 
 The first planned outreach cohort remains M1-B1-20: twenty prospects. Inventory review on September 8 found 300 HVAC rows in the private master CSV, 49 with unique syntactically valid emails, and no roofing rows. Syntax is not deliverability verification. Selection requires a named decision-maker, source URL, verified email, current suppression check, no open exception, and Mike-specific approval. `outreachEligibility` represents these fail-closed gates.
 
+Public-source qualification confirmed current business evidence for 18 of the 20 private candidates. Two remain ambiguous. None yet has a deliverability-verified email, a confirmed named decision-maker recorded in the cohort, or a Mike approval reference, so none is outreach-ready. Evidence URLs and private prospect details remain in the ignored `private-pilot/` directory.
+
+`pilot/outreach-copy.mjs` contains the staged initial message, follow-up, and service invitation. Rendering requires a private snapshot URL and unsubscribe URL. The messages identify the result as a sampled measurement, avoid outcome promises, and remain disconnected from all delivery systems.
+
 Private contact rows and generated cohort files belong under ignored `staging/` or `private-pilot/` paths and must never be committed. Release in a five-recipient canary followed by fifteen only after AgentMail traceability and stop/suppression behavior are verified. No sending is authorized by this document.
 
 ## Still external
