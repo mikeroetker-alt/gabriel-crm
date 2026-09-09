@@ -2,6 +2,15 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+## Email evidence recovery — 2026-09-09
+
+- Observed: Otterly trial-confirmation email dated September 6; provider email advertises up to 50 trial prompts. This is dated account correspondence, not a fresh dashboard capacity check.
+- Observed: September 6 provider-generated report notification for the fictional synthetic validation brand. Its example prompt explicitly names the fictional brand and asks about unverifiable certifications. Notification metrics cannot be used as unprompted market visibility, recommendations or real-client results; raw export and capture metadata still need inspection.
+- Observed: technical clarification messages were sent September 4 and September 8. Exact-subject search returned those two sent messages and no reply. No matching checkpoint 5fff75d7 or codex_issue20 package was recovered in the targeted September email search. Search absence does not establish that no package exists elsewhere.
+- Unresolved: shared observations across brand workspaces, run/failure metadata, paid-report reuse and post-cancellation retention rights, raw export contents, actual trial expiry. September 8 follow-up estimated expiry around September 13; this is not a provider-confirmed deadline.
+- Next actionable provider input: authenticated access to the existing synthetic trial report and its raw export, followed by the outstanding written provider clarification. Do not create another trial or run prospect measurements to replace this evidence.
+- No email sent, paid plan activated, private data exported or production system changed. This session changed documentation only; no additional tests were needed. Existing staging suite last passed 40 tests.
+
 ## Latest session — CRM evidence review and staging guards, 2026-09-09
 
 - Reviewed current GitHub Issues #20/#22, Issue #22 comments, recently updated PRs, and the historical `crm-audit-c4739219` source-excerpt branch. Issue #20 remains open and last updated September 3; Issue #22 records the later CRM-use GO claim at checkpoint `5fff75d7`. Neither the inspected source branch nor the recent PR inventory supplies the implementation/acceptance package for that checkpoint. Current live CRM acceptance remains unresolved, not a newly established failure.
