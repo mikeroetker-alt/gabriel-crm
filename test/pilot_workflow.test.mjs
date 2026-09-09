@@ -57,6 +57,17 @@ test("outreach requires verification, evidence, suppression check and Mike appro
   assert.equal(outreachEligibility({ ...prospect, mikeApprovalRef: "" }).eligible, false);
 });
 
+test("outreach blocks unknown or malformed exception status", () => {
+  const prospect = { emailVerification: "verified", decisionMaker: "Synthetic Owner",
+    sourceUrl: "https://example.invalid/source", suppressed: false,
+    mikeApprovalRef: "SYNTHETIC-APPROVAL" };
+  assert.equal(outreachEligibility(prospect).eligible, false);
+  for (const openException of [undefined, null, true, "false", "true", 0, 1, ""]) {
+    assert.equal(outreachEligibility({ ...prospect, openException }).eligible, false);
+  }
+  assert.equal(outreachEligibility({ ...prospect, openException: false }).eligible, true);
+});
+
 test("manual export preserves nulls and labels prompted mentions", () => {
   const rows = normalizeOtterlyExport([{ response_id: "R1", prompt: "Compare Demo Brand",
     engine: "chatgpt", timestamp: "2026-09-06T12:00:00Z", response_text: "Demo Brand appears.",

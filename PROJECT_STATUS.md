@@ -341,3 +341,16 @@ Still unknown: tRPC input/filter schema, pagination semantics, stable-ID scope/t
 - No live CRM endpoint, private lead data, sending action, database write, deployment, or GitHub mutation was involved.
 
 
+
+
+## Codex execution resumed — 2026-09-09
+
+Mike selected this Codex session as execution owner. Preserved the existing pilot branch, cohort, offer, Manus CRM and completed website edits.
+
+Fixed a staging eligibility defect: missing/null/malformed openException values previously passed the no-open-exception gate. Outreach eligibility now requires explicit boolean false. Added regression coverage for missing, null, string, numeric and active-exception states plus an explicit-clear positive control. This does not establish freshness of CRM evidence or production readiness.
+
+Validation: `node --test` passed 35 tests, zero failures. `npm test` could not start because its network approval was cancelled; ran its exact underlying Node test command without network. `git diff --check` passed.
+
+Recovery: cloned existing validation branch at 21bc7d0. No cohort/Hunter files appeared in reachable Git filename history; exact saved-file search returned no originals. This does not establish where ignored files exist. Issue #20 comments retain historical incomplete-remediation findings; later checkpoint 5fff75d7 CRM-use GO remains recorded, not independently reconciled here.
+
+Next: obtain original ignored cohort files from the prior execution environment, reconcile dated email results, and obtain current Manus checkpoint acceptance evidence. Do not substitute candidates, infer current readiness from historical counts, or call live contact endpoints. No sends, deployments, production writes or purchases performed.

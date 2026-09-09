@@ -47,7 +47,7 @@ export function outreachEligibility(prospect) {
     namedDecisionMaker: typeof prospect.decisionMaker === "string" && prospect.decisionMaker.trim() !== "",
     sourceUrl: /^https:\/\//.test(prospect.sourceUrl ?? ""),
     unsuppressed: prospect.suppressed === false,
-    noOpenException: prospect.openException !== true,
+    noOpenException: prospect.openException === false,
     mikeApproved: typeof prospect.mikeApprovalRef === "string" && prospect.mikeApprovalRef.trim() !== "",
   };
   return { eligible: Object.values(checks).every(Boolean), checks };
