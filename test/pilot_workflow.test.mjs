@@ -70,3 +70,25 @@ test("manual export preserves nulls and labels prompted mentions", () => {
   assert.equal(manifest.missingAuditMetadataCount, 1);
 });
 
+
+test("unknown exception state blocks advancement and outreach", () => {
+  for (const openException of [undefined, null, "false", 0]) {
+    assert.equal(advancePilot({ state: "requested", openException }, "business_verified",
+      { businessVerificationRef: "SYNTHETIC" }).blockReason, "OPEN_EXCEPTION");
+    assert.equal(outreachEligibility({ emailVerification: "verified", decisionMaker: "Synthetic Owner",
+      sourceUrl: "https://example.invalid/source", suppressed: false, openException,
+      mikeApprovalRef: "SYNTHETIC" }).eligible, false);
+  }
+  assert.equal(advancePilot({ state: "requested" }, "cancelled").state, "cancelled");
+});
+
+test("confirmations require true and evidence references require text", () => {
+  for (const headlineTraceabilityConfirmed of [false, "false", "true", 1]) {
+    assert.equal(advancePilot({ state: "evidence_imported", openException: false }, "report_ready",
+      { reportRef: "SYNTHETIC", headlineTraceabilityConfirmed }).blockReason, "MISSING_EVIDENCE");
+  }
+  assert.equal(advancePilot({ state: "requested", openException: false }, "business_verified",
+    { businessVerificationRef: true }).blockReason, "MISSING_EVIDENCE");
+  assert.equal(advancePilot({ state: "mike_approved", openException: false }, "delivery_ready",
+    { recipientConfirmed: "false", deliveryDisclosureVersion: "SYNTHETIC" }).blockReason, "MISSING_EVIDENCE");
+});
