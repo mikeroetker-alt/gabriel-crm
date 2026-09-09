@@ -30,10 +30,12 @@ export function advancePilot(record, nextState, evidence = {}) {
   if (!transitions[record.state].includes(nextState)) {
     return { ...record, blocked: true, blockReason: "INVALID_TRANSITION" };
   }
-  const missing = (requirements[nextState] ?? []).filter(key => evidence[key] !== true
-    && !(typeof evidence[key] === "string" && evidence[key].trim()));
+  const booleanRequirements = new Set(["headlineTraceabilityConfirmed", "recipientConfirmed"]);
+  const missing = (requirements[nextState] ?? []).filter(key => booleanRequirements.has(key)
+    ? evidence[key] !== true
+    : !(typeof evidence[key] === "string" && evidence[key].trim()));
   if (missing.length) return { ...record, blocked: true, blockReason: "MISSING_EVIDENCE", missing };
-  if (record.openException === true && nextState !== "cancelled") {
+  if (record.openException !== false && nextState !== "cancelled") {
     return { ...record, blocked: true, blockReason: "OPEN_EXCEPTION" };
   }
   return { ...record, ...evidence, state: nextState, blocked: false, blockReason: null,
@@ -47,9 +49,8 @@ export function outreachEligibility(prospect) {
     namedDecisionMaker: typeof prospect.decisionMaker === "string" && prospect.decisionMaker.trim() !== "",
     sourceUrl: /^https:\/\//.test(prospect.sourceUrl ?? ""),
     unsuppressed: prospect.suppressed === false,
-    noOpenException: prospect.openException !== true,
+    noOpenException: prospect.openException === false,
     mikeApproved: typeof prospect.mikeApprovalRef === "string" && prospect.mikeApprovalRef.trim() !== "",
   };
   return { eligible: Object.values(checks).every(Boolean), checks };
 }
-
