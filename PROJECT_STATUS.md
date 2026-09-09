@@ -2,6 +2,16 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+## Latest session — CRM evidence review and staging guards, 2026-09-09
+
+- Reviewed current GitHub Issues #20/#22, Issue #22 comments, recently updated PRs, and the historical `crm-audit-c4739219` source-excerpt branch. Issue #20 remains open and last updated September 3; Issue #22 records the later CRM-use GO claim at checkpoint `5fff75d7`. Neither the inspected source branch nor the recent PR inventory supplies the implementation/acceptance package for that checkpoint. Current live CRM acceptance remains unresolved, not a newly established failure.
+- Historical excerpts at `audit/c4739219/CRITICAL_CONTROL_EVIDENCE.md` show failed-event replay suppression and a mutating unsubscribe GET at the older checkpoint. Do not infer those defects persist in 5fff75d7, or patch a replacement CRM from excerpts.
+- Fixed concrete defects in the available staging workflow: confirmation flags require boolean true; references require nonempty text; missing/malformed exception status blocks advancement; only evidence required for the current transition is copied, preserving identity/suppression and preventing injected later approvals. Cancellation remains possible while blocked. Successful progress clears stale missing-field diagnostics.
+- Files changed: `pilot/workflow.mjs`, `test/pilot_workflow.test.mjs`, `PROJECT_STATUS.md`.
+- Validation: `node --test` — 40 passed, 0 failed, including malformed confirmations, unknown exception state, evidence-field injection, malformed/inherited payloads and a complete synthetic lifecycle. `git diff --check` passed. These tests do not establish live CRM identity enforcement, delivery, webhook concurrency or approval authenticity.
+- Smallest remaining CRM handoff: sanitized source/export for checkpoint 5fff75d7 (or the current successor), with source-to-deployment provenance, scenario-level AT-06/09/11/13/14 results, and AT-01 backup/rollback/migration/reconciliation evidence. No credentials or contacts needed. Recover original private cohort separately; do not rebuild it.
+- No live CRM calls, production writes, sends, purchases, website edits or deployment. Existing FREE Snapshot to $197/month offer preserved.
+
 ## Latest session — two-day pilot sprint, 2026-09-08
 
 - Mike authorized immediate work toward a reviewable pilot workflow within two focused days. Outreach, billing, public publishing, provider purchase, and production CRM changes remain disabled pending their existing approval and acceptance gates.
