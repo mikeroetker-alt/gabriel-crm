@@ -2,6 +2,13 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+## Pilot gate correction — 2026-09-09
+
+- Checked Otterly mail since September 7: returned marketing/automated updates, no technical response found. Issue #20 latest discussion still records AT-06/09/11/13/14 as FAIL/partial and AT-01 as not verifiable. PR #24 remains draft and unmerged.
+- Fixed staging workflow checks: unknown exception status now blocks advancement and outreach; confirmations require boolean true; evidence references require nonempty text. Cancellation remains available.
+- Corrected qualification interpretation: a populated contact-name field does not establish a named decision-maker; none of the 20 candidates is yet outreach-ready.
+- Validation: bundled Node --test passed 36 tests, 0 failed; git diff --check passed. Files changed: pilot/workflow.mjs, test/pilot_workflow.test.mjs, PROJECT_STATUS.md. No UI changes or production integration.
+- Next: establish the approved sender mailbox, verify candidate emails and decision-makers, obtain the Otterly technical evidence and Manus acceptance bundle. Existing CRM controls must pass; manual sending is not a bypass.
 ## Latest session — two-day pilot sprint, 2026-09-08
 
 - Mike authorized immediate work toward a reviewable pilot workflow within two focused days. Outreach, billing, public publishing, provider purchase, and production CRM changes remain disabled pending their existing approval and acceptance gates.
@@ -339,5 +346,4 @@ Still unknown: tRPC input/filter schema, pagination semantics, stable-ID scope/t
 - Result: 10 passed, 0 failed.
 - Covered legacy fixture validation, tRPC translation, GET-only route construction, unsupported-option rejection, unique IDs, pipeline/stage validation, required tRPC fields, malformed envelopes, cursor validation, and aggregate-count validation.
 - No live CRM endpoint, private lead data, sending action, database write, deployment, or GitHub mutation was involved.
-
 
