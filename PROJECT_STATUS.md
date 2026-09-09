@@ -2,6 +2,17 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+## Pilot evidence reconciled — 2026-09-09
+
+- Preserved the original 20-candidate cohort. Public business evidence supports 18; Hunter results reconcile all 20 by candidate ID and normalized email: 11 valid, 7 accept-all, 2 invalid. Twelve leadership roles have supporting sources; seven combine business evidence, leadership evidence and valid email. Five selected for review; none is approved to send.
+- Confirmed the existing sender mailbox. The approved mailbox-to-Gmail test arrived in Inbox with SPF, DKIM and DMARC passing; the matching Gmail reply arrived back in the sender mailbox. This establishes only that tested mailbox route, not CRM/AgentMail delivery or general deliverability.
+- Private verification exports, recipient selections, and test evidence remain in ignored private-pilot/. No private prospect records or credentials are included here.
+- CRM campaign list is empty. The inspected creation form exposed no sender configuration or integration-test control; cancelled without saving. Outstanding Issue #20 acceptance evidence still prevents declaring the production workflow ready.
+- Reviewed locally available audit-package filenames: the known September 2–3 packages are present; no newer package was identified by that filename search. This is not proof no newer deployment exists.
+- Prepared a private Manus evidence request covering current deployment provenance, AT-01/06/09/11/13/14 and a controlled send/reply/bounce/unsubscribe test procedure. Request has not been sent.
+- Validation this session: read-only artifact and Issue #20 review; no code changes, so no new test run. Previous 36 passing offline tests do not establish live integration acceptance.
+- Next dependency: obtain current Manus source/evidence and documented non-production email test procedure. Otterly technical/reporting evidence and actual dated Snapshot observations also remain unresolved. No prospect outreach, production mutation, merge or deployment occurred.
+
 ## Pilot gate correction — 2026-09-09
 
 - Checked Otterly mail since September 7: returned marketing/automated updates, no technical response found. Issue #20 latest discussion still records AT-06/09/11/13/14 as FAIL/partial and AT-01 as not verifiable. PR #24 remains draft and unmerged.
