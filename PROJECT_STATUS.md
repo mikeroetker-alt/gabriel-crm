@@ -2,6 +2,16 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+## Preservation and staging handoff — 2026-09-10
+
+- Latest Manus-reported staging fixes accepted a real signed inbound event and associated the test contact. Inbound-only contacts remain Not Started by design. Subsequent single outbound provider attempt returned 403 with no message ID; Dispatch Uncertain, no automatic retry, both gates disabled. Production unchanged.
+- Current scoped key was webhook-only; resolve minimal send permission and reconcile the failed attempt before any controlled retry. No prospect outreach approved.
+- Otterly trial likely ends September 13 based on September 6 confirmation; exact expiration unconfirmed. Direct follow-up sent September 10 requesting technical answers and no-cost extension. Real evidence and reporting rights remain unresolved.
+- Preserved a local detailed retrieval handoff, private verification assets, source/evidence archives and Git history bundle. Private records and credentials are not included in this public status.
+- Latest hosted sender-parsing fix still needs a fresh sanitized source export and deployed commit reference. Live databases and hosted secrets are not independently backed up. Do not equate a deployment URL with a backup.
+- Priorities: finish staging send/reply; complete time-sensitive Otterly evaluation; prepare first five prospect reports/messages for review. Preserve completed 18/20 business identity checks (distinct from 11 valid, 7 accept-all, 2 invalid email results).
+- Documentation/preservation only; no application code changed or runtime tests rerun. Local preservation process verifies ZIP CRC and SHA-256 per archived file.
+
 ## Pilot evidence reconciled — 2026-09-09
 
 - Preserved the original 20-candidate cohort. Public business evidence supports 18; Hunter results reconcile all 20 by candidate ID and normalized email: 11 valid, 7 accept-all, 2 invalid. Twelve leadership roles have supporting sources; seven combine business evidence, leadership evidence and valid email. Five selected for review; none is approved to send.
