@@ -100,3 +100,42 @@ Validate the sandbox payload against the documented schema once accessible,
 then implement normalization only after evidence/environment/rights decisions.
 The existing Snapshot, Dashboard, ledger and Spotlight remain reusable.
 No UI rebuild or production CRM connection is needed for this gate.
+
+
+## Trial deadline and fallback execution — 2026-09-11
+
+The September 6 confirmation implies a likely September 13 expiry; the exact account timestamp remains unverified. Gmail checked September 11: no new technical answer since the September 10 follow-up requesting an extension. Do not treat the marketing check-in as an answer.
+
+The [current trial policy](https://help.otterly.ai/cancel-free-trial) says the standard seven-day no-card trial ends automatically without a charge. This is not an independent check of the account's subscription or billing settings. No paid plan is approved. The [trial allowance](https://help.otterly.ai/free-trial) currently includes 50 prompts and 1,000 API calls.
+
+### Preserve before expiry
+
+Once the existing session responds, export the existing study; do not recreate it or spend prompt slots on duplicates. Inventory report IDs, prompt IDs/text, country, active date window, engines, and account counters first. Use the [documented export controls](https://help.otterly.ai/can-i-export-my-data-and-reports): raw responses as JSON from Prompt Detail → Responses → Export; prompt CSV; full citation CSV; report overview PDF. Keep raw originals private, hash them, and normalize copies. Exporting a PDF alone does not preserve the underlying evidence.
+
+Record a row for each planned prompt × engine × capture date. Preserve failed, pending, missing-overview and unavailable cells. Check pagination, duplicate run IDs, exact answer text and linked citations. A missing response is not zero brand visibility. Do not infer city-localized capture from a city name in a prompt. Keep prompted brand mentions separate from unprompted discovery results. Require raw evidence before producing five prospect-specific findings.
+
+### Decision boundaries
+
+| Situation | Next action | What cannot be claimed |
+|---|---|---|
+| Trial still active and existing exports available | Preserve and validate exports; complete counter/run-ID comparison within remaining free allowance | Account access alone does not prove reporting quality or rights |
+| Extension granted in writing at no cost | Continue the same measured experiment, preserving the original baseline | Extension is not provider acceptance |
+| Trial expires before validation | Do not buy a plan merely to retain momentum; retain permitted evidence and request access/export clarification in the existing thread | No completed Otterly validation |
+| Partial usable observations | Prepare explicitly dated, narrow internal reviews with unavailable fields visible | No comprehensive market ranking, historical trend, or causality claim |
+| No usable observations | Finish verified business facts, report structure, review copy and CRM controls; leave AI findings unavailable | No invented scores, visibility deficiencies or competitor advantages |
+| Alternative provider considered | Apply the existing evidence, rights, cost and failure gates before any subscription | Another vendor is not automatically a validated replacement |
+
+### First-five review handoff
+
+Retain the existing private selection and verified source manifest. For each candidate, assemble: approved business facts with URLs; exact prompt/engine/date; answer and citation evidence; denominator and exclusions; limited findings; proposed next action; and a private report link. A draft remains not-sendable until evidence and owner approval are recorded, current suppression is checked and the CRM acceptance gates pass. Do not recast unmeasured AI claims as facts simply to finish outreach copy.
+
+### Completion criteria for provider selection
+
+1. Actual retained response/export evidence passes the existing normalizer and coverage criteria.
+2. Shared prompt use is measured with before/after counters and stable identifiers, not inferred solely from documentation.
+3. Failed/absent observations remain explicit and do not inflate success rates.
+4. Capture geography and unavailable model/session metadata are disclosed.
+5. Paid-client reporting and post-trial retention questions have a supported answer.
+6. First-client economics meet the original thresholds using actual expected consumption.
+
+Until all six are resolved, status remains **incomplete**, and payment and prospect outreach remain unapproved. This September 11 addition is an operational plan and source recheck, not a completed trial experiment.
