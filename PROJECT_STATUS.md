@@ -2,6 +2,17 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+## Autonomous staging completion — 2026-09-11
+
+- Created the approved inbox-only read/send credential and stored it separately in staging. Existing webhook credentials retained. Read-only provider reconciliation found no duplicate and restored the prior uncertain test item to Approved.
+- Published the existing staging origin through the authenticated project UI; publication success was shown with no new purchase or upgrade prompt. One guarded CRM test send was provider-confirmed. Independently verified Gmail Inbox delivery and SPF/DKIM/DMARC pass, then sent one test reply.
+- Manus verified the real signed reply: processed in one attempt, one idempotent reply activity, same provider thread, contact Sent to Replied, classification queued once. Exactly one outbound item remains Sent; both dispatch gates disabled. No prospect outreach or production changes.
+- Manus produced a sanitized verified-reply source export at checkpoint 2da88c27 with a reported 177-file manifest. The latest archive has not yet been independently downloaded/hash-verified; do not claim a complete off-device backup. The prior f83dcbc1 source-only export is also available in the staging task.
+- Accessed the existing Otterly account: trial banner says 2 days remaining. Existing synthetic studies and 18-prompt inventory are present; no new technical email response found. Raw response export completion, shared-run validation, rights and final provider acceptance remain unresolved. No paid plan activated.
+- Added trial export/fallback instructions to docs/AI_VISIBILITY_PROVIDER_VALIDATION.md. Fixed pilot/otterly-import.mjs so duplicate provider observations cannot inflate sample size and failed/pending/missing capture metadata cannot pass headline readiness. Added five regression tests.
+- Local verification: bundled Node --test passed 41/41, zero failures; git diff --check passed. These are local pilot tests, separate from Manus-reported 23/23 CRM acceptance tests. Code and tests committed through the GitHub connector on the existing validation branch; no merge/deployment of this pilot code.
+- Next: independently preserve latest staging ZIP/checksum, finish Otterly raw evidence/rights validation and first-five internal report packets. Classification execution and production rollout remain outstanding; successful staging round trip alone does not authorize prospect sending.
+
 ## Preservation and staging handoff — 2026-09-10
 
 - Latest Manus-reported staging fixes accepted a real signed inbound event and associated the test contact. Inbound-only contacts remain Not Started by design. Subsequent single outbound provider attempt returned 403 with no message ID; Dispatch Uncertain, no automatic retry, both gates disabled. Production unchanged.
