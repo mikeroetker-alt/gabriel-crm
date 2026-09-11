@@ -35,7 +35,14 @@ export function normalizeOtterlyExport(input, { mainBrand } = {}) {
 
 export function createEvidenceManifest(observations) {
   if (!Array.isArray(observations) || observations.length === 0) throw new TypeError("Observations required");
-  const uniqueRows = new Set(observations.map(row => `${row.rawHash}:${row.sourceRow}`));
+  const uniqueRows = new Set(observations.map(row => {
+    if (!row || typeof row.providerResponseRef !== "string" || !row.providerResponseRef.trim()
+      || typeof row.engine !== "string" || !row.engine.trim()
+      || typeof row.rawHash !== "string" || !/^[a-f0-9]{64}$/.test(row.rawHash)) {
+      throw new TypeError("Observation identity and raw hash required");
+    }
+    return JSON.stringify([row.source, row.engine, row.providerResponseRef]);
+  }));
   if (uniqueRows.size !== observations.length) throw new Error("Duplicate observation row");
   return {
     schemaVersion: "1.0", observationCount: observations.length,
@@ -45,7 +52,9 @@ export function createEvidenceManifest(observations) {
     missingAuditMetadataCount: observations.filter(row => row.runState === "unavailable-in-export"
       || !row.effectiveLocation || !row.modelVersion).length,
     readyForHeadlineReporting: observations.every(row => row.reviewStatus === "approved")
-      && observations.every(row => row.runState !== "unavailable-in-export"),
+      && observations.every(row => row.runState === "completed"
+        && typeof row.response === "string" && row.response.trim()
+        && typeof row.effectiveLocation === "string" && row.effectiveLocation.trim()
+        && typeof row.modelVersion === "string" && row.modelVersion.trim()),
   };
 }
-
