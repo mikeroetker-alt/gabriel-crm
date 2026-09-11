@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "import:otterly": "node tools/import-otterly-export.mjs"
   }
 }
+

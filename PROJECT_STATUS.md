@@ -2,6 +2,92 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+## Autonomous staging completion — 2026-09-11
+
+- Created the approved inbox-only read/send credential and stored it separately in staging. Existing webhook credentials retained. Read-only provider reconciliation found no duplicate and restored the prior uncertain test item to Approved.
+- Published the existing staging origin through the authenticated project UI; publication success was shown with no new purchase or upgrade prompt. One guarded CRM test send was provider-confirmed. Independently verified Gmail Inbox delivery and SPF/DKIM/DMARC pass, then sent one test reply.
+- Manus verified the real signed reply: processed in one attempt, one idempotent reply activity, same provider thread, contact Sent to Replied, classification queued once. Exactly one outbound item remains Sent; both dispatch gates disabled. No prospect outreach or production changes.
+- Manus produced a sanitized verified-reply source export at checkpoint 2da88c27 with a reported 177-file manifest. The latest archive has not yet been independently downloaded/hash-verified; do not claim a complete off-device backup. The prior f83dcbc1 source-only export is also available in the staging task.
+- Accessed the existing Otterly account: trial banner says 2 days remaining. Existing synthetic studies and 18-prompt inventory are present; no new technical email response found. Raw response export completion, shared-run validation, rights and final provider acceptance remain unresolved. No paid plan activated.
+- Added trial export/fallback instructions to docs/AI_VISIBILITY_PROVIDER_VALIDATION.md. Fixed pilot/otterly-import.mjs so duplicate provider observations cannot inflate sample size and failed/pending/missing capture metadata cannot pass headline readiness. Added five regression tests.
+- Local verification: bundled Node --test passed 41/41, zero failures; git diff --check passed. These are local pilot tests, separate from Manus-reported 23/23 CRM acceptance tests. Code and tests committed through the GitHub connector on the existing validation branch; no merge/deployment of this pilot code.
+- Next: independently preserve latest staging ZIP/checksum, finish Otterly raw evidence/rights validation and first-five internal report packets. Classification execution and production rollout remain outstanding; successful staging round trip alone does not authorize prospect sending.
+
+## Preservation and staging handoff — 2026-09-10
+
+- Latest Manus-reported staging fixes accepted a real signed inbound event and associated the test contact. Inbound-only contacts remain Not Started by design. Subsequent single outbound provider attempt returned 403 with no message ID; Dispatch Uncertain, no automatic retry, both gates disabled. Production unchanged.
+- Current scoped key was webhook-only; resolve minimal send permission and reconcile the failed attempt before any controlled retry. No prospect outreach approved.
+- Otterly trial likely ends September 13 based on September 6 confirmation; exact expiration unconfirmed. Direct follow-up sent September 10 requesting technical answers and no-cost extension. Real evidence and reporting rights remain unresolved.
+- Preserved a local detailed retrieval handoff, private verification assets, source/evidence archives and Git history bundle. Private records and credentials are not included in this public status.
+- Latest hosted sender-parsing fix still needs a fresh sanitized source export and deployed commit reference. Live databases and hosted secrets are not independently backed up. Do not equate a deployment URL with a backup.
+- Priorities: finish staging send/reply; complete time-sensitive Otterly evaluation; prepare first five prospect reports/messages for review. Preserve completed 18/20 business identity checks (distinct from 11 valid, 7 accept-all, 2 invalid email results).
+- Documentation/preservation only; no application code changed or runtime tests rerun. Local preservation process verifies ZIP CRC and SHA-256 per archived file.
+
+## Pilot evidence reconciled — 2026-09-09
+
+- Preserved the original 20-candidate cohort. Public business evidence supports 18; Hunter results reconcile all 20 by candidate ID and normalized email: 11 valid, 7 accept-all, 2 invalid. Twelve leadership roles have supporting sources; seven combine business evidence, leadership evidence and valid email. Five selected for review; none is approved to send.
+- Confirmed the existing sender mailbox. The approved mailbox-to-Gmail test arrived in Inbox with SPF, DKIM and DMARC passing; the matching Gmail reply arrived back in the sender mailbox. This establishes only that tested mailbox route, not CRM/AgentMail delivery or general deliverability.
+- Private verification exports, recipient selections, and test evidence remain in ignored private-pilot/. No private prospect records or credentials are included here.
+- CRM campaign list is empty. The inspected creation form exposed no sender configuration or integration-test control; cancelled without saving. Outstanding Issue #20 acceptance evidence still prevents declaring the production workflow ready.
+- Reviewed locally available audit-package filenames: the known September 2–3 packages are present; no newer package was identified by that filename search. This is not proof no newer deployment exists.
+- Prepared a private Manus evidence request covering current deployment provenance, AT-01/06/09/11/13/14 and a controlled send/reply/bounce/unsubscribe test procedure. Request has not been sent.
+- Validation this session: read-only artifact and Issue #20 review; no code changes, so no new test run. Previous 36 passing offline tests do not establish live integration acceptance.
+- Next dependency: obtain current Manus source/evidence and documented non-production email test procedure. Otterly technical/reporting evidence and actual dated Snapshot observations also remain unresolved. No prospect outreach, production mutation, merge or deployment occurred.
+
+## Pilot gate correction — 2026-09-09
+
+- Checked Otterly mail since September 7: returned marketing/automated updates, no technical response found. Issue #20 latest discussion still records AT-06/09/11/13/14 as FAIL/partial and AT-01 as not verifiable. PR #24 remains draft and unmerged.
+- Fixed staging workflow checks: unknown exception status now blocks advancement and outreach; confirmations require boolean true; evidence references require nonempty text. Cancellation remains available.
+- Corrected qualification interpretation: a populated contact-name field does not establish a named decision-maker; none of the 20 candidates is yet outreach-ready.
+- Validation: bundled Node --test passed 36 tests, 0 failed; git diff --check passed. Files changed: pilot/workflow.mjs, test/pilot_workflow.test.mjs, PROJECT_STATUS.md. No UI changes or production integration.
+- Next: establish the approved sender mailbox, verify candidate emails and decision-makers, obtain the Otterly technical evidence and Manus acceptance bundle. Existing CRM controls must pass; manual sending is not a bypass.
+## Latest session — two-day pilot sprint, 2026-09-08
+
+- Mike authorized immediate work toward a reviewable pilot workflow within two focused days. Outreach, billing, public publishing, provider purchase, and production CRM changes remain disabled pending their existing approval and acceptance gates.
+- Sent one authorized follow-up in the existing Otterly technical-evaluation email thread. It requests answers on shared observations, evidence/failure metadata, paid-client reporting and retention rights, and a no-cost sample or trial extension. No billing or purchase was authorized.
+- Added `config/model-routing.mjs`: provider-flexible routing by role capability, validation status, quality, budget, fallback provider, and optional independent critic. Outcomes record provider, model, cost, latency, and acceptance result; source does not permanently bind model vendors or prices.
+- Added `pilot/workflow.mjs`: fail-closed business verification, fact approval, evidence import, report review, Mike approval, and delivery states. Separate outreach eligibility requires verified email, named decision-maker, HTTPS source evidence, current unsuppressed state, no open exception, and Mike-specific approval.
+- Added `pilot/otterly-import.mjs` and `tools/import-otterly-export.mjs`: manual JSON normalization without an API key, preserving nulls and row hashes, distinguishing prompted mentions, and marking unavailable run/location/model metadata. The supplied four-row fictional export normalized successfully; all four mentions were prompted and all four lack required audit metadata, so it remains ineligible for headline reporting.
+- Added `tools/prepare-hvac-pilot.ps1`. It selected a private, ignored 20-row review cohort from 300 HVAC records and 49 unique valid-format email candidates. All 20 have contact name, company and phone; none has an HTTPS website/source in the master file, zero emails are deliverability-verified, and zero are outreach-ready. Private rows remain under ignored `private-pilot/` and were not printed, committed, imported, or sent.
+- Added `docs/PILOT_OPERATIONS.md`; ignored `staging/` and `private-pilot/`; added an Otterly import package script; and added seven synthetic tests in `test/pilot_workflow.test.mjs`.
+- Validation: bundled Node `--test` passed 30 tests, 0 failed; Node syntax checks passed for all `.mjs` files under config/pilot/tools/test; PowerShell parser passed for the HVAC preparation script; `git diff --check` passed. The current tests are offline/synthetic and do not establish production CRM, AgentMail, provider, or outreach readiness.
+- Next: research source URLs and decision-maker/business validity for the private 20-row cohort without sending; choose an approved email-verification mechanism; reconcile the current Manus checkpoint against Issue #20 controls; connect normalized observations and pilot states to a staging-only UI; then present the complete cohort/messages/workflow to Mike for approval.
+- Public-source research now confirms business evidence for 18 of the 20 private HVAC candidates; two remain blocked as ambiguous. The evidence manifest is stored only under ignored `private-pilot/`. No address has been treated as deliverability-verified and no outreach was sent.
+- Added provider-neutral outreach copy renderers and tests for the initial Snapshot message, follow-up, and proposed-service invitation. Every rendered message requires a private Snapshot URL and unsubscribe URL and includes sampling/outcome limitations. These templates have no delivery integration.
+
+## Latest session — AI Visibility validation, 2026-09-06
+
+- Continued at Mike's request in an isolated checkout of PR #23, head `5ac57a9`;
+  branch `codex/ai-visibility-validation`. PR #23 is open and unmerged. Reviewed
+  Issue #22, open issue inventory, current PR discussion (empty), instructions,
+  status, feasibility/data contracts and recent commits.
+- Confirmed from official documentation: saved prompts can feed multiple brand
+  reports without extra slots; public API documents raw response/run/citation
+  fields; manual raw exports are documented. These are documentation findings,
+  not measured trial results or approval of a provider.
+- Added `docs/AI_VISIBILITY_PROVIDER_VALIDATION.md` with sources, remaining gates,
+  first-client cost implications, request-budget arithmetic and a concrete
+  synthetic-only sandbox experiment. Linked it from the original feasibility
+  plan while preserving the original thresholds and historical assumptions.
+- Added offline `prototypes/ai-visibility/feasibility.mjs` and seven tests in
+  `test/ai_visibility_feasibility.test.mjs`. Missing/invalid values do not pass;
+  failures remain no-go; successful checks request review and grant no authority.
+- Validation in this checkout: Node executable
+  `C:/Users/miker/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe`
+  with `--test` — baseline 16 passed, final 23 passed, 0 failed.
+  `git diff --check` — passed. No build/lint/type-check scripts are configured.
+  Browser checks were not repeated because report UI and styles were unchanged.
+- The historical 20-test statement refers to a different local tree: the live
+  PR has ten visibility fixture tests and six bridge tests. No existing tests
+  were removed in this session.
+- No vendor contact, account signup, provider runtime call, real-business study,
+  payment, deployment, publishing, outreach or production CRM change occurred.
+- Remaining: verify sandbox access, actual payload completeness, capture
+  environment, cross-workspace behavior and commercial retention/report rights.
+  Do not interpret documentary progress as study or launch authorization.
+- Next: obtain a permitted no-cost sample/sandbox and review the resulting packet
+  before requesting a private real-data study. Preserve CRM/remediation safeguards.
+
 ## Working rules
 
 1. Read this file, `AGENTS.md`, recent commits, and the relevant GitHub issue before starting work.
