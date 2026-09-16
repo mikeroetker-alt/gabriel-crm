@@ -10,24 +10,23 @@ The bridge is intentionally narrow:
 - canonical coordination thread: Issue #22
 - trigger: a new Issue #22 comment whose first characters are `/deepseek`
 - context: the live Issue #22 body plus its GitHub comments, bounded before transmission
-- model: `deepseek-flash`
+- default model path: GitHub Models `deepseek/deepseek-r1-0528`
+- optional direct model path: official DeepSeek API `deepseek-flash` when a `DEEPSEEK_API_KEY` Actions secret is present
 - output: a new Issue #22 comment headed `DEEPSEEK — DIRECT BRIDGE RESPONSE`
 
-## Security boundary
+## Authentication and security
 
-Never commit a DeepSeek API key to this repository.
+The bridge works without any user-created secret by default. GitHub Actions grants the workflow a short-lived built-in `GITHUB_TOKEN`; the workflow uses:
 
-The workflow expects one GitHub Actions repository secret:
+- `contents: read`
+- `issues: write`
+- `models: read`
 
-`DEEPSEEK_API_KEY`
+With no `DEEPSEEK_API_KEY` configured, the bridge calls GitHub Models using `GITHUB_TOKEN` and the DeepSeek R1-0528 model.
 
-GitHub's built-in `GITHUB_TOKEN` is used only to read Issue #22 and write the generated response back to Issue #22. The workflow declares `contents: read` and `issues: write` only.
+If a repository Actions secret named `DEEPSEEK_API_KEY` is added later, the bridge automatically prefers the official DeepSeek API and current `deepseek-flash` model.
 
-## One-time activation
-
-After this bridge is merged to the default branch, add the DeepSeek API key as the repository Actions secret named `DEEPSEEK_API_KEY`.
-
-No API key value belongs in an issue, pull request, source file, log, or chat handoff.
+Never commit a DeepSeek API key to this repository or paste one into an issue, pull request, log, or chat handoff.
 
 ## Usage
 
@@ -46,7 +45,7 @@ and place the request after the command. Example:
 The GitHub Action will:
 
 1. fetch the live Issue #22 body and comments;
-2. send the bounded context plus the current request to DeepSeek;
+2. send the bounded context plus the current request directly to a DeepSeek model;
 3. receive DeepSeek's response;
 4. post that response directly back into Issue #22.
 
@@ -55,7 +54,7 @@ DeepSeek's posted response does not trigger itself because bridge responses do n
 ## Scope and cost controls
 
 - Only Issue #22 is accepted by the script and workflow.
-- Only explicit `/deepseek` comments trigger an API call.
+- Only explicit `/deepseek` comments trigger a model call.
 - Each run is capped to five minutes.
 - Context is bounded before it is sent to DeepSeek.
 - The response request is capped at 2,200 output tokens.
@@ -69,6 +68,8 @@ DeepSeek's posted response does not trigger itself because bridge responses do n
 - command normalization;
 - context construction;
 - context bounding;
-- DeepSeek response extraction.
+- DeepSeek response extraction;
+- direct DeepSeek API selection when a key exists;
+- zero-secret GitHub Models fallback when no key exists.
 
 A live end-to-end verification is complete only when a `/deepseek` request in Issue #22 causes a new `DEEPSEEK — DIRECT BRIDGE RESPONSE` comment to appear there.
