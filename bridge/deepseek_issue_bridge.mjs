@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 
 const DEFAULT_ISSUE_NUMBER = 22;
-const DEFAULT_DIRECT_MODEL = 'deepseek-flash';
-const DEFAULT_GITHUB_MODEL = 'deepseek/deepseek-r1-0528';
+const DEFAULT_MODEL = 'deepseek-flash';
 const DEFAULT_MAX_CONTEXT_CHARS = 48000;
 
 export function shouldHandleComment({ issueNumber, commentBody, targetIssue = DEFAULT_ISSUE_NUMBER }) {
@@ -49,23 +48,14 @@ export function extractDeepSeekText(payload) {
 }
 
 export function resolveDeepSeekProvider(env = {}) {
-  if (env.DEEPSEEK_API_KEY) {
-    return {
-      provider: 'deepseek-api',
-      url: 'https://api.deepseek.com/chat/completions',
-      token: env.DEEPSEEK_API_KEY,
-      model: env.DEEPSEEK_MODEL || DEFAULT_DIRECT_MODEL,
-      useSystemRole: true
-    };
+  if (!env.DEEPSEEK_API_KEY) {
+    throw new Error('DEEPSEEK_API_KEY repository Actions secret is required for the DeepSeek bridge.');
   }
-
-  if (!env.GITHUB_TOKEN) throw new Error('GITHUB_TOKEN is required.');
   return {
-    provider: 'github-models',
-    url: 'https://models.github.ai/inference/chat/completions',
-    token: env.GITHUB_TOKEN,
-    model: env.DEEPSEEK_GITHUB_MODEL || DEFAULT_GITHUB_MODEL,
-    useSystemRole: false
+    provider: 'deepseek-api',
+    url: 'https://api.deepseek.com/chat/completions',
+    token: env.DEEPSEEK_API_KEY,
+    model: env.DEEPSEEK_MODEL || DEFAULT_MODEL
   };
 }
 
@@ -124,6 +114,7 @@ export async function runBridge({
     throw new Error('The /deepseek command requires a request after the command.');
   }
 
+  const provider = resolveDeepSeekProvider(env);
   const issue = await githubJson(
     fetchImpl,
     `https://api.github.com/repos/${repo}/issues/${issueNumber}`,
@@ -142,16 +133,6 @@ export async function runBridge({
     'Keep responses decision-useful and concise.'
   ].join(' ');
 
-  const provider = resolveDeepSeekProvider(env);
-  const messages = provider.useSystemRole
-    ? [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: issueContext }
-      ]
-    : [
-        { role: 'user', content: `${systemPrompt}\n\n${issueContext}` }
-      ];
-
   const deepseekResponse = await fetchImpl(provider.url, {
     method: 'POST',
     headers: {
@@ -160,7 +141,10 @@ export async function runBridge({
     },
     body: JSON.stringify({
       model: provider.model,
-      messages,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: issueContext }
+      ],
       stream: false,
       max_tokens: 2200
     })
@@ -168,7 +152,7 @@ export async function runBridge({
 
   if (!deepseekResponse.ok) {
     const body = await deepseekResponse.text();
-    throw new Error(`${provider.provider} ${deepseekResponse.status}: ${body.slice(0, 1200)}`);
+    throw new Error(`DeepSeek API ${deepseekResponse.status}: ${body.slice(0, 1200)}`);
   }
 
   const deepseekPayload = await deepseekResponse.json();
@@ -180,7 +164,7 @@ export async function runBridge({
     answer,
     '',
     '---',
-    `Generated directly from the live Issue #${issueNumber} context via the repository DeepSeek bridge using ${provider.provider}/${provider.model}${sourceCommentUrl ? ` in response to ${sourceCommentUrl}` : ''}.`
+    `Generated directly from the live Issue #${issueNumber} context via the repository DeepSeek bridge using ${provider.model}${sourceCommentUrl ? ` in response to ${sourceCommentUrl}` : ''}.`
   ].join('\n');
 
   const posted = await githubJson(
