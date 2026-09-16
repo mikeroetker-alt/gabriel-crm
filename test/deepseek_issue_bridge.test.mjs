@@ -59,22 +59,17 @@ test('extracts assistant content and rejects empty payloads', () => {
   assert.throws(() => extractDeepSeekText({ choices: [] }), /no assistant content/i);
 });
 
-test('uses official DeepSeek API when a DeepSeek key is present', () => {
-  const provider = resolveDeepSeekProvider({
-    GITHUB_TOKEN: 'gh-token',
-    DEEPSEEK_API_KEY: 'ds-key'
-  });
+test('uses official DeepSeek API with the current Flash model', () => {
+  const provider = resolveDeepSeekProvider({ DEEPSEEK_API_KEY: 'ds-key' });
   assert.equal(provider.provider, 'deepseek-api');
   assert.equal(provider.model, 'deepseek-flash');
   assert.equal(provider.url, 'https://api.deepseek.com/chat/completions');
-  assert.equal(provider.useSystemRole, true);
+  assert.equal(provider.token, 'ds-key');
 });
 
-test('falls back to GitHub Models DeepSeek with GITHUB_TOKEN only', () => {
-  const provider = resolveDeepSeekProvider({ GITHUB_TOKEN: 'gh-token' });
-  assert.equal(provider.provider, 'github-models');
-  assert.equal(provider.model, 'deepseek/deepseek-r1-0528');
-  assert.equal(provider.url, 'https://models.github.ai/inference/chat/completions');
-  assert.equal(provider.token, 'gh-token');
-  assert.equal(provider.useSystemRole, false);
+test('fails closed when the DeepSeek API key is missing', () => {
+  assert.throws(
+    () => resolveDeepSeekProvider({ GITHUB_TOKEN: 'gh-token' }),
+    /DEEPSEEK_API_KEY repository Actions secret is required/
+  );
 });
