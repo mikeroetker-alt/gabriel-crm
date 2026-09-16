@@ -5,6 +5,7 @@ import {
   buildIssueContext,
   extractDeepSeekText,
   normalizeRequest,
+  resolveDeepSeekProvider,
   shouldHandleComment
 } from '../bridge/deepseek_issue_bridge.mjs';
 
@@ -56,4 +57,24 @@ test('extracts assistant content and rejects empty payloads', () => {
     'DEEPSEEK VOTE: A'
   );
   assert.throws(() => extractDeepSeekText({ choices: [] }), /no assistant content/i);
+});
+
+test('uses official DeepSeek API when a DeepSeek key is present', () => {
+  const provider = resolveDeepSeekProvider({
+    GITHUB_TOKEN: 'gh-token',
+    DEEPSEEK_API_KEY: 'ds-key'
+  });
+  assert.equal(provider.provider, 'deepseek-api');
+  assert.equal(provider.model, 'deepseek-flash');
+  assert.equal(provider.url, 'https://api.deepseek.com/chat/completions');
+  assert.equal(provider.useSystemRole, true);
+});
+
+test('falls back to GitHub Models DeepSeek with GITHUB_TOKEN only', () => {
+  const provider = resolveDeepSeekProvider({ GITHUB_TOKEN: 'gh-token' });
+  assert.equal(provider.provider, 'github-models');
+  assert.equal(provider.model, 'deepseek/deepseek-r1-0528');
+  assert.equal(provider.url, 'https://models.github.ai/inference/chat/completions');
+  assert.equal(provider.token, 'gh-token');
+  assert.equal(provider.useSystemRole, false);
 });
