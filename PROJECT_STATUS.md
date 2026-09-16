@@ -2,6 +2,8 @@
 
 This file is the shared handoff point between ChatGPT and Codex.
 
+**Current work:** See the final section, “Issue #22 staging sales page — 2026-09-16.” Historical status snapshots below are retained as dated records. The new page is not launched or approved for merge/deployment.
+
 ## Working rules
 
 1. Read this file, `AGENTS.md`, recent commits, and the relevant GitHub issue before starting work.
@@ -293,3 +295,50 @@ Still unknown: tRPC input/filter schema, pagination semantics, stable-ID scope/t
 - Covered legacy fixture validation, tRPC translation, GET-only route construction, unsupported-option rejection, unique IDs, pipeline/stage validation, required tRPC fields, malformed envelopes, cursor validation, and aggregate-count validation.
 - No live CRM endpoint, private lead data, sending action, database write, deployment, or GitHub mutation was involved.
 
+
+
+## Issue #22 staging sales page — 2026-09-16
+
+### Authorization and closed decision
+
+- Mike explicitly authorized the actual staging sales-page build in this session, referencing canonical Issue #22 and existing PR #23.
+- Option A remains closed: **$197/month AI Visibility Growth** is the dominant primary offer; **$25 one-time AI Discovery Snapshot** is a tightly scoped secondary downsell. No lower monthly tier.
+- Verified the formal three-vote closeout in Issue #22 comment `5702721656`. The full $25 pilot credit applies to the first $197 payment for an upgrade within **seven calendar days after Snapshot delivery**, with manual pilot handling only.
+- Mike separately reaffirmed during this session: the page must remain non-live until he reviews it, completes the optimization review, and explicitly approves launch. **No merge, deployment or activation is authorized.**
+
+### Completed work
+
+- Created dedicated branch `codex/issue-22-sales-page-staging` from PR #23 head `5ac57a9b381897f76ea65edcf1fb5d823807547b`. The review PR is stacked on `codex/issue-22-ai-visibility-prototype`, not main.
+- Built the actual responsive static sales page at `prototypes/ai-visibility/sales/`: primary Growth hero, four-part monthly cadence, separated observation/work/blocker proof, one primary pricing card, collapsed Snapshot downsell, disclosed pilot credit, exclusions, FAQs and preview-only CTA dialogs.
+- Reused PR #23 fixtures and report views. Extracted evidence cards, ledger entries, observation context and disclosures into shared components; no duplicate dashboard or provider integration.
+- Used the flat synthetic month for the sales examples and dashboard default. Current and prior counts remain explicit; synthetic market/window/panel/capture context is visible.
+- Removed rendered “Free Snapshot” copy. Historical requirements/status records are retained as history.
+- Corrected the reused provider-outage view so it does not present frozen prior metrics as current measurements; material conflicts still block Spotlight publication.
+- Added loopback-only UI activation, disabled defaults, noindex metadata, CSP connection/form restrictions, no external fonts, and no network/storage/intake/checkout implementation. These are staging safeguards, not a hosting authorization or an authentication boundary.
+- Raised small disclosure and context text for readability. Kept all assets local and the implementation dependency-free.
+
+### Files changed
+
+- New: `prototypes/ai-visibility/sales/index.html`, `sales.css`, `sales.js`, `favicon.svg`, `README.md`.
+- New: `prototypes/ai-visibility/components.js`, `test/ai_visibility_sales.test.mjs`.
+- Updated: `prototypes/ai-visibility/app.js`, `fixtures.js`, `index.html`, `README.md`, and this status file.
+
+### Validation and limits
+
+- `node --test` — **24 passed, 0 failed**. Eight new tests cover offer hierarchy/closed downsell, credit terms, initial disabled state, CSP/no intake, rejection of hosted/lookalike/file URLs, actual CTA handlers with forbidden network/storage stubs, shared evidence escaping/context, outage suppression, and all four report views.
+- `node --check prototypes/ai-visibility/app.js` — passed.
+- `node --check prototypes/ai-visibility/components.js` — passed.
+- `node --check prototypes/ai-visibility/sales/sales.js` — passed.
+- `git diff --check` — passed before commit.
+- Python `HTMLParser` local validation — both entry documents have unique IDs, existing local asset/page links, and valid sales-page anchors.
+- Python ephemeral loopback HTTP smoke — all nine requested page/module/style/icon assets returned HTTP 200.
+- No build/lint/type-check commands are configured for this dependency-free static prototype.
+- **Visual/browser QA remains pending.** The Cloud Browser refused `http://127.0.0.1:8765/prototypes/ai-visibility/sales/` with `ERR_BLOCKED_BY_CLIENT` and an explicit Cloud Browser URL-policy block. No alternate browser, public hosting, tunnel, or deployment was used to bypass the restriction. Responsive CSS exists, but desktop/mobile rendering, overflow, keyboard/native-dialog behavior and print layout are not claimed as browser-verified. The Node tests use a minimal DOM boundary, not a browser.
+
+### Review and next action
+
+- Local preview: from this branch's repository root, run `python3 -m http.server 8765 --bind 127.0.0.1` (Windows: `py -m http.server 8765 --bind 127.0.0.1`) and open `http://127.0.0.1:8765/prototypes/ai-visibility/sales/` in that machine's browser.
+- Review checklist, reuse details and the browser limitation are in `prototypes/ai-visibility/sales/README.md`.
+- Keep the PR in draft. Complete the outstanding local browser/optimization review, address Mike's feedback, and wait for his explicit launch approval.
+- PR #23 was open and reported non-mergeable against main when inspected. This stacked sales-page work does not resolve that existing branch divergence or merge either PR.
+- Provider feasibility/rights/coverage, capacity and final cancellation/refund/retention/onboarding terms remain activation gates. No live checkout, payment, intake, CRM write, provider call, outreach, production routing, merge, or deployment occurred.

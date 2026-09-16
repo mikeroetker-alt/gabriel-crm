@@ -1,8 +1,10 @@
 import { scenarios, surfaces, evidence, scenarioSurfaces, scenarioEvidence, activities, spotlightFacts } from "./fixtures.js";
 
+import { disclosure, evidenceMarkup, activityMarkup, observationContext } from "./components.js";
+
 const app = document.querySelector("#app");
 const links = [...document.querySelectorAll("[data-view-link]")];
-let selectedScenario = "positive";
+let selectedScenario = "flat";
 
 const rate = ([numerator, denominator]) => denominator ? numerator / denominator * 100 : 0;
 const pct = fraction => `${rate(fraction).toFixed(1)}%`;
@@ -10,25 +12,20 @@ const delta = ([before, after], suffix = " pts") => {
   const diff = rate(after) - rate(before);
   return `${diff > 0 ? "+" : ""}${diff.toFixed(1)}${suffix} vs baseline`;
 };
-const disclosure = () => `<div class="disclosure"><strong>How to read this prototype:</strong> These are sampled observations, not universal rankings or market share. Results vary by system, location, retrieval mode, model, personalization and time. Movement after GIG work is not proof that GIG caused it. All businesses, measurements, citations and engagement events shown here are synthetic.</div>`;
 const metric = (label, value, note, change, flat = false) => `<article class="card metric-card"><div class="metric-label">${label}</div><div class="metric-value">${value}</div><div class="metric-note">${note}</div>${change ? `<span class="delta ${flat ? "flat" : ""}">${change}</span>` : ""}</article>`;
 const bar = ({name,value,role}) => `<div class="bar-row"><span>${name}</span><div class="bar-track"><div class="bar-fill ${role}" style="width:${value}%"></div></div><span class="bar-value">${value}%</span></div>`;
 
 function hero(data, title, text, eyebrow = "AI visibility evidence") {
-  return `<section class="hero"><p class="eyebrow">${eyebrow}</p><h1>${title}</h1><p class="lede">${text}</p><div class="report-meta"><span><strong>${data.client}</strong></span><span>${data.market}</span><span>Captured ${data.captured}</span><span>${data.responses} sampled responses</span></div></section>`;
+  return `<section class="hero"><p class="eyebrow">${eyebrow}</p><h1>${title}</h1><p class="lede">${text}</p><div class="report-meta"><span><strong>${data.client}</strong></span><span>${data.market}</span><span>Captured ${data.captured}</span><span>${data.responses} sampled responses</span></div>${observationContext(data)}</section>`;
 }
 
 function surfacesMarkup(items = surfaces) {
   return `<div class="surface-grid">${items.map(item => `<div class="surface"><strong><i class="status-dot ${item.state === "Not observed" || item.state === "Unavailable" ? "missing" : ""}"></i>${item.name}</strong><small>${item.state} · ${item.note}</small></div>`).join("")}</div>`;
 }
 
-function evidenceMarkup(items = evidence) {
-  return `<div class="grid grid-3">${items.map(item => `<article class="card evidence-card"><p class="eyebrow">${item.surface}</p><p class="evidence-query">“${item.query}”</p><p class="quote">${item.finding}</p>${item.tags.map(tag => `<span class="tag ${tag.includes("conflict") || tag.includes("not") || tag.includes("unavailable") || tag.includes("blocked") ? "warn" : ""}">${tag}</span>`).join("")}</article>`).join("")}</div>`;
-}
-
 function snapshot() {
   const d = scenarios.positive;
-  return `<div class="shell">${hero(d,"Are local customers finding you—or your competitors?","A transparent sample of how AI and search assistants represented this business across buyer-intent questions. No mystery score. Just named observations and evidence.","Free Local AI Visibility Snapshot")}
+  return `<div class="shell">${hero(d,"Are local customers finding you—or your competitors?","A transparent sample of how AI and search assistants represented this business across buyer-intent questions. No mystery score. Just named observations and evidence.","AI Discovery Snapshot · synthetic example")}
     <section class="grid grid-4">
       ${metric("AI mention presence",`7 of 40`,"eligible responses · 120 total surface observations","17.5% observed")}
       ${metric("Recommendation presence",`4 of 40`,"applicable responses · 120 total surface observations","10% observed")}
@@ -39,7 +36,7 @@ function snapshot() {
       <article class="card"><div class="section-heading"><h2>Who appears instead?</h2><span class="section-kicker">share of observed mentions</span></div><div class="bar-list">${d.competitors.map(bar).join("")}</div></article>
       <article class="card"><div class="section-heading"><h2>Surface coverage</h2><span class="section-kicker">captured sample</span></div>${surfacesMarkup()}<p class="source-note">“Not observed” means absent from this defined sample—not absent everywhere.</p></article>
     </section>
-    <section class="section"><div class="section-heading"><h2>What the evidence looked like</h2><span class="section-kicker">representative synthetic captures</span></div>${evidenceMarkup()}</section>
+    <section class="section"><div class="section-heading"><h2>What the evidence looked like</h2><span class="section-kicker">representative synthetic captures</span></div>${evidenceMarkup(evidence)}</section>
     <section class="section panel"><p class="eyebrow">First correction opportunity</p><h2>Make the service area clear and consistent.</h2><p>Three different service-area descriptions were observed across source placeholders. GIG would stop, request verification, and update only the asset it controls after approval.</p><button class="button button-primary" type="button" disabled>Request my factual review</button></section>
     ${disclosure()}</div>`;
 }
@@ -57,6 +54,7 @@ function scenarioPicker() {
 
 function dashboard() {
   const d = scenarios[selectedScenario]; const m = d.metrics;
+  if (d.responses === 0) return `<div class="shell">${hero(d,"Current observations unavailable.","No new authorized observations were captured. Prior evidence stays frozen; it is not a new result or a zero.","Monthly client dashboard · blocked")}${scenarioPicker()}<div class="callout"><strong>Publishing remains blocked.</strong> A material factual conflict requires resolution. No current metrics, changes or competitor comparison can be reported.</div><section class="section"><h2>Surface status</h2>${surfacesMarkup(scenarioSurfaces[selectedScenario])}</section><section class="section"><h2>Exception evidence</h2>${evidenceMarkup(scenarioEvidence[selectedScenario])}</section>${disclosure()}</div>`;
   return `<div class="shell">${hero(d,"Your monthly AI visibility evidence.","See where you appeared, who appeared more often, what GIG completed, and what needs attention next.","$197/month · client dashboard")}${scenarioPicker()}
     <div class="question-strip"><div><small>01</small>Where am I showing up?</div><div><small>02</small>Who is beating me?</div><div><small>03</small>What did GIG do?</div><div><small>04</small>What needs attention?</div></div>
     <section class="grid grid-4">
@@ -87,7 +85,7 @@ function ledger() {
       ${metric("Controlled improvement","1","bounded gap-led change","Within monthly scope")}
       ${metric("Blocked exception","1","client-owned factual conflict","Publishing stopped",true)}
     </section>
-    <section class="section timeline">${activities.map(a=>`<article class="timeline-item ${a.status==='Blocked'?'blocked':''}"><div class="timeline-meta"><span>${a.date}</span><span>${a.status}</span></div><h3>${a.title}</h3><p>${a.detail}</p><span class="tag">${a.type}</span> <span class="tag hash">${a.hash}</span></article>`).join("")}</section>
+    <section class="section timeline">${activityMarkup(activities)}</section>
     <div class="callout"><strong>Value without a vanity win:</strong> In this demo month the mention rate stayed flat. The fixed observation panel was still rerun, evidence preserved, one useful factual improvement completed, engagement measured, and a risky conflict blocked instead of guessed.</div>
     ${disclosure()}</div>`;
 }
