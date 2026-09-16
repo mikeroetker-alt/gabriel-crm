@@ -10,7 +10,7 @@ Serve the repository root with any static HTTP server, then open:
 
 The top navigation exposes four review assets:
 
-1. Free Local AI Visibility Snapshot.
+1. AI Discovery Snapshot synthetic example (limited $25 one-time downsell; pricing appears only after the sales-page choice).
 2. Monthly Client Dashboard.
 3. Work Completed This Month ledger.
 4. Local Business Spotlight prototype.
@@ -33,3 +33,7 @@ node --test
 
 The tests cover deterministic scenarios, flat external movement with meaningful controlled work, factual-conflict blocking, provider unavailability, evidence placeholders, and absence of live CRM/private contact data.
 
+
+## Sales-page staging
+
+The authorized $197/month primary sales page is at `/prototypes/ai-visibility/sales/`. See [sales/README.md](sales/README.md) for local-only preview, scope, and validation. The former free Snapshot positioning is superseded by the closed Option A decision. Historical issue text and dated status entries remain a record of earlier decisions.

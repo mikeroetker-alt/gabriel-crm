@@ -2,6 +2,7 @@ export const scenarios = {
   positive: {
     label: "Month 2 · positive movement",
     client: "Northstar Roofing Co.", market: "Crown Point, Indiana", period: "August 2026",
+    queryPanel: "roofing-crown-point-v1 (synthetic)",
     captured: "August 28, 2026", responses: 120,
     metrics: { mention: [[20,120],[29,120]], recommendation: [[11,120],[16,120]], share: [[11,100],[16,100]], queries: [[4,10],[7,10]], sources: [3,5], spotlightCitations: [0,4], competitorDomains: 8, sourceGaps: [6,3], conflicts: [3,1], views: 86, clicks: 12 },
     trend: { mention: [17, 18, 21, 24], recommendation: [9, 8, 11, 13] },
@@ -14,6 +15,7 @@ export const scenarios = {
   flat: {
     label: "Month 3 · little external movement",
     client: "Northstar Roofing Co.", market: "Crown Point, Indiana", period: "September 2026",
+    queryPanel: "roofing-crown-point-v1 (synthetic)",
     captured: "September 28, 2026", responses: 120,
     metrics: { mention: [[29,120],[29,120]], recommendation: [[16,120],[15,120]], share: [[16,100],[16,100]], queries: [[7,10],[7,10]], sources: [5,5], spotlightCitations: [4,4], competitorDomains: 8, sourceGaps: [3,3], conflicts: [1,1], views: 121, clicks: 19 },
     trend: { mention: [21, 24, 24, 24], recommendation: [11, 13, 13, 12] },
@@ -26,6 +28,7 @@ export const scenarios = {
   blocked: {
     label: "Exception · factual conflict",
     client: "Northstar Roofing Co.", market: "Crown Point, Indiana", period: "Exception review",
+    queryPanel: "roofing-crown-point-v1 (synthetic)",
     captured: "September 30, 2026", responses: 0,
     metrics: { mention: [[29,120],[29,120]], recommendation: [[16,120],[16,120]], share: [[16,100],[16,100]], queries: [[7,10],[7,10]], sources: [5,5], spotlightCitations: [4,4], competitorDomains: 8, sourceGaps: [3,4], conflicts: [1,2], views: 0, clicks: 0 },
     trend: { mention: [17, 21, 24, 24], recommendation: [9, 11, 13, 13] },
