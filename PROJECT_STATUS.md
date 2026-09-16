@@ -129,3 +129,48 @@ The audit used the authenticated GitHub connector because this Codex environment
 - No outreach was sent, no production data was changed, no credentials were committed, and no private prospect records were added.
 - The live CRM adapter remains intentionally disconnected until the exact authenticated read contract (paths, pagination semantics, response envelope, stable ID field, and rate-limit metadata) is captured in sanitized form.
 - After that read contract is verified, the next step is to map Rakazo's CRM/account bot to this bridge and keep all write actions approval-gated until separately tested.
+
+## DeepSeek GitHub issue bridge — 2026-09-16
+
+### Goal
+
+- Eliminate Mike as the manual message courier between DeepSeek and the canonical GIG coordination thread.
+- Give DeepSeek a real repository-native path to read the live Issue #22 context and post its own generated responses back into Issue #22.
+
+### Completed work
+
+- Created branch `deepseek-github-bridge` from `main`.
+- Added `bridge/deepseek_issue_bridge.mjs` to fetch live Issue #22 context, call the DeepSeek API, and post the model response back to Issue #22.
+- Added `.github/workflows/deepseek-issue-bridge.yml` with narrow `contents: read` and `issues: write` permissions.
+- Added `test/deepseek_issue_bridge.test.mjs` covering canonical-issue routing, command normalization, bounded context construction, and response extraction.
+- Added `docs/DEEPSEEK_GITHUB_BRIDGE.md` with activation, usage, scope, and security rules.
+- The explicit trigger is a new Issue #22 comment beginning with `/deepseek`.
+- The bridge uses the official current `deepseek-flash` API model and does not commit or expose the API key.
+
+### Files changed
+
+- `.github/workflows/deepseek-issue-bridge.yml`
+- `bridge/deepseek_issue_bridge.mjs`
+- `test/deepseek_issue_bridge.test.mjs`
+- `docs/DEEPSEEK_GITHUB_BRIDGE.md`
+- `PROJECT_STATUS.md`
+
+### Validation
+
+- Node.js 22 and npm are available in the ChatGPT container.
+- A direct container fetch of the public branch was attempted for an independent test run, but outbound DNS to `raw.githubusercontent.com` is blocked in that container, so the repository files could not be downloaded there.
+- The committed test suite is configured to run via `npm test` inside the GitHub Action before each DeepSeek API call.
+- Live end-to-end validation remains pending until the branch is merged to `main` and the repository Actions secret `DEEPSEEK_API_KEY` is configured.
+
+### Security / behavior boundaries
+
+- Only Issue #22 is accepted.
+- Only an explicit `/deepseek` comment triggers the API call.
+- The GitHub token can read contents and write issue comments; it cannot mutate repository files through this workflow.
+- The DeepSeek API key must exist only as the GitHub Actions repository secret `DEEPSEEK_API_KEY`.
+- No repository file changes, merges, deployments, outreach, CRM writes, payments, purchases, or production actions are delegated to DeepSeek by this bridge.
+
+### Remaining activation step
+
+- Add the DeepSeek API key as the GitHub Actions repository secret named `DEEPSEEK_API_KEY` after merge.
+- Then post a `/deepseek` verification request in Issue #22 and confirm that a new `DEEPSEEK — DIRECT BRIDGE RESPONSE` comment appears automatically.
