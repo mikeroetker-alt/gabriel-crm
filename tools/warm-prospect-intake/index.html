@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel Impact Group — Warm Prospect Intake Queue</title>
+  <style>
+    :root{--bg:#0f172a;--panel:#111827;--panel2:#1f2937;--text:#e5e7eb;--muted:#94a3b8;--border:#334155;--green:#22c55e;--blue:#38bdf8;--gold:#f59e0b;--red:#ef4444}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}header{background:#020617;border-bottom:1px solid var(--border);padding:1rem;position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}h1,h2,h3{margin-top:0}h1{font-size:1.25rem}a{color:var(--blue)}.muted{color:var(--muted)}.small{font-size:.84rem}.container{padding:1rem;display:grid;gap:1rem}.grid{display:grid;gap:1rem}.cols2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}.cols3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.card,.banner{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1rem}.banner{background:linear-gradient(90deg,rgba(20,83,45,.42),rgba(12,74,110,.34));border-color:#166534}label{display:block;color:#cbd5e1;font-size:.82rem;margin-bottom:.25rem}input,select,textarea,button{width:100%;border-radius:8px;border:1px solid var(--border);background:var(--panel2);color:var(--text);padding:.58rem .68rem;font:inherit}textarea{min-height:88px;resize:vertical}button{cursor:pointer;font-weight:800;background:#0b1220}button:hover{border-color:var(--blue)}.btn-green{background:#14532d;border-color:#166534}.btn-blue{background:#0c4a6e;border-color:#0369a1}.btn-red{background:#450a0a;border-color:#991b1b}.actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}.actions button,.actions a{width:auto}.pill{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:.15rem .5rem;margin:0 .25rem .25rem 0;font-size:.74rem}.ok{color:var(--green);border-color:var(--green)}.warn{color:var(--gold);border-color:var(--gold)}.hot{color:var(--red);border-color:var(--red)}.blue{color:var(--blue);border-color:var(--blue)}table{width:100%;border-collapse:collapse;font-size:.86rem}th,td{text-align:left;border-bottom:1px solid var(--border);padding:.55rem;vertical-align:top}th{font-size:.74rem;color:#cbd5e1;text-transform:uppercase}.output{white-space:pre-wrap;background:#020617;border:1px solid var(--border);border-radius:10px;padding:1rem;min-height:180px}@media print{header,.no-print,form,table,button{display:none!important}body,.card,.banner,.output{background:white;color:#111;border-color:#ddd}}
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Warm Prospect Intake / Research Queue</h1>
+      <div class="small muted">Local-first prospect qualification before anything enters the Revenue Command Center.</div>
+      <div class="small muted">No auto-sending. No guessed emails. No cold-blast workflow. Human approval required.</div>
+    </div>
+    <div class="actions no-print">
+      <a href="../../">Command Center</a>
+      <a href="../">All Tools</a>
+      <button id="exportCsvBtn">Export Command-Center CSV</button>
+      <button id="exportJsonBtn">Backup JSON</button>
+      <button id="importJsonBtn">Restore JSON</button>
+      <input id="fileInput" type="file" accept=".json" style="display:none" />
+    </div>
+  </header>
+  <main class="container">
+    <section class="banner"><strong>Purpose:</strong> collect only warm, referral, existing-relationship, or manually researched prospects; score them; filter out do-not-contact records; and export a clean CSV aligned with the Revenue Command Center import fields.</section>
+    <section class="grid cols2">
+      <article class="card">
+        <h2>Add / Edit Prospect</h2>
+        <form id="intakeForm">
+          <div class="grid cols2">
+            <div><label>Business Name *</label><input name="businessName" required></div>
+            <div><label>Contact Name</label><input name="contactName"></div>
+            <div><label>Website URL</label><input name="websiteUrl" type="url" placeholder="https://..."></div>
+            <div><label>Local Area *</label><input name="localArea" required placeholder="Lowell / Crown Point / NWI"></div>
+            <div><label>Industry</label><select name="pipeline"><option>Home Services</option><option>Contractors</option><option>Professional Services</option><option>Retail</option><option>Health & Wellness</option><option>Hospitality</option><option>Other Local Business</option></select></div>
+            <div><label>Relationship / Source *</label><select name="relationshipSource" required><option value="past_client">Past client</option><option value="referral">Referral</option><option value="known_relationship">Known relationship</option><option value="existing_thread">Existing conversation/thread</option><option value="local_research">Manual local research</option><option value="event_or_group">Event/group connection</option></select></div>
+            <div><label>Relationship Warmth</label><select name="relationshipWarmth"><option>unknown</option><option>weak</option><option>known</option><option>past_client</option><option>referral</option><option>active_interest</option></select></div>
+            <div><label>Lead Temperature</label><select name="leadTemperature"><option>cold</option><option>warm</option><option>hot</option></select></div>
+            <div><label>Email</label><input name="email" type="email" placeholder="Only real known email addresses"></div>
+            <div><label>Email Quality</label><select name="emailQuality"><option>unknown</option><option>verified</option><option>risky</option><option>invalid</option><option>missing</option></select></div>
+            <div><label>Phone</label><input name="phone"></div>
+            <div><label>Verified Contact?</label><select name="isVerifiedContact"><option>no</option><option>yes</option></select></div>
+            <div><label>Source URL / Proof</label><input name="sourceUrl" type="url" placeholder="Required if verified contact = yes"></div>
+            <div><label>Do Not Contact?</label><select name="doNotContact"><option>no</option><option>yes</option></select></div>
+            <div><label>Service Fit</label><select name="serviceFit"><option>unknown</option><option>free_video</option><option>visibility_snapshot</option><option>paid_video</option><option>local_visibility</option><option>website_seo_aeo</option><option>reputation</option><option>crm_ghl_setup</option><option>funding_back_end_only</option></select></div>
+            <div><label>Funding Fit</label><select name="fundingReadiness"><option>not_discussed</option><option>monitoring</option><option>qualified</option><option>active_conversation</option></select></div>
+            <div><label>Monthly Revenue Range</label><select name="monthlyRevenue"><option>unknown</option><option>under_15k</option><option>15k_20k</option><option>20k_50k</option><option>50k_100k</option><option>100k_plus</option></select></div>
+            <div><label>Next Follow-up Date</label><input name="followUpDate" type="date"></div>
+          </div>
+          <div><label>Research Notes</label><textarea name="visibilityNotes" placeholder="Website trust, reviews, Google visibility, social proof, conversion notes..."></textarea></div>
+          <div><label>Relationship Notes</label><textarea name="notes" placeholder="How we know them, why they are warm, what to avoid, next safe action..."></textarea></div>
+          <input name="id" type="hidden">
+          <div class="actions"><button class="btn-green" type="submit">Save Prospect</button><button type="button" id="clearFormBtn">Clear</button><button type="button" id="loadDemoBtn">Load Demo</button></div>
+        </form>
+      </article>
+      <article class="card">
+        <h2>Queue Summary</h2><div id="summary"></div><hr style="border-color:var(--border)"><h2>Selected Prospect Brief</h2><div class="actions no-print"><button id="copyBriefBtn">Copy Brief</button><button onclick="window.print()">Print</button></div><div id="briefOutput" class="output">Select a prospect to generate a brief.</div>
+      </article>
+    </section>
+    <section class="card">
+      <h2>Research Queue</h2>
+      <div class="actions no-print" style="margin:.5rem 0 1rem"><input id="searchInput" placeholder="Search business, area, source, fit, notes..." style="max-width:520px"><button class="btn-red" id="clearAllBtn">Clear All Local Data</button></div>
+      <div style="overflow:auto"><table><thead><tr><th>Business</th><th>Area</th><th>Source</th><th>Warmth</th><th>Fit</th><th>Score</th><th>Next Action</th><th>DNC</th><th>Actions</th></tr></thead><tbody id="queueBody"></tbody></table></div>
+    </section>
+  </main>
+  <script>
+    const STORAGE_KEY='gig-warm-prospect-queue-v1';
+    const form=document.getElementById('intakeForm');const body=document.getElementById('queueBody');const summary=document.getElementById('summary');const searchInput=document.getElementById('searchInput');const briefOutput=document.getElementById('briefOutput');const fileInput=document.getElementById('fileInput');
+    let state=load();let selectedId='';
+    function load(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{items:[]}}catch{return{items:[]}}}
+    function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+    function uid(){return `${Date.now()}-${Math.floor(Math.random()*100000)}`}
+    function norm(v){return String(v||'').trim().toLowerCase()}function num(v){return Number(v||0)}
+    function score(x){let s=0;if(x.doNotContact==='yes')return 0;const warm={unknown:0,weak:1,known:2,past_client:4,referral:4,active_interest:5}[x.relationshipWarmth]||0;s+=warm*12;if(x.leadTemperature==='warm')s+=15;if(x.leadTemperature==='hot')s+=25;if(x.emailQuality==='verified')s+=10;if(x.websiteUrl)s+=5;if(x.serviceFit&&x.serviceFit!=='unknown')s+=12;if(['qualified','active_conversation'].includes(x.fundingReadiness))s+=8;if(['20k_50k','50k_100k','100k_plus'].includes(x.monthlyRevenue))s+=8;return Math.min(100,s)}
+    function nextAction(x){if(x.doNotContact==='yes')return'Do not contact';if(!x.websiteUrl)return'Research website first';if(x.email&&x.emailQuality!=='verified')return'Verify email/source';if(x.serviceFit==='free_video')return'Create free video idea';if(x.serviceFit==='visibility_snapshot'||x.serviceFit==='unknown')return'Create visibility snapshot';if(x.serviceFit==='funding_back_end_only')return'Monitor funding context only';return'Prepare approved offer draft'}
+    function fromForm(){const fd=new FormData(form);const obj={id:fd.get('id')||uid(),businessName:fd.get('businessName').trim(),contactName:fd.get('contactName').trim(),websiteUrl:fd.get('websiteUrl').trim(),localArea:fd.get('localArea').trim(),pipeline:fd.get('pipeline'),relationshipSource:fd.get('relationshipSource'),relationshipWarmth:fd.get('relationshipWarmth'),leadTemperature:fd.get('leadTemperature'),email:fd.get('email').trim(),emailQuality:fd.get('emailQuality'),phone:fd.get('phone').trim(),isVerifiedContact:fd.get('isVerifiedContact'),sourceUrl:fd.get('sourceUrl').trim(),doNotContact:fd.get('doNotContact'),serviceFit:fd.get('serviceFit'),fundingReadiness:fd.get('fundingReadiness'),monthlyRevenue:fd.get('monthlyRevenue'),followUpDate:fd.get('followUpDate'),visibilityNotes:fd.get('visibilityNotes').trim(),notes:fd.get('notes').trim(),updatedAt:new Date().toISOString()};if(!obj.businessName)throw new Error('Business name required.');if(!obj.localArea)throw new Error('Local area required.');if(obj.isVerifiedContact==='yes'&&!obj.sourceUrl)throw new Error('Source URL is required when verified contact is yes.');if(obj.email&&obj.email.includes(' '))throw new Error('Email appears invalid.');return obj}
+    function clearForm(){form.reset();form.querySelector('[name=id]').value='';form.pipeline.value='Home Services';form.relationshipSource.value='past_client';form.relationshipWarmth.value='unknown';form.leadTemperature.value='cold';form.emailQuality.value='unknown';form.isVerifiedContact.value='no';form.doNotContact.value='no';form.serviceFit.value='unknown';form.fundingReadiness.value='not_discussed';form.monthlyRevenue.value='unknown'}
+    function render(){const q=norm(searchInput.value);const rows=state.items.filter(x=>!q||[x.businessName,x.contactName,x.websiteUrl,x.localArea,x.pipeline,x.relationshipSource,x.relationshipWarmth,x.serviceFit,x.fundingReadiness,x.notes,x.visibilityNotes].some(v=>norm(v).includes(q))).sort((a,b)=>score(b)-score(a));summary.innerHTML=`<p><span class="pill blue">Total</span> ${state.items.length}</p><p><span class="pill ok">Exportable</span> ${state.items.filter(x=>x.doNotContact!=='yes').length}</p><p><span class="pill warn">Needs research</span> ${state.items.filter(x=>!x.websiteUrl||x.emailQuality==='unknown').length}</p><p><span class="pill hot">Do not contact</span> ${state.items.filter(x=>x.doNotContact==='yes').length}</p>`;body.innerHTML=rows.map(x=>`<tr><td><strong>${x.businessName}</strong><br><span class="small muted">${x.contactName||'-'}</span></td><td>${x.localArea}</td><td>${x.relationshipSource}</td><td>${x.relationshipWarmth}</td><td>${x.serviceFit}</td><td><span class="pill ${score(x)>=70?'ok':score(x)>=40?'warn':''}">${score(x)}</span></td><td>${nextAction(x)}</td><td>${x.doNotContact}</td><td><button onclick="editItem('${x.id}')">Edit</button> <button onclick="selectItem('${x.id}')">Brief</button> <button onclick="deleteItem('${x.id}')">Delete</button></td></tr>`).join('')||'<tr><td colspan="9" class="muted">No prospects yet.</td></tr>'}
+    window.editItem=id=>{const x=state.items.find(i=>i.id===id);if(!x)return;Object.entries(x).forEach(([k,v])=>{if(form[k])form[k].value=v});selectedId=id;brief(x);window.scrollTo({top:0,behavior:'smooth'})};
+    window.selectItem=id=>{selectedId=id;const x=state.items.find(i=>i.id===id);if(x)brief(x)};
+    window.deleteItem=id=>{if(!confirm('Delete this prospect?'))return;state.items=state.items.filter(x=>x.id!==id);save();render();briefOutput.textContent='Select a prospect to generate a brief.'};
+    function brief(x){briefOutput.textContent=`Warm Prospect Brief\n\nBusiness: ${x.businessName}\nContact: ${x.contactName||'-'}\nWebsite: ${x.websiteUrl||'-'}\nArea: ${x.localArea}\nIndustry: ${x.pipeline}\nRelationship/source: ${x.relationshipSource}\nWarmth: ${x.relationshipWarmth}\nService fit: ${x.serviceFit}\nFunding fit: ${x.fundingReadiness}\nScore: ${score(x)}\nNext action: ${nextAction(x)}\nDo not contact: ${x.doNotContact}\n\nResearch notes:\n${x.visibilityNotes||'-'}\n\nRelationship notes:\n${x.notes||'-'}\n\nGuardrails: draft-only, human approval required, no guessed emails, no auto-sending, no auto-posting.`}
+    form.addEventListener('submit',e=>{e.preventDefault();try{const item=fromForm();const idx=state.items.findIndex(x=>x.id===item.id);if(idx>=0)state.items[idx]=item;else state.items.unshift(item);selectedId=item.id;save();clearForm();render();brief(item)}catch(err){alert(err.message)}});
+    document.getElementById('clearFormBtn').onclick=clearForm;searchInput.oninput=render;document.getElementById('clearAllBtn').onclick=()=>{if(confirm('Clear all local queue data?')){state={items:[]};save();render();briefOutput.textContent='Select a prospect to generate a brief.'}};
+    function esc(v){return `"${String(v??'').replace(/"/g,'""')}"`}const headers=['id','businessName','contactName','websiteUrl','localArea','pipeline','relationshipSource','relationshipWarmth','leadTemperature','email','emailQuality','phone','isVerifiedContact','sourceUrl','freeVideoStatus','videoUpgradeStatus','gbpStatus','websiteTrustStatus','fundingReadiness','monthlyRevenue','followUpDate','visibilityNotes','notes','updatedAt'];
+    function toCommandCenterCSV(){const rows=state.items.filter(x=>x.doNotContact!=='yes').map(x=>({id:x.id,businessName:x.businessName,contactName:x.contactName,websiteUrl:x.websiteUrl,localArea:x.localArea,pipeline:x.pipeline,relationshipSource:x.relationshipSource,relationshipWarmth:x.relationshipWarmth,leadTemperature:x.leadTemperature,email:x.email,emailQuality:x.emailQuality,phone:x.phone,isVerifiedContact:x.isVerifiedContact,sourceUrl:x.sourceUrl,freeVideoStatus:x.serviceFit==='free_video'?'offered':'not_offered',videoUpgradeStatus:'none',gbpStatus:x.serviceFit==='local_visibility'?'drafting':'not_started',websiteTrustStatus:x.serviceFit==='website_seo_aeo'?'audit':'not_started',fundingReadiness:x.fundingReadiness,monthlyRevenue:x.monthlyRevenue,followUpDate:x.followUpDate,visibilityNotes:x.visibilityNotes,notes:`Source: ${x.relationshipSource}. Fit: ${x.serviceFit}. ${x.notes||''}`.trim(),updatedAt:x.updatedAt}));return [headers.join(','),...rows.map(r=>headers.map(h=>esc(r[h])).join(','))].join('\n')}
+    function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+    document.getElementById('exportCsvBtn').onclick=()=>download(`gig-warm-prospect-import-${new Date().toISOString().slice(0,10)}.csv`,toCommandCenterCSV(),'text/csv');document.getElementById('exportJsonBtn').onclick=()=>download(`gig-warm-prospect-queue-${new Date().toISOString().slice(0,10)}.json`,JSON.stringify(state,null,2),'application/json');document.getElementById('importJsonBtn').onclick=()=>{fileInput.value='';fileInput.click()};fileInput.onchange=async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;try{const parsed=JSON.parse(await f.text());state={items:Array.isArray(parsed.items)?parsed.items:[]};save();render();alert(`Restored ${state.items.length} prospects.`)}catch(err){alert(`Restore failed: ${err.message}`)}};
+    document.getElementById('copyBriefBtn').onclick=()=>navigator.clipboard.writeText(briefOutput.textContent);
+    document.getElementById('loadDemoBtn').onclick=()=>{if(state.items.length&&!confirm('Add demo prospects to existing queue?'))return;state.items.unshift({id:uid(),businessName:'NWI Home Comfort Example',contactName:'Owner',websiteUrl:'https://example.com',localArea:'Northwest Indiana',pipeline:'Home Services',relationshipSource:'local_research',relationshipWarmth:'weak',leadTemperature:'warm',email:'',emailQuality:'missing',phone:'',isVerifiedContact:'no',sourceUrl:'',doNotContact:'no',serviceFit:'visibility_snapshot',fundingReadiness:'not_discussed',monthlyRevenue:'unknown',followUpDate:'',visibilityNotes:'Needs clearer trust signals, reviews, service-area copy, and conversion CTA.',notes:'Demo only. Replace with real warm prospect after research.',updatedAt:new Date().toISOString()});save();render()};
+    clearForm();render();
+  </script>
+</body>
+</html>

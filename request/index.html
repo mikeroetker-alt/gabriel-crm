@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request a Free Review | Gabriel Impact Group</title>
+  <meta name="description" content="Request a free manual business spotlight or visibility review from Gabriel Impact Group." />
+  <link rel="stylesheet" href="../assets/funnel.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="../home/" aria-label="Gabriel Impact Group home">
+        <strong>Gabriel Impact Group</strong>
+        <span>Free review request</span>
+      </a>
+      <div class="nav-links">
+        <a href="../home/">Home</a>
+        <a href="../home/#services">Services</a>
+        <a href="../home/#process">Process</a>
+        <a href="mailto:mikeroetker@gmail.com?subject=Gabriel%20Impact%20Group%20Question">Email Mike</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section request-hero">
+      <p class="eyebrow">Request a free review</p>
+      <h1>Send your business basics.</h1>
+      <p class="lead">This starts with a manual first look at your business spotlight opportunity, website clarity, Google/local visibility, reputation signals, and follow-up path.</p>
+      <p class="notice-line">Nothing is posted. Nothing is automated. No paid service is assumed. You review anything before it is used.</p>
+    </section>
+
+    <section class="request-layout" aria-label="Request form and next steps">
+      <aside class="panel">
+        <p class="eyebrow">What happens next</p>
+        <h2>A simple first step.</h2>
+        <ol class="number-list">
+          <li><strong>You send the basics.</strong><br />Business name, contact, link, service area, and what matters most.</li>
+          <li><strong>Mike reviews the public first impression.</strong><br />Website, Google presence, message clarity, trust signals, and obvious follow-up gaps.</li>
+          <li><strong>You receive a practical direction.</strong><br />That may be a short spotlight concept, visibility note, website cleanup direction, or follow-up recommendation.</li>
+          <li><strong>You decide what happens after that.</strong><br />Paid help is discussed only if the next step is clear and useful.</li>
+        </ol>
+        <div class="contact-box">
+          <p><strong>Prefer direct email?</strong></p>
+          <p><a href="mailto:mikeroetker@gmail.com?subject=Free%20Business%20Review%20Request">mikeroetker@gmail.com</a></p>
+          <p>Northwest Indiana / remote support</p>
+        </div>
+      </aside>
+
+      <section class="panel">
+        <p class="eyebrow">Request details</p>
+        <h2>Tell Mike what to review.</h2>
+        <form id="reviewRequestForm">
+          <label for="businessName">Business name *</label>
+          <input id="businessName" name="businessName" autocomplete="organization" required />
+
+          <div class="form-row">
+            <div>
+              <label for="contactName">Contact name</label>
+              <input id="contactName" name="contactName" autocomplete="name" />
+            </div>
+            <div>
+              <label for="contactInfo">Email or phone</label>
+              <input id="contactInfo" name="contactInfo" autocomplete="email" />
+            </div>
+          </div>
+
+          <label for="businessLink">Website, Google Business Profile, Facebook page, or public link</label>
+          <input id="businessLink" name="businessLink" placeholder="https://..." />
+          <p class="field-help">A website, Google profile, Facebook page, or public business listing is enough for the first look.</p>
+
+          <div class="form-row">
+            <div>
+              <label for="serviceArea">Service area</label>
+              <input id="serviceArea" name="serviceArea" placeholder="Example: Northwest Indiana, Chicago suburbs, remote" />
+            </div>
+            <div>
+              <label for="mainGoal">Primary interest</label>
+              <select id="mainGoal" name="mainGoal">
+                <option value="AI business spotlight video concept">AI business spotlight video concept</option>
+                <option value="Visibility / first-impression review">Visibility / first-impression review</option>
+                <option value="Website trust and conversion cleanup">Website trust and conversion cleanup</option>
+                <option value="Local SEO / AEO / Google visibility">Local SEO / AEO / Google visibility</option>
+                <option value="Reputation / review support">Reputation / review support</option>
+                <option value="CRM / follow-up setup">CRM / follow-up setup</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="notes">What should people understand, trust, or remember about your business?</label>
+          <textarea id="notes" name="notes" placeholder="Example: emergency service, family-owned, specialized expertise, service area, years in business, unique process, financing available, reviews, response time, etc."></textarea>
+
+          <div class="button-row">
+            <button class="btn btn-primary" type="submit">Open email draft</button>
+            <button class="btn btn-secondary" id="copyRequest" type="button">Copy request details</button>
+            <a class="btn" href="../home/">Back to website</a>
+          </div>
+          <p class="status-box" id="requestStatus" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">Preview</p>
+      <h2>Your request details</h2>
+      <p>This preview updates before opening or copying your email request.</p>
+      <pre class="preview-box" id="requestPreview">Fill out the form above and click Open email draft or Copy request details.</pre>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><strong>Gabriel Impact Group</strong> — AI business spotlight concepts, visibility reviews, website trust cleanup, local SEO/AEO, reputation support, CRM, and follow-up setup.</p>
+    <p>Email: <a href="mailto:mikeroetker@gmail.com">mikeroetker@gmail.com</a> • Northwest Indiana / remote • © <span data-year></span></p>
+  </footer>
+
+  <script src="../assets/funnel.js"></script>
+  <script>
+    const form = document.getElementById('reviewRequestForm');
+    const statusBox = document.getElementById('requestStatus');
+    const preview = document.getElementById('requestPreview');
+    const copyButton = document.getElementById('copyRequest');
+
+    function field(id) {
+      return (document.getElementById(id)?.value || '').trim();
+    }
+
+    function buildRequestText() {
+      return [
+        'Free Gabriel Impact Group Review Request',
+        '',
+        'Business name: ' + (field('businessName') || '(not provided)'),
+        'Contact name: ' + (field('contactName') || '(not provided)'),
+        'Email or phone: ' + (field('contactInfo') || '(not provided)'),
+        'Website / Google profile / public link: ' + (field('businessLink') || '(not provided)'),
+        'Service area: ' + (field('serviceArea') || '(not provided)'),
+        'Primary interest: ' + (field('mainGoal') || '(not selected)'),
+        '',
+        'What people should understand, trust, or remember:',
+        field('notes') || '(not provided yet)',
+        '',
+        'I understand this starts with a manual review and nothing is posted without approval.'
+      ].join('\n');
+    }
+
+    function updatePreview() {
+      const text = buildRequestText();
+      if (preview) preview.textContent = text;
+      return text;
+    }
+
+    form?.addEventListener('input', updatePreview);
+
+    form?.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const business = field('businessName');
+      if (!business) {
+        alert('Please enter the business name first.');
+        return;
+      }
+      const subject = encodeURIComponent('Free Business Review Request - ' + business);
+      const body = encodeURIComponent(updatePreview());
+      if (statusBox) statusBox.textContent = 'Email draft prepared. Please review it before sending.';
+      window.location.href = 'mailto:mikeroetker@gmail.com?subject=' + subject + '&body=' + body;
+    });
+
+    copyButton?.addEventListener('click', async function() {
+      const text = updatePreview();
+      try {
+        await navigator.clipboard.writeText(text);
+        if (statusBox) statusBox.textContent = 'Request details copied. Paste them into an email to mikeroetker@gmail.com.';
+      } catch (error) {
+        if (statusBox) statusBox.textContent = 'Copy was blocked by the browser. Select the preview text and copy it manually.';
+      }
+    });
+
+    updatePreview();
+  </script>
+</body>
+</html>
