@@ -174,3 +174,27 @@ The audit used the authenticated GitHub connector because this Codex environment
 
 - Add the DeepSeek API key as the GitHub Actions repository secret named `DEEPSEEK_API_KEY` after merge.
 - Then post a `/deepseek` verification request in Issue #22 and confirm that a new `DEEPSEEK — DIRECT BRIDGE RESPONSE` comment appears automatically.
+
+## Claude GitHub response workflow — 2026-09-24
+
+### Goal
+
+- Enable repository-authorized users to address Claude directly with `@claude` in Issues, pull requests, and reviews, with Claude posting its progress and response in the same GitHub thread.
+
+### Completed setup work
+
+- Confirmed that the official Claude GitHub App is installed for all repositories owned by `mikeroetker-alt`.
+- Added `.github/workflows/claude.yml` on branch `chore/claude-github-action`. The workflow is based on Anthropic's official interactive mention example and supports issue comments, pull-request comments, pull-request reviews, and newly opened or assigned issues.
+- Restricted triggering to GitHub's default write-access and human-actor checks implemented by the official `anthropics/claude-code-action`.
+- Configured a bounded eight-turn default and an explicit instruction not to expose secrets or private prospect data or take consequential actions without Mike's authority.
+
+### Activation blocker
+
+- The workflow intentionally uses the repository Actions secret `CLAUDE_CODE_OAUTH_TOKEN`; no credential is committed to the repository.
+- A subscription-backed token-generation session is awaiting its one-time Anthropic OAuth callback. My Browser control has repeatedly timed out while retrieving that callback, so the secret has not been set and this workflow will remain inactive until authentication completes.
+- Do not merge the workflow pull request until the repository secret has been added, or merge it knowing that `@claude` invocations will fail closed until then.
+
+### Validation still required
+
+- Review the workflow diff with `git diff --check`.
+- After the token is configured, merge the workflow and post a reply-only `@claude` test in Issue #32. Confirm a Claude comment appears in the same thread and inspect the workflow run for a successful completion.
