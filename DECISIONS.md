@@ -4,7 +4,7 @@ This file records **only decisions made by Mike Roetker** or explicitly delegate
 
 ## How to use this log
 
-Claude maintains the decision context in [Issue #32](https://github.com/mikeroetker-alt/gabriel-crm/issues/32). Manus updates this file after a decision is recorded there. Each completed entry must include the date, decider, exact outcome, affected work, and a GitHub link to the source decision.
+Claude maintains the decision context in [Issue #32](https://github.com/mikeroetker-alt/gabriel-crm/issues/32). After Mike records a decision there, Manus updates this file through a dedicated pull request and Claude reviews that pull request before merge. Each completed entry must include the date, decider, exact outcome, affected work, and a GitHub link to the source decision.
 
 Until Mike records a decision, the entry remains **Pending** and dependent work does not start or merge.
 
