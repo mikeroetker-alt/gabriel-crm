@@ -198,3 +198,30 @@ The audit used the authenticated GitHub connector because this Codex environment
 
 - Review the workflow diff with `git diff --check`.
 - After the token is configured, merge the workflow and post a reply-only `@claude` test in Issue #32. Confirm a Claude comment appears in the same thread and inspect the workflow run for a successful completion.
+
+
+## M4a — pinned GitHub Actions CI for `gabriel-crm` — 2026-09-25
+
+### Scope and safety boundary
+
+- Added `.github/workflows/ci.yml` on dedicated branch `ci/gabriel-crm-test` for pull requests and pushes to `main`.
+- The workflow has workflow-level `permissions: contents: read`, uses no secrets, has no write permissions, and contains no deploy, production, CRM, payment, email, DNS, or external-system step.
+- `actions/checkout` is pinned to `11bd71901bbe5b1630ceea73d27597364c9af683` (`v4.2.2`) and `actions/setup-node` is pinned to `49933ea5288caeca8642d1e84afbd3f7d6820020` (`v4.4.0`).
+- The job uses Node.js 22, npm caching keyed to `package.json`, `npm ci` only if `package-lock.json` exists, otherwise `npm install --no-audit --no-fund`, then `npm test`.
+- Ref-keyed workflow concurrency cancels superseded CI runs.
+
+### Validation evidence
+
+- `npm test` at baseline `aac6f77` — **13 passed, 0 failed**.
+- `git diff --check` — **passed**.
+- `! grep -nE 'secrets\\.|\\bwrite\\b' .github/workflows/ci.yml` — **passed**; the workflow contains neither secret reference nor write permission.
+- Static workflow-content verification — **passed** for triggers, read-only permission, concurrency, action SHA pins, Node 22/npm cache, lockfile fallback, and `npm test`.
+- Initial green CI run: [Run 36145407850](https://github.com/mikeroetker-alt/gabriel-crm/actions/runs/36145407850) on commit `8dd983f` — **success**.
+- Controlled negative test: commit `97f5112` added one explicit failing assertion. Local `npm test` produced **13 passed, 1 failed** as expected. [Run 36145566143](https://github.com/mikeroetker-alt/gabriel-crm/actions/runs/36145566143) — **failure** as expected.
+- Recovery: commit `abc4e54` reverted only the controlled failure. Local `npm test` again produced **13 passed, 0 failed**. [Run 36145643425](https://github.com/mikeroetker-alt/gabriel-crm/actions/runs/36145643425) — **success**.
+
+### Current review state and next action
+
+- The M4a pull request is [#35](https://github.com/mikeroetker-alt/gabriel-crm/pull/35) and is awaiting Claude review.
+- After PR #35 is merged, **D5 (branch protection) can require the `CI / test` check on `main`**.
+- No branch-protection, repository-settings, deployment, access, billing, payment, outreach, CRM-write, DNS, or credential change was made in this work session.
