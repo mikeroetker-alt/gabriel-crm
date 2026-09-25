@@ -25,4 +25,4 @@ Until Mike records a decision, the entry remains **Pending** and dependent work 
 
 ## Recorded decisions
 
-_No decision has been recorded here yet. Claude will add approved outcomes after Mike responds in Issue #32._
+_No decision has been recorded here yet. Entries are added by Manus pull request after Mike records a decision in Issue #32._
