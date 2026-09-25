@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Source Setup — Gabriel Growth Engine</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --soft: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --primary: #22c55e;
+      --warn: #fbbf24;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
+    header, main, footer { max-width: 1050px; margin: 0 auto; padding: 1rem; }
+    header { border-bottom: 1px solid var(--border); }
+    h1, h2, h3 { margin-top: 0; }
+    a { color: var(--accent); }
+    .muted { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1rem; margin: 1rem 0; }
+    .soft { background: var(--soft); }
+    .pill { display: inline-block; border: 1px solid var(--primary); color: var(--primary); border-radius: 999px; padding: 0.15rem 0.55rem; font-size: 0.78rem; margin: 0 0.25rem 0.4rem 0; }
+    .pill.warn { border-color: var(--warn); color: var(--warn); }
+    label { display: block; font-weight: 700; margin-top: 0.75rem; }
+    input, select, textarea { width: 100%; padding: 0.7rem; border-radius: 10px; border: 1px solid var(--border); background: #020617; color: var(--text); }
+    textarea { min-height: 95px; }
+    button { border: 0; border-radius: 10px; padding: 0.75rem 1rem; font-weight: 800; cursor: pointer; margin: 0.5rem 0.35rem 0.5rem 0; }
+    .primary { background: var(--primary); color: #052e16; }
+    .secondary { background: #0ea5e9; color: white; }
+    .ghost { background: transparent; color: var(--accent); border: 1px solid var(--border); }
+    pre { white-space: pre-wrap; background: #020617; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; min-height: 220px; }
+    .notice { border-left: 4px solid var(--warn); padding: 0.75rem 1rem; background: rgba(251,191,36,0.08); border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <p><a href="../">← Back to Tools</a> · <a href="../../home/">Public Funnel</a> · <a href="../../">Command Center</a></p>
+    <h1>Video Source Setup</h1>
+    <p class="muted">Use this before outreach. The free spotlight offer must have a real production path, even if the first version is simple.</p>
+  </header>
+
+  <main>
+    <section class="card notice">
+      <strong>Outreach gate:</strong> Do not contact a real prospect until the public page is usable and the video source workflow below is selected. No auto-posting. No auto-sending. No promised results.
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <span class="pill">Step 1</span>
+        <h2>Minimum public URL</h2>
+        <p>Use the current public funnel until a custom domain is ready:</p>
+        <p><a href="../../home/">https://mikeroetker-alt.github.io/gabriel-crm/home/</a></p>
+        <p class="muted">This is enough for a soft warm follow-up, but a custom GIG domain is better before broader outreach.</p>
+      </article>
+      <article class="card">
+        <span class="pill">Step 2</span>
+        <h2>Video source decision</h2>
+        <p>Choose one source for the first 10 free spotlight drafts. Do not compare tools endlessly.</p>
+        <p><strong>Default:</strong> manual AI-assisted video draft using business website/GBP screenshots, logo, service photos, simple captions, and voice/text overlay.</p>
+      </article>
+      <article class="card">
+        <span class="pill">Step 3</span>
+        <h2>Approval workflow</h2>
+        <p>Every video draft stays private until Mike approves it. Nothing is posted automatically. The business receives a reviewable draft only.</p>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Generate Video Production Brief</h2>
+      <div class="grid">
+        <div>
+          <label for="business">Business / Prospect</label>
+          <input id="business" value="Texas Storm Shelter" />
+        </div>
+        <div>
+          <label for="industry">Industry</label>
+          <input id="industry" value="Storm shelters / home safety" />
+        </div>
+        <div>
+          <label for="source">Primary source material</label>
+          <select id="source">
+            <option>Website and public business profile</option>
+            <option>Past client relationship and known history</option>
+            <option>Owner-provided photos and notes</option>
+            <option>Manual research only</option>
+          </select>
+        </div>
+        <div>
+          <label for="videoType">First video type</label>
+          <select id="videoType">
+            <option>Free 20-30 second business spotlight draft</option>
+            <option>Short local trust video</option>
+            <option>Before/after visibility concept</option>
+            <option>Service explainer concept</option>
+          </select>
+        </div>
+      </div>
+      <label for="angle">Value angle</label>
+      <textarea id="angle">Highlight trust, local safety, storm readiness, and the practical value of a shelter before storm season. Keep it helpful, not pushy.</textarea>
+      <label for="assets">Assets needed before production</label>
+      <textarea id="assets">Website URL, logo if available, 3-5 product/service photos, service area, one main customer pain point, and one preferred call-to-action.</textarea>
+      <button class="primary" id="generate">Generate Production Brief</button>
+      <button class="secondary" id="copy">Copy Brief</button>
+      <button class="ghost" id="clear">Clear</button>
+      <pre id="output">Click “Generate Production Brief.”</pre>
+    </section>
+
+    <section class="card soft">
+      <h2>First outreach rule</h2>
+      <p>The first message should not say “I want to sell you video.” It should say, in plain language, that you had an idea for a simple spotlight/visibility piece and wanted to make sure it would be useful before sending anything.</p>
+      <p><span class="pill warn">Guardrail</span> Business funding remains back-end only. No funding claims, no approval promises, no generic DAC links, and no nonprofit language in paid outreach.</p>
+    </section>
+  </main>
+
+  <footer class="muted">
+    <p>Gabriel Impact Group · Local-only planning tool · No API calls · No auto-send · No auto-posting.</p>
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    function generateBrief() {
+      const brief = `VIDEO PRODUCTION BRIEF\n\nBusiness / Prospect: ${$('business').value.trim() || 'Unnamed business'}\nIndustry: ${$('industry').value.trim() || 'Unknown'}\nVideo Type: ${$('videoType').value}\nPrimary Source Material: ${$('source').value}\n\nValue Angle:\n${$('angle').value.trim()}\n\nAssets Needed:\n${$('assets').value.trim()}\n\nProduction Rules:\n- Create a reviewable draft only.\n- Do not post publicly.\n- Do not email automatically.\n- Do not promise rankings, leads, funding, approvals, or results.\n- Keep the first version useful, simple, and relationship-first.\n\nSuggested first CTA:\n“If this is useful, I can tighten it up and show you a cleaner version before anything is posted or promoted.”\n\nNext Internal Step:\nCreate the draft manually from approved public/source material, then review before any prospect sees it.`;
+      $('output').textContent = brief;
+    }
+    $('generate').addEventListener('click', generateBrief);
+    $('copy').addEventListener('click', async () => {
+      await navigator.clipboard.writeText($('output').textContent);
+      $('copy').textContent = 'Copied';
+      setTimeout(() => $('copy').textContent = 'Copy Brief', 1200);
+    });
+    $('clear').addEventListener('click', () => { $('output').textContent = 'Click “Generate Production Brief.”'; });
+  </script>
+</body>
+</html>

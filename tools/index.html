@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel Growth Engine — Tools</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: #334155;
+      --primary: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+    header, main { max-width: 980px; margin: 0 auto; padding: 1rem; }
+    header { border-bottom: 1px solid var(--border); }
+    h1 { margin-bottom: 0.25rem; }
+    a { color: var(--accent); }
+    .muted { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .card { display: block; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; text-decoration: none; color: var(--text); }
+    .card:hover { border-color: var(--accent); }
+    .pill { display: inline-block; border: 1px solid var(--primary); color: var(--primary); border-radius: 999px; padding: 0.15rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gabriel Growth Engine Tools</h1>
+    <p class="muted">Static sales and operations tools for Gabriel Impact Group. No API calls, no auto-sending, no hidden data collection.</p>
+    <p><a href="../">Back to Command Center</a></p>
+  </header>
+  <main>
+    <section class="grid">
+      <a class="card" href="warm-follow-up/">
+        <span class="pill">Ready</span>
+        <h2>Warm Relationship Follow-Up Builder</h2>
+        <p>Create a gentle, relationship-first follow-up draft for real warm contacts. Built for Texas Storm Shelter, Bob, John/test workflows, and future approved warm leads.</p>
+      </a>
+      <a class="card" href="load-test-record/">
+        <span class="pill">Ready</span>
+        <h2>Load Mike Test Record</h2>
+        <p>One-click internal QA loader. Adds or updates the Mike/Gabriel Impact Group test record in local browser storage so the command center can be tested immediately.</p>
+      </a>
+      <a class="card" href="warm-prospect-intake/">
+        <span class="pill">Ready</span>
+        <h2>Warm Prospect Intake Queue</h2>
+        <p>Capture warm/referral/manually researched prospects, score readiness, flag do-not-contact records, and export a command-center-ready CSV.</p>
+      </a>
+      <a class="card" href="visibility-snapshot/">
+        <span class="pill">Ready</span>
+        <h2>Visibility Snapshot Tool</h2>
+        <p>Create a printable, copyable preliminary visibility snapshot for a local business. Designed for free-value-first outreach and warm follow-up.</p>
+      </a>
+      <a class="card" href="pricing-proposal/">
+        <span class="pill">Ready</span>
+        <h2>Pricing & Proposal Calculator</h2>
+        <p>Turn a visibility conversation into a practical paid next-step range for video, visibility, website trust, reputation, or CRM setup.</p>
+      </a>
+      <a class="card" href="offer-builder/">
+        <span class="pill">Ready</span>
+        <h2>Offer Page Builder</h2>
+        <p>Create draft paid-service page copy for video upgrades, local visibility, website trust, reputation support, and CRM/GHL setup.</p>
+      </a>
+      <article class="card">
+        <span class="pill">Blocked / Later</span>
+        <h2>Client Spotlight Template</h2>
+        <p>Future tool: generate a clean local business spotlight page draft for approved prospects. Earlier attempts were blocked by connector safety filters.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
