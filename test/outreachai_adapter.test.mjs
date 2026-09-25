@@ -56,3 +56,8 @@ test("page sizes are bounded before any request is made", async () => {
   await assert.rejects(adapter.listContacts({ limit: CONTACTS_PAGE_SIZE_MAX + 1 }), /limit/);
   assert.equal(requested, false);
 });
+
+
+test("controlled CI failure sentinel", () => {
+  assert.equal("controlled failure", "expected success");
+});
