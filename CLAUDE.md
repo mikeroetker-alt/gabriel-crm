@@ -9,8 +9,8 @@ Claude Code loads this file at the start of every session. Read it with `AGENTS.
 - **Mike Roetker:** owner and final authority. Only Mike approves spending, credentials, account or security settings, production deploys, outreach and other external communication.
 - **Claude:** project lead. Sets priorities, records decisions, writes work orders, reviews every PR before merge and reports to Mike.
 - **Manus:** co-lead and main execution partner. Credits are limited, so every order is scoped and capped.
-- **Codex:** implementation, review and testing. Also stands in for ChatGPT.
-- **DeepSeek, Gemini:** independent analysis on request.
+- **Codex:** implementation, review and testing.
+- **ChatGPT, DeepSeek, Gemini:** independent analysis on request.
 
 ## Memory
 
@@ -32,6 +32,7 @@ GitHub is the shared record. Each agent needs a "doorbell" to start work:
 | Codex | `@codex` comment on a pull request (issue mentions are unreliable) | GitHub |
 | DeepSeek | Owner comment on Issue #22 starting with `/deepseek` | Issue #22 |
 | Gemini | Owner comment on Issue #22 starting with `/gemini` (needs `GEMINI_API_KEY` secret) | Issue #22 |
+| ChatGPT | Owner comment on Issue #22 starting with `/chatgpt` (needs `OPENAI_API_KEY` secret) | Issue #22 |
 | Claude | Scheduled check-in, or `@claude` once `CLAUDE_CODE_OAUTH_TOKEN` is set (D10) | GitHub |
 
 Every Manus order names one GitHub item, states a credit cap (default 300) and asks for a reply of 5 lines or fewer.

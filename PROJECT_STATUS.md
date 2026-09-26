@@ -211,21 +211,23 @@ The audit used the authenticated GitHub connector because this Codex environment
 - Updated `AGENTS.md` with a team section so Codex and other agents see the current roles and channels.
 - **DeepSeek bridge hardening (M1, decision D1):** only repository-owner comments trigger `/deepseek` (checked in the workflow and in the script). Context includes only owner and team-bot comments, and a concurrency group runs one request at a time. Issue number, command, permissions and token caps are unchanged. Shared helpers moved to `bridge/issue_bridge_common.mjs`.
 - **Gemini bridge:** `/gemini` owner command on Issue #22 with the same limits. Inactive until Mike adds the `GEMINI_API_KEY` secret.
+- **ChatGPT bridge:** `/chatgpt` owner command on Issue #22 with the same limits, via the OpenAI API. Model set by the `OPENAI_MODEL` repository variable (default `gpt-6-sol`). Inactive until Mike adds the `OPENAI_API_KEY` secret.
 
 ### Files changed
 
 - `CLAUDE.md`, `AGENTS.md`, `PROJECT_STATUS.md`
-- `bridge/issue_bridge_common.mjs` (new), `bridge/deepseek_issue_bridge.mjs`, `bridge/gemini_issue_bridge.mjs` (new)
-- `.github/workflows/deepseek-issue-bridge.yml`, `.github/workflows/gemini-issue-bridge.yml` (new)
-- `test/deepseek_issue_bridge.test.mjs`, `test/gemini_issue_bridge.test.mjs` (new)
-- `docs/DEEPSEEK_GITHUB_BRIDGE.md`, `docs/GEMINI_GITHUB_BRIDGE.md` (new)
+- `bridge/issue_bridge_common.mjs` (new), `bridge/deepseek_issue_bridge.mjs`, `bridge/gemini_issue_bridge.mjs` (new), `bridge/chatgpt_issue_bridge.mjs` (new)
+- `.github/workflows/deepseek-issue-bridge.yml`, `.github/workflows/gemini-issue-bridge.yml` (new), `.github/workflows/chatgpt-issue-bridge.yml` (new)
+- `test/deepseek_issue_bridge.test.mjs`, `test/gemini_issue_bridge.test.mjs` (new), `test/chatgpt_issue_bridge.test.mjs` (new)
+- `docs/DEEPSEEK_GITHUB_BRIDGE.md`, `docs/GEMINI_GITHUB_BRIDGE.md` (new), `docs/CHATGPT_GITHUB_BRIDGE.md` (new)
 
 ### Validation
 
-- `npm test`: 22 passed, 0 failed (13 existing plus 9 new: non-owner rejection, no API call for non-owners, untrusted comments excluded from context, Gemini routing, parsing and end-to-end posting with a mocked fetch).
+- `npm test`: 27 passed, 0 failed (13 existing plus 14 new: non-owner rejection, no API call for non-owners, untrusted comments excluded from context, and Gemini and ChatGPT routing, parsing, model override and end-to-end posting with a mocked fetch).
 - Live runs not yet performed. Both need merging first; Gemini also needs its secret.
 
 ### Needs Mike
 
 - Approve D1 and the merge of this branch (Claude opens a PR on request).
-- Gemini only: create the Google AI Studio key and add it as the `GEMINI_API_KEY` Actions secret.
+- Gemini: create the Google AI Studio key and add it as the `GEMINI_API_KEY` Actions secret.
+- ChatGPT: create an OpenAI API key with a monthly budget limit and add it as the `OPENAI_API_KEY` Actions secret (pay-as-you-go spend, Mike's approval).

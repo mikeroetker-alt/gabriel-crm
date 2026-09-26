@@ -1,4 +1,4 @@
-// Shared helpers for the GitHub issue bridges (DeepSeek, Gemini).
+// Shared helpers for the GitHub issue bridges (DeepSeek, Gemini, ChatGPT).
 
 export const DEFAULT_MAX_CONTEXT_CHARS = 48000;
 
@@ -6,7 +6,7 @@ export const DEFAULT_MAX_CONTEXT_CHARS = 48000;
 export const TRUSTED_BOT_LOGINS = ['github-actions[bot]', 'claude[bot]'];
 
 export const TEAM_ROLES =
-  'Mike Roetker is the owner, final authority and approval gate. Claude is project lead. Manus is co-lead and main execution partner. Codex is technical implementation, review and testing. DeepSeek and Gemini give independent analysis on request.';
+  'Mike Roetker is the owner, final authority and approval gate. Claude is project lead. Manus is co-lead and main execution partner. Codex is technical implementation, review and testing. ChatGPT, DeepSeek and Gemini give independent analysis on request.';
 
 export function isOwnerComment(authorAssociation) {
   return authorAssociation === 'OWNER';

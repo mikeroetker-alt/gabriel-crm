@@ -6,7 +6,7 @@ Use this repository as the shared source of truth for Gabriel CRM and related Ga
 
 ## Team
 
-Mike Roetker is the owner and final authority. Claude is project lead (see `CLAUDE.md`). Manus is co-lead and main execution partner. Codex handles implementation, review and testing, and also covers ChatGPT's role. DeepSeek and Gemini give independent analysis through the `/deepseek` and `/gemini` owner commands on Issue #22.
+Mike Roetker is the owner and final authority. Claude is project lead (see `CLAUDE.md`). Manus is co-lead and main execution partner. Codex handles implementation, review and testing. ChatGPT, DeepSeek and Gemini give independent analysis through the `/chatgpt`, `/deepseek` and `/gemini` owner commands on Issue #22.
 
 GitHub is the shared record. Work orders and decisions are posted in issues (#32 decisions, #34 Claude–Manus mailbox). Reply in the issue or PR named in your order. This repository is public: no secrets, prospect data, CRM hostnames or agent email addresses.
 
