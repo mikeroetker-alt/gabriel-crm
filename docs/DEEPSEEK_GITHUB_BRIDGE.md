@@ -8,8 +8,8 @@ The bridge is intentionally narrow:
 
 - canonical repository: `mikeroetker-alt/gabriel-crm`
 - canonical coordination thread: Issue #22
-- trigger: a new Issue #22 comment whose first characters are `/deepseek`
-- context: the live Issue #22 body plus its GitHub comments, bounded before transmission
+- trigger: a new Issue #22 comment by the repository owner whose first characters are `/deepseek`
+- context: the live Issue #22 body plus comments from the owner and the team bots (`github-actions[bot]`, `claude[bot]`), bounded before transmission. Comments from anyone else are dropped
 - model: official DeepSeek API `deepseek-flash`
 - output: a new Issue #22 comment headed `DEEPSEEK — DIRECT BRIDGE RESPONSE`
 
@@ -54,7 +54,8 @@ DeepSeek's posted response does not trigger itself because bridge responses do n
 ## Scope and cost controls
 
 - Only Issue #22 is accepted by the script and workflow.
-- Only explicit `/deepseek` comments trigger an API call.
+- Only explicit `/deepseek` comments from the repository owner (`author_association == OWNER`) trigger an API call. The workflow and the script both check this.
+- A concurrency group runs one request at a time.
 - Each run is capped to five minutes.
 - Context is bounded before it is sent to DeepSeek.
 - The response request is capped at 2,200 output tokens.
