@@ -46,6 +46,8 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+      GEMINI_VERTEX_MODEL: ${{ vars.GEMINI_VERTEX_MODEL }}
       GEMINI_TARGET_ISSUE: '22'
     steps:
       - name: Check out repository

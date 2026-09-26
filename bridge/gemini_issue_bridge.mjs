@@ -11,6 +11,10 @@ import {
 const DEFAULT_ISSUE_NUMBER = 22;
 // Google's alias for its current Flash model, so upgrades need no code change.
 const DEFAULT_MODEL = 'gemini-flash-latest';
+// Newer AI Studio keys start with "AQ." and are rejected by the Gemini API
+// (ACCESS_TOKEN_TYPE_UNSUPPORTED). Vertex AI express mode accepts them.
+const DEFAULT_VERTEX_MODEL = 'gemini-3.5-flash';
+const VERTEX_EXPRESS_BASE = 'https://aiplatform.googleapis.com/v1/publishers/google/models';
 
 export function shouldHandleGeminiComment({ issueNumber, commentBody, authorAssociation, targetIssue = DEFAULT_ISSUE_NUMBER }) {
   if (Number(issueNumber) !== Number(targetIssue)) return false;
@@ -27,12 +31,19 @@ export function resolveGeminiProvider(env = {}) {
     throw new Error('GEMINI_API_KEY repository Actions secret is required for the Gemini bridge.');
   }
   const model = env.GEMINI_MODEL || DEFAULT_MODEL;
+  const vertexModel = env.GEMINI_VERTEX_MODEL || DEFAULT_VERTEX_MODEL;
   return {
     provider: 'gemini-api',
     url: `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
     token: env.GEMINI_API_KEY,
-    model
+    model,
+    vertexUrl: `${VERTEX_EXPRESS_BASE}/${vertexModel}:generateContent`,
+    vertexModel
   };
+}
+
+export function isUnsupportedAuthKeyError(status, bodyText) {
+  return status === 401 && /ACCESS_TOKEN_TYPE_UNSUPPORTED/.test(String(bodyText || ''));
 }
 
 export function extractGeminiText(payload) {
@@ -86,22 +97,33 @@ export async function runGeminiBridge({
     'Keep responses decision-useful and concise.'
   ].join(' ');
 
-  const geminiResponse = await fetchImpl(provider.url, {
+  const payload = JSON.stringify({
+    systemInstruction: { parts: [{ text: systemPrompt }] },
+    contents: [{ role: 'user', parts: [{ text: issueContext }] }],
+    generationConfig: { maxOutputTokens: 2200 }
+  });
+  const post = (url) => fetchImpl(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'x-goog-api-key': provider.token
     },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: systemPrompt }] },
-      contents: [{ role: 'user', parts: [{ text: issueContext }] }],
-      generationConfig: { maxOutputTokens: 2200 }
-    })
+    body: payload
   });
 
+  let geminiResponse = await post(provider.url);
+  let usedModel = provider.model;
   if (!geminiResponse.ok) {
     const body = await geminiResponse.text();
-    throw new Error(`Gemini API ${geminiResponse.status}: ${body.slice(0, 1200)}`);
+    if (!isUnsupportedAuthKeyError(geminiResponse.status, body)) {
+      throw new Error(`Gemini API ${geminiResponse.status}: ${body.slice(0, 1200)}`);
+    }
+    geminiResponse = await post(provider.vertexUrl);
+    usedModel = `${provider.vertexModel} (Vertex AI express)`;
+    if (!geminiResponse.ok) {
+      const vertexBody = await geminiResponse.text();
+      throw new Error(`Gemini Vertex express ${geminiResponse.status}: ${vertexBody.slice(0, 1200)}`);
+    }
   }
 
   const answer = extractGeminiText(await geminiResponse.json());
@@ -112,7 +134,7 @@ export async function runGeminiBridge({
     answer,
     '',
     '---',
-    `Generated from the live Issue #${issueNumber} context via the repository Gemini bridge using ${provider.model}${sourceCommentUrl ? ` in response to ${sourceCommentUrl}` : ''}.`
+    `Generated from the live Issue #${issueNumber} context via the repository Gemini bridge using ${usedModel}${sourceCommentUrl ? ` in response to ${sourceCommentUrl}` : ''}.`
   ].join('\n');
 
   const posted = await githubJson(
@@ -130,7 +152,7 @@ export async function runGeminiBridge({
     handled: true,
     issueNumber,
     provider: provider.provider,
-    model: provider.model,
+    model: usedModel,
     postedCommentUrl: posted?.html_url || null
   };
 }
