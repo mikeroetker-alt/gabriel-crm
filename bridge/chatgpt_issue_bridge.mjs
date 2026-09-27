@@ -10,7 +10,7 @@ import {
 
 const DEFAULT_ISSUE_NUMBER = 22;
 // Override with the OPENAI_MODEL repository variable; no code change needed.
-const DEFAULT_MODEL = 'gpt-6-sol';
+const DEFAULT_MODEL = 'gpt-5.6-sol';
 
 export function shouldHandleChatGptComment({ issueNumber, commentBody, authorAssociation, targetIssue = DEFAULT_ISSUE_NUMBER }) {
   if (Number(issueNumber) !== Number(targetIssue)) return false;

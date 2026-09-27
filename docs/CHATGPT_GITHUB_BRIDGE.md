@@ -4,7 +4,7 @@ Gives ChatGPT (OpenAI) the same repository-native path as the DeepSeek and Gemin
 
 - trigger: a new Issue #22 comment by the repository owner starting with `/chatgpt`
 - context: the Issue #22 body plus comments from the owner and the team bots only, bounded before transmission
-- model: `gpt-6-sol` by default. Set the repository **variable** `OPENAI_MODEL` (Settings → Secrets and variables → Actions → Variables) to change it without a code change.
+- model: `gpt-5.6-sol` by default (cheaper than GPT-6; Mike does not want GPT-6). Set the repository **variable** `OPENAI_MODEL` (Settings → Secrets and variables → Actions → Variables) to change it without a code change.
 - output: a new Issue #22 comment headed `CHATGPT — DIRECT BRIDGE RESPONSE`
 - limits: 5-minute timeout, 2,200 output tokens, one run at a time, `contents: read` and `issues: write` only
 
