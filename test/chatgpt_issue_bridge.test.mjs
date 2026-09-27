@@ -25,9 +25,9 @@ test('normalizes the command body', () => {
 test('uses the OpenAI API, honours the model override and fails closed without a key', () => {
   const provider = resolveChatGptProvider({ OPENAI_API_KEY: 'o-key' });
   assert.equal(provider.url, 'https://api.openai.com/v1/chat/completions');
-  assert.equal(provider.model, 'gpt-6-sol');
+  assert.equal(provider.model, 'gpt-5.6-sol');
   assert.equal(resolveChatGptProvider({ OPENAI_API_KEY: 'o-key', OPENAI_MODEL: 'other-model' }).model, 'other-model');
-  assert.equal(resolveChatGptProvider({ OPENAI_API_KEY: 'o-key', OPENAI_MODEL: '' }).model, 'gpt-6-sol');
+  assert.equal(resolveChatGptProvider({ OPENAI_API_KEY: 'o-key', OPENAI_MODEL: '' }).model, 'gpt-5.6-sol');
   assert.throws(() => resolveChatGptProvider({}), /OPENAI_API_KEY repository Actions secret is required/);
 });
 

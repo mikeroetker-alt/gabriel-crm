@@ -211,7 +211,7 @@ The audit used the authenticated GitHub connector because this Codex environment
 - Updated `AGENTS.md` with a team section so Codex and other agents see the current roles and channels.
 - **DeepSeek bridge hardening (M1, decision D1):** only repository-owner comments trigger `/deepseek` (checked in the workflow and in the script). Context includes only owner and team-bot comments, and a concurrency group runs one request at a time. Issue number, command, permissions and token caps are unchanged. Shared helpers moved to `bridge/issue_bridge_common.mjs`.
 - **Gemini bridge:** `/gemini` owner command on Issue #22 with the same limits. Inactive until Mike adds the `GEMINI_API_KEY` secret.
-- **ChatGPT bridge:** `/chatgpt` owner command on Issue #22 with the same limits, via the OpenAI API. Model set by the `OPENAI_MODEL` repository variable (default `gpt-6-sol`). Inactive until Mike adds the `OPENAI_API_KEY` secret.
+- **ChatGPT bridge:** `/chatgpt` owner command on Issue #22 with the same limits, via the OpenAI API. Model set by the `OPENAI_MODEL` repository variable (default `gpt-5.6-sol`). Inactive until Mike adds the `OPENAI_API_KEY` secret.
 
 ### Files changed
 
