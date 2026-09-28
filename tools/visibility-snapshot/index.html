@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel Impact Group — Visibility Snapshot Tool</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #22c55e;
+      --accent: #38bdf8;
+      --warn: #f59e0b;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: #020617;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem;
+    }
+
+    main {
+      display: grid;
+      gap: 1rem;
+      padding: 1rem;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 { margin-top: 0; }
+    h1 { font-size: 1.35rem; margin-bottom: 0.25rem; }
+    a { color: var(--accent); }
+
+    .tagline, .muted { color: var(--muted); }
+    .small { font-size: 0.85rem; }
+
+    .grid { display: grid; gap: 1rem; }
+    .cols-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .cols-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #cbd5e1;
+      font-size: 0.84rem;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 0.62rem 0.72rem;
+      background: var(--panel-2);
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea { min-height: 96px; resize: vertical; }
+    button { cursor: pointer; font-weight: 800; background: #0b1220; }
+    button:hover { border-color: var(--accent); }
+    .btn-primary { background: #14532d; border-color: #166534; }
+    .btn-accent { background: #0c4a6e; border-color: #0369a1; }
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .actions button, .actions a { width: auto; }
+
+    .pill {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.16rem 0.55rem;
+      margin: 0 0.25rem 0.25rem 0;
+      font-size: 0.74rem;
+    }
+    .pill.ok { color: var(--primary); border-color: var(--primary); }
+    .pill.blue { color: var(--accent); border-color: var(--accent); }
+    .pill.warn { color: var(--warn); border-color: var(--warn); }
+
+    .output {
+      white-space: pre-wrap;
+      background: #020617;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      min-height: 420px;
+    }
+
+    .score-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem;
+    }
+    .score-value { font-size: 1.55rem; font-weight: 900; }
+
+    @media print {
+      header, .no-print, form, button { display: none !important; }
+      body { background: #fff; color: #111; }
+      main { max-width: none; padding: 0; }
+      .card, .output, .score-card { border: none; background: #fff; color: #111; }
+      a { color: #111; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gabriel Impact Group — Visibility Snapshot Tool</h1>
+    <div class="tagline">Static, local-only, printable. No API calls. No login. No form data is collected or transmitted.</div>
+    <div class="tagline small">Use this to create a fast, human-reviewed visibility snapshot before sending any outreach.</div>
+  </header>
+
+  <main>
+    <section class="card no-print">
+      <div class="actions">
+        <a href="../../">Back to Command Center</a>
+        <button id="generateBtn" class="btn-primary">Generate Snapshot</button>
+        <button id="copyBtn" class="btn-accent">Copy Snapshot</button>
+        <button id="printBtn">Print</button>
+        <button id="clearBtn">Clear</button>
+      </div>
+    </section>
+
+    <section class="grid cols-2">
+      <article class="card no-print">
+        <h2>Business Inputs</h2>
+        <p class="small muted">Enter only what you know. This tool is a quick preliminary review, not a live website crawl.</p>
+        <form id="snapshotForm">
+          <div class="grid cols-2">
+            <div><label>Business Name *</label><input name="businessName" required placeholder="ABC Heating & Cooling" /></div>
+            <div><label>Industry / Category *</label><input name="industry" required placeholder="HVAC, roofing, restaurant, retail..." /></div>
+            <div><label>City / State</label><input name="location" placeholder="Lowell, IN" /></div>
+            <div><label>Website URL</label><input name="websiteUrl" type="url" placeholder="https://..." /></div>
+            <div><label>Relationship / Source</label><input name="source" placeholder="Past client, referral, local research..." /></div>
+            <div><label>Recommended Offer</label>
+              <select name="recommendedOffer">
+                <option value="Free Business Spotlight Video">Free Business Spotlight Video</option>
+                <option value="Free Visibility Snapshot Follow-up">Free Visibility Snapshot Follow-up</option>
+                <option value="Paid Video Upgrade">Paid Video Upgrade</option>
+                <option value="Local Visibility / GBP Weekly Posts">Local Visibility / GBP Weekly Posts</option>
+                <option value="Website Trust + SEO/AEO Improvement">Website Trust + SEO/AEO Improvement</option>
+                <option value="Reputation Improvement">Reputation Improvement</option>
+                <option value="GoHighLevel Setup">GoHighLevel Setup</option>
+                <option value="Funding Readiness Conversation — Back-End Only">Funding Readiness Conversation — Back-End Only</option>
+              </select>
+            </div>
+          </div>
+
+          <h3>Observed Visibility Signals</h3>
+          <div class="grid cols-3">
+            <div><label>Website First Impression</label><select name="website"><option value="unknown">Unknown</option><option value="strong">Strong</option><option value="average">Average</option><option value="weak">Weak</option><option value="missing">Missing / No Website</option></select></div>
+            <div><label>Trust Signals</label><select name="trust"><option value="unknown">Unknown</option><option value="strong">Strong</option><option value="average">Average</option><option value="weak">Weak</option><option value="missing">Missing</option></select></div>
+            <div><label>SEO Basics</label><select name="seo"><option value="unknown">Unknown</option><option value="strong">Strong</option><option value="average">Average</option><option value="weak">Weak</option><option value="missing">Missing</option></select></div>
+            <div><label>AI Answer / AEO Readiness</label><select name="aeo"><option value="unknown">Unknown</option><option value="strong">Strong</option><option value="average">Average</option><option value="weak">Weak</option><option value="missing">Missing</option></select></div>
+            <div><label>Google Business Profile</label><select name="gbp"><option value="unknown">Unknown</option><option value="strong">Strong</option><option value="average">Average</option><option value="weak">Weak</option><option value="not_found">Not Found</option></select></div>
+            <div><label>Reviews / Reputation</label><select name="reviews"><option value="unknown">Unknown</option><option value="strong">Strong</option><option value="average">Average</option><option value="weak">Weak</option><option value="few_or_none">Few / None</option></select></div>
+            <div><label>Social / Content Presence</label><select name="social"><option value="unknown">Unknown</option><option value="strong">Strong</option><option value="average">Average</option><option value="weak">Weak</option><option value="inactive">Inactive</option></select></div>
+            <div><label>Conversion / Calls To Action</label><select name="conversion"><option value="unknown">Unknown</option><option value="strong">Strong</option><option value="average">Average</option><option value="weak">Weak</option><option value="missing">Missing</option></select></div>
+            <div><label>Mobile Readiness</label><select name="mobile"><option value="unknown">Unknown</option><option value="strong">Strong</option><option value="average">Average</option><option value="weak">Weak</option><option value="missing">Missing</option></select></div>
+          </div>
+
+          <div><label>Specific Notes / Observations</label><textarea name="notes" placeholder="What stood out? Missing phone CTA, weak service pages, low review count, no recent posts..."></textarea></div>
+          <div><label>Suggested First Step</label><textarea name="nextStep" placeholder="Example: Offer a free business spotlight video and a simple website trust cleanup plan."></textarea></div>
+        </form>
+      </article>
+
+      <article class="card">
+        <h2>Snapshot Output</h2>
+        <div class="grid cols-3 no-print" id="scoreCards"></div>
+        <div id="snapshotOutput" class="output">Fill out the form and click “Generate Snapshot.”</div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('snapshotForm');
+    const output = document.getElementById('snapshotOutput');
+    const scoreCards = document.getElementById('scoreCards');
+
+    const labels = {
+      unknown: 'Unknown / not reviewed yet',
+      strong: 'Strong',
+      average: 'Average',
+      weak: 'Weak',
+      missing: 'Missing',
+      not_found: 'Not found',
+      few_or_none: 'Few or none',
+      inactive: 'Inactive'
+    };
+
+    const scores = {
+      strong: 0,
+      average: 1,
+      unknown: 1,
+      weak: 2,
+      missing: 3,
+      not_found: 3,
+      few_or_none: 3,
+      inactive: 2
+    };
+
+    function getData() {
+      const data = Object.fromEntries(new FormData(form).entries());
+      return data;
+    }
+
+    function issueLine(label, value, opportunity) {
+      const score = scores[value] ?? 1;
+      if (score === 0) return `- ${label}: ${labels[value]} — keep this as a strength.`;
+      if (score === 1) return `- ${label}: ${labels[value]} — review for easy improvements.`;
+      return `- ${label}: ${labels[value]} — opportunity: ${opportunity}`;
+    }
+
+    function calculateScores(data) {
+      const visibilityFields = ['website', 'trust', 'seo', 'aeo', 'gbp', 'reviews', 'social', 'conversion', 'mobile'];
+      const rawNeed = visibilityFields.reduce((total, key) => total + (scores[data[key]] ?? 1), 0);
+      const maxNeed = visibilityFields.length * 3;
+      const needScore = Math.round((rawNeed / maxNeed) * 100);
+      const trustScore = Math.max(0, 100 - needScore);
+      const firstStepScore = data.recommendedOffer.includes('Free') ? 95 : data.recommendedOffer.includes('Funding') ? 55 : 80;
+      return { needScore, trustScore, firstStepScore };
+    }
+
+    function recommendationSummary(data, needScore) {
+      if (data.recommendedOffer.includes('Funding')) {
+        return 'Funding should stay a back-end conversation only. Do not lead with funding unless the business has already raised a clear need or trust already exists.';
+      }
+      if (needScore >= 60) {
+        return 'This business appears to have enough visible opportunity for a free value-first opener, followed by a practical paid visibility or trust-building offer.';
+      }
+      if (needScore >= 35) {
+        return 'This business has some improvement areas. Lead with a helpful snapshot or free spotlight rather than a hard service pitch.';
+      }
+      return 'This business appears relatively strong. A free spotlight or relationship-first check-in is safer than assuming they need major fixes.';
+    }
+
+    function buildSnapshot() {
+      const data = getData();
+      if (!data.businessName || !data.industry) {
+        output.textContent = 'Business Name and Industry are required before generating a snapshot.';
+        return;
+      }
+
+      const { needScore, trustScore, firstStepScore } = calculateScores(data);
+      scoreCards.innerHTML = `
+        <div class="score-card"><div class="score-value">${needScore}</div><div class="small muted">Visibility Opportunity</div></div>
+        <div class="score-card"><div class="score-value">${trustScore}</div><div class="small muted">Current Trust Strength</div></div>
+        <div class="score-card"><div class="score-value">${firstStepScore}</div><div class="small muted">First-Step Fit</div></div>
+      `;
+
+      const snapshot = `GABRIEL IMPACT GROUP — VISIBILITY SNAPSHOT
+
+Business: ${data.businessName}
+Industry: ${data.industry}
+Location: ${data.location || 'Not specified'}
+Website: ${data.websiteUrl || 'Not specified'}
+Relationship / Source: ${data.source || 'Not specified'}
+
+Preliminary Score Summary:
+- Visibility Opportunity Score: ${needScore}/100
+- Current Trust Strength: ${trustScore}/100
+- First-Step Fit: ${firstStepScore}/100
+
+First Impression:
+This is a preliminary, human-reviewed visibility snapshot. It is meant to identify obvious opportunities quickly, not replace a full technical SEO audit or a live website crawl.
+
+Observed Opportunities:
+${issueLine('Website first impression', data.website, 'improve design clarity, speed perception, service messaging, and trust above the fold')}
+${issueLine('Trust signals', data.trust, 'add stronger proof, service areas, photos, testimonials, guarantees, licenses, or credibility markers')}
+${issueLine('SEO basics', data.seo, 'review page titles, headings, service pages, internal links, sitemap, and local keywords')}
+${issueLine('AI Answer / AEO readiness', data.aeo, 'add clear question-answer content, structured service descriptions, schema opportunities, and locally specific pages')}
+${issueLine('Google Business Profile', data.gbp, 'review completeness, categories, service areas, photos, posts, reviews, and local consistency')}
+${issueLine('Reviews / reputation', data.reviews, 'strengthen review volume, recency, response quality, and proof across public profiles')}
+${issueLine('Social / content presence', data.social, 'create consistent local proof posts, short videos, before/after content, and community relevance')}
+${issueLine('Conversion / calls to action', data.conversion, 'make the next step easier: call, quote request, booking, service-area clarity, and mobile contact options')}
+${issueLine('Mobile readiness', data.mobile, 'review phone visibility, tap-to-call, layout, speed perception, and form friction')}
+
+Specific Notes:
+${data.notes || 'No specific notes entered yet.'}
+
+Recommended First Step:
+${data.nextStep || data.recommendedOffer}
+
+Recommended Offer Path:
+${data.recommendedOffer}
+
+Recommendation Logic:
+${recommendationSummary(data, needScore)}
+
+Important Boundaries:
+- This snapshot is preliminary and based on manual observations entered into the tool.
+- No data was collected or transmitted by this page.
+- Any outreach should be reviewed and approved by a person before sending.
+- Business funding, if relevant, should remain a back-end conversation only after trust and a clear business need exist.
+`;
+
+      output.textContent = snapshot;
+    }
+
+    document.getElementById('generateBtn').addEventListener('click', buildSnapshot);
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      await navigator.clipboard.writeText(output.textContent);
+      alert('Snapshot copied.');
+    });
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      form.reset();
+      scoreCards.innerHTML = '';
+      output.textContent = 'Fill out the form and click “Generate Snapshot.”';
+    });
+  </script>
+</body>
+</html>
