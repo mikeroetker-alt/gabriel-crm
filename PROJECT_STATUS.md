@@ -231,3 +231,11 @@ The audit used the authenticated GitHub connector because this Codex environment
 - Approve D1 and the merge of this branch (Claude opens a PR on request).
 - Gemini: create the Google AI Studio key and add it as the `GEMINI_API_KEY` Actions secret.
 - ChatGPT: create an OpenAI API key with a monthly budget limit and add it as the `OPENAI_API_KEY` Actions secret (pay-as-you-go spend, Mike's approval).
+
+## 2026-10-04 — DeepSeek review bridge repair (draft PR)
+
+- The Issue #22 DeepSeek review run 37223994615 received an HTTP 200 provider response but no assistant content; no review was posted. The old bridge requested `deepseek-flash` with `max_tokens: 2200` and omitted `thinking`, whose documented default is enabled/high. The exact prior `finish_reason` and token usage were not logged, so token exhaustion is a supported diagnosis, not a proven historical value.
+- `bridge/deepseek_issue_bridge.mjs`: request supported non-thinking mode for concise reviews, report only allowlisted `finish_reason` and numeric completion-token metadata when content is empty, and allow owner `/deepseek --isolated` requests to exclude earlier Issue #22 discussion. No workflow permissions, model, keys, or providers changed.
+- `test/deepseek_issue_bridge.test.mjs`: cover empty-output metadata and isolated request behavior.
+- Validation: `node --test test/deepseek_issue_bridge.test.mjs` — 12 passed, 0 failed. Full repository `npm test` remains for PR CI because the local diagnostic checkout contains only the focused bridge files.
+- Deployment: none. This branch is for draft PR review; the live Issue #22 bridge remains unchanged until approval and merge. After merge, one bounded isolated DAC review can be requested from the already public sanitized abstract; verify a substantive response and record provider usage if exposed. No key or spending changes were made.
