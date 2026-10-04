@@ -100,6 +100,35 @@ test('extracts assistant content and rejects empty payloads', () => {
     'DEEPSEEK VOTE: A'
   );
   assert.throws(() => extractDeepSeekText({ choices: [] }), /no assistant content/i);
+  assert.throws(
+    () => extractDeepSeekText({ choices: [{ finish_reason: 'length', message: { content: '', reasoning_content: 'private reasoning' } }], usage: { completion_tokens: 2200 } }),
+    /finish_reason=length, completion_tokens=2200/
+  );
+});
+
+test('isolated review omits issue history and disables thinking', async () => {
+  const calls = [];
+  const fetchImpl = async (url, options) => {
+    calls.push({ url, options });
+    if (url === 'https://api.deepseek.com/chat/completions') {
+      return { ok: true, json: async () => ({ choices: [{ message: { content: 'Independent answer' } }] }) };
+    }
+    if (url === 'https://api.github.com/repos/o/r/issues/22/comments' && options.method === 'POST') {
+      return { ok: true, status: 201, json: async () => ({ html_url: 'https://github.com/o/r/issues/22#issuecomment-1' }) };
+    }
+    throw new Error(`Unexpected request: ${url}`);
+  };
+  const result = await runBridge({
+    fetchImpl,
+    event: { issue: { number: 22 }, comment: { body: '/deepseek --isolated\nReview this plan.', author_association: OWNER } },
+    env: { GITHUB_REPOSITORY: 'o/r', GITHUB_TOKEN: 't', DEEPSEEK_API_KEY: 'k' }
+  });
+  assert.equal(result.handled, true);
+  assert.equal(calls.length, 2);
+  const request = JSON.parse(calls[0].options.body);
+  assert.deepEqual(request.thinking, { type: 'disabled' });
+  assert.equal(request.messages[1].content, 'Review this plan.');
+  assert.doesNotMatch(request.messages[0].content, /canonical project discussion/);
 });
 
 test('uses official DeepSeek API with the current Flash model', () => {
