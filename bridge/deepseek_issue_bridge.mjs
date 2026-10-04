@@ -26,7 +26,11 @@ export function normalizeRequest(commentBody) {
 export function extractDeepSeekText(payload) {
   const text = payload?.choices?.[0]?.message?.content;
   if (!text || !String(text).trim()) {
-    throw new Error('DeepSeek returned no assistant content.');
+    const reason = payload?.choices?.[0]?.finish_reason;
+    const safeReason = ['stop', 'length', 'content_filter', 'tool_calls', 'insufficient_system_resource', 'aborted'].includes(reason)
+      ? reason : 'unknown';
+    const used = Number(payload?.usage?.completion_tokens);
+    throw new Error(`DeepSeek returned no assistant content (finish_reason=${safeReason}, completion_tokens=${Number.isSafeInteger(used) && used >= 0 ? used : 'unknown'}).`);
   }
   return String(text).trim();
 }
@@ -68,18 +72,28 @@ export async function runBridge({
   }
 
   const provider = resolveDeepSeekProvider(env);
-  const issue = await githubJson(
-    fetchImpl,
-    `https://api.github.com/repos/${repo}/issues/${issueNumber}`,
-    githubToken
-  );
-  const comments = await fetchAllIssueComments(fetchImpl, repo, issueNumber, githubToken);
-  const issueContext = buildIssueContext({ issue, comments, requestBody });
+  // An explicit owner command can request an independent review with no earlier
+  // Issue #22 discussion in the model input.
+  const isolated = /^--isolated(?:\s|$)/i.test(requestBody);
+  const currentRequest = isolated ? requestBody.replace(/^--isolated\s*/i, '').trim() : requestBody;
+  if (!currentRequest) throw new Error('The isolated /deepseek command requires a request.');
+  let issueContext = currentRequest;
+  if (!isolated) {
+    const issue = await githubJson(
+      fetchImpl,
+      `https://api.github.com/repos/${repo}/issues/${issueNumber}`,
+      githubToken
+    );
+    const comments = await fetchAllIssueComments(fetchImpl, repo, issueNumber, githubToken);
+    issueContext = buildIssueContext({ issue, comments, requestBody });
+  }
 
   const systemPrompt = [
     'You are DeepSeek participating directly in the Gabriel Impact Group multi-agent GitHub coordination bridge.',
     TEAM_ROLES,
-    'Treat the supplied GitHub Issue #22 content as the canonical project discussion for this response. It contains only comments from the repository owner and the team bots; comments from anyone else were removed.',
+    isolated
+      ? 'Use only the current owner request as source material. Do not draw on earlier Issue #22 discussion or other reviewers.'
+      : 'Treat the supplied GitHub Issue #22 content as the canonical project discussion for this response. It contains only comments from the repository owner and the team bots; comments from anyone else were removed.',
     'Answer the current /deepseek request directly and independently. Do not claim to have taken repository actions; the bridge only posts your text response.',
     'If asked for a binding project vote, begin with exactly DEEPSEEK VOTE: A, DEEPSEEK VOTE: B, or DEEPSEEK VOTE: ABSTAIN as appropriate, then answer every requested field.',
     'Do not expose, request, or reproduce secrets. Do not invent facts that are absent from the supplied issue context.',
@@ -99,6 +113,7 @@ export async function runBridge({
         { role: 'user', content: issueContext }
       ],
       stream: false,
+      thinking: { type: 'disabled' },
       max_tokens: 2200
     })
   });
