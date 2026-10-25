@@ -10,6 +10,19 @@ This file is the shared handoff point between ChatGPT and Codex.
 4. Use a dedicated branch and pull request for substantial changes.
 5. Never commit passwords, API keys, tokens, private client information, or other secrets.
 
+## Current state — 2026-09-25
+
+This section supersedes older snapshot language below when the two conflict. The active technical record is [Issue #32](https://github.com/mikeroetker-alt/gabriel-crm/issues/32); the access register is [Issue #34](https://github.com/mikeroetker-alt/gabriel-crm/issues/34).
+
+- **Repository coordination:** Claude has read/write GitHub and working-copy access to `gabriel-crm` and `nextjs-boilerplate`. Manus implements work through dedicated branches and pull requests. Mike retains approval authority for credentials, production, billing, external messaging, payments, DNS, account security, and other consequential actions.
+- **Current `gabriel-crm` main:** `aac6f77` merged the direct `@claude` workflow. That workflow is inactive until Mike privately creates and stores `CLAUDE_CODE_OAUTH_TOKEN` as a repository Actions secret. The repository contains no such token.
+- **DeepSeek:** the Issue #22 bridge had a successful live run ([35135888526](https://github.com/mikeroetker-alt/gabriel-crm/actions/runs/35135888526)), but owner-gating and trusted-context hardening remain pending D1. Do not broaden its scope.
+- **Static application:** the historical static CRM/public site is recoverable from Git but is not the active CRM. Formal retirement, GitHub Pages disposition, and any related issue/PR closures remain pending D4.
+- **Outreach/CRM:** the Manus-hosted Outreach Automation Platform remains the CRM of record. The repository OutreachAI adapter is synthetic, GET-only, and disconnected until a sanitized authenticated read contract is reviewed. Outreach is paused pending D7 and the no-send controls in Issue #36.
+- **Current open pull requests:** #8, #10, #14, #16, #23, #24, #25, #29, and #35. No stale PR is closed or branch deleted without Claude review and any applicable Mike decision.
+- **Current CI:** PR #35 adds the read-only `CI / test` workflow for `gabriel-crm`. The workflow has green evidence but awaits Claude review and merge. After merge, D5 can require that check on `main`.
+- **Off-GitHub systems:** GitHub is active for Claude. Vercel, Square, Drive, Calendar, OtterlyAI, Gmail, SiteGround/mail, DNS, the live CRM, Rakazo, E2B, OpenRouter, and social systems remain either read-only-planned, owner-OAuth-gated, or operator-managed as recorded in Issue #34. No raw credential or private-record access is stored in this repository.
+
 ## Status snapshot
 
 - Last audited: 2026-07-23
