@@ -1,0 +1,40 @@
+{
+  "leads": [
+    {
+      "id": "mike-gig-internal-test-record",
+      "businessName": "Gabriel Impact Group Test Record",
+      "contactName": "Mike Roetker",
+      "websiteUrl": "https://mikeroetker-alt.github.io/gabriel-crm/",
+      "localArea": "Lowell / Northwest Indiana",
+      "pipeline": "Professional Services",
+      "relationshipSource": "Internal QA test",
+      "relationshipWarmth": "active_interest",
+      "leadTemperature": "warm",
+      "email": "mikeroetker@gmail.com",
+      "emailQuality": "verified",
+      "phone": "",
+      "isVerifiedContact": "yes",
+      "sourceUrl": "https://mikeroetker-alt.github.io/gabriel-crm/",
+      "doNotContact": "no",
+      "serviceFit": "website_seo_aeo",
+      "followUpDate": "",
+      "freeVideoStatus": "offered",
+      "videoUpgradeStatus": "none",
+      "gbpStatus": "not_started",
+      "websiteTrustStatus": "audit",
+      "fundingReadiness": "not_discussed",
+      "monthlyRevenue": "unknown",
+      "timeInBusiness": "unknown",
+      "creditScore": "unknown",
+      "fundingDesired": "",
+      "useOfFunds": "",
+      "existingDebt": "unknown",
+      "urgency": "low",
+      "revenueOneTime": 0,
+      "revenueMonthly": 0,
+      "visibilityNotes": "Internal QA test record. Use to test command center import, selection, visibility snapshot generation, proposal generation, draft generation, CSV export, JSON backup, and restore. Do not send outreach.",
+      "notes": "Internal QA test only. This is Mike/Gabriel Impact Group, not a prospect and not a sales target.",
+      "updatedAt": "2026-06-19T00:00:00.000Z"
+    }
+  ]
+}

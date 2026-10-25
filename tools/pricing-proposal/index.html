@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel Impact Group — Pricing & Proposal Calculator</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #22c55e;
+      --accent: #38bdf8;
+      --warn: #f59e0b;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+    header, main { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+    header { border-bottom: 1px solid var(--border); }
+    h1, h2, h3 { margin-top: 0; }
+    a { color: var(--accent); }
+    .muted { color: var(--muted); }
+    .small { font-size: 0.86rem; }
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+    label { display: block; font-size: 0.86rem; color: #cbd5e1; margin-bottom: 0.25rem; }
+    input, select, textarea, button { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.7rem; background: var(--panel-2); color: var(--text); }
+    textarea { min-height: 110px; resize: vertical; }
+    .field { margin-bottom: 0.8rem; }
+    .checks label { display: flex; align-items: start; gap: 0.5rem; margin: 0.35rem 0; color: var(--text); }
+    .checks input { width: auto; margin-top: 0.25rem; }
+    button { cursor: pointer; font-weight: 700; }
+    .btn-primary { background: #14532d; border-color: #166534; }
+    .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .actions button { width: auto; }
+    .pill { display: inline-block; border: 1px solid var(--primary); color: var(--primary); border-radius: 999px; padding: 0.15rem 0.5rem; font-size: 0.75rem; margin-right: 0.25rem; }
+    .output { white-space: pre-wrap; background: #020617; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; min-height: 280px; }
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+    .metric { background: #020617; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem; }
+    .metric strong { display: block; font-size: 1.35rem; color: var(--primary); }
+    @media print {
+      body { background: white; color: black; }
+      header, .no-print, form, .actions { display: none !important; }
+      main { max-width: none; padding: 0; }
+      .card, .output, .metric { border: none; background: white; color: black; }
+      .grid { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pricing & Proposal Calculator</h1>
+    <p class="muted">Local-only sales support for Gabriel Impact Group. No API calls. No sending. No hidden storage. Use this to turn a visibility conversation into a clear paid next step.</p>
+    <p><a href="../">Back to Tools</a> · <a href="../../">Command Center</a></p>
+  </header>
+
+  <main>
+    <section class="grid">
+      <article class="card no-print">
+        <h2>Inputs</h2>
+        <form id="proposalForm">
+          <div class="field"><label>Business Name</label><input name="businessName" placeholder="Example: Smith HVAC" /></div>
+          <div class="field"><label>Contact Name</label><input name="contactName" placeholder="Owner / manager name" /></div>
+          <div class="field"><label>Industry</label><input name="industry" placeholder="Home services, retail, professional services..." /></div>
+          <div class="field"><label>Local Market</label><input name="market" placeholder="Lowell / NWI / Chicagoland" /></div>
+          <div class="field"><label>Primary Need</label>
+            <select name="primaryNeed">
+              <option value="visibility">More local visibility</option>
+              <option value="trust">Better online trust</option>
+              <option value="content">Consistent content</option>
+              <option value="website">Website / SEO / AEO improvement</option>
+              <option value="crm">Lead capture / CRM setup</option>
+              <option value="reputation">Review / reputation improvement</option>
+            </select>
+          </div>
+          <div class="field"><label>Urgency</label>
+            <select name="urgency"><option>Normal</option><option>High</option><option>Immediate</option></select>
+          </div>
+          <div class="field"><label>Recommended Services</label>
+            <div class="checks">
+              <label><input type="checkbox" name="service" value="Free Business Spotlight Video" data-low="0" data-high="0" checked /> Free Business Spotlight Video</label>
+              <label><input type="checkbox" name="service" value="Paid Video Upgrade" data-low="250" data-high="750" /> Paid Video Upgrade</label>
+              <label><input type="checkbox" name="service" value="Local Visibility / GBP Content" data-low="300" data-high="900" /> Local Visibility / GBP Content</label>
+              <label><input type="checkbox" name="service" value="Website Trust + SEO/AEO Tune-Up" data-low="750" data-high="2500" /> Website Trust + SEO/AEO Tune-Up</label>
+              <label><input type="checkbox" name="service" value="Reputation Improvement Support" data-low="300" data-high="1200" /> Reputation Improvement Support</label>
+              <label><input type="checkbox" name="service" value="GHL / CRM Starter Setup" data-low="500" data-high="1500" /> GHL / CRM Starter Setup</label>
+            </div>
+          </div>
+          <div class="field"><label>Custom One-Time Price Override ($)</label><input name="oneTimeOverride" type="number" min="0" step="1" placeholder="Leave blank to use calculated range" /></div>
+          <div class="field"><label>Monthly Retainer Option ($)</label><input name="monthly" type="number" min="0" step="1" placeholder="Example: 500" /></div>
+          <div class="field"><label>Notes / Observed Problems</label><textarea name="notes" placeholder="What you saw in the snapshot, website, reviews, social, GBP, or conversation..."></textarea></div>
+          <div class="actions">
+            <button class="btn-primary" type="submit">Generate Proposal</button>
+            <button type="button" id="copyBtn">Copy Output</button>
+            <button type="button" onclick="window.print()">Print / Save PDF</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="card">
+        <h2>Proposal Output</h2>
+        <div class="summary">
+          <div class="metric"><span class="muted small">One-Time Range</span><strong id="rangeMetric">$0–$0</strong></div>
+          <div class="metric"><span class="muted small">Monthly Option</span><strong id="monthlyMetric">$0</strong></div>
+          <div class="metric"><span class="muted small">Selected Services</span><strong id="serviceMetric">1</strong></div>
+        </div>
+        <div id="output" class="output">Fill out the inputs and click Generate Proposal.</div>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Use Rules</h2>
+      <p><span class="pill">Draft only</span><span class="pill">Manual approval</span><span class="pill">No auto-send</span></p>
+      <p class="muted small">This calculator creates internal pricing guidance and proposal language. It does not guarantee results, funding, ranking, platform approval, or revenue. Any capital-related link or reference must preserve the assigned referral path recorded in project docs.</p>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('proposalForm');
+    const output = document.getElementById('output');
+    const rangeMetric = document.getElementById('rangeMetric');
+    const monthlyMetric = document.getElementById('monthlyMetric');
+    const serviceMetric = document.getElementById('serviceMetric');
+    const money = n => `$${Number(n || 0).toLocaleString()}`;
+
+    function selectedServices() {
+      return [...form.querySelectorAll('input[name="service"]:checked')].map(cb => ({
+        name: cb.value,
+        low: Number(cb.dataset.low || 0),
+        high: Number(cb.dataset.high || 0)
+      }));
+    }
+
+    function calculate() {
+      const services = selectedServices();
+      const low = services.reduce((sum, s) => sum + s.low, 0);
+      const high = services.reduce((sum, s) => sum + s.high, 0);
+      const override = Number(form.oneTimeOverride.value || 0);
+      const monthly = Number(form.monthly.value || 0);
+      return { services, low: override || low, high: override || high, monthly };
+    }
+
+    function generateProposal(data) {
+      const fd = new FormData(form);
+      const business = fd.get('businessName') || 'the business';
+      const contact = fd.get('contactName') || 'there';
+      const industry = fd.get('industry') || 'local business';
+      const market = fd.get('market') || 'your local market';
+      const primaryNeed = fd.get('primaryNeed');
+      const urgency = fd.get('urgency');
+      const notes = fd.get('notes') || 'Initial visibility snapshot and conversation notes to be added.';
+      const serviceLines = data.services.map(s => `- ${s.name}${s.low || s.high ? ` (${money(s.low)}–${money(s.high)})` : ' (included as free first step)'}`).join('\n');
+      const retainer = data.monthly ? `\nOptional monthly support: ${money(data.monthly)} per month.` : '';
+
+      return `Gabriel Impact Group\nPractical Visibility Proposal\n\nPrepared for: ${business}\nContact: ${contact}\nIndustry: ${industry}\nMarket: ${market}\nUrgency: ${urgency}\n\nPrimary opportunity:\n${business} appears to have an opportunity to improve ${primaryNeed.replace(/-/g, ' ')} in ${market}. The recommended path is to start with visible, practical improvements before asking for a larger commitment.\n\nRecommended services:\n${serviceLines}\n\nEstimated one-time project range: ${money(data.low)}–${money(data.high)}.${retainer}\n\nObserved notes:\n${notes}\n\nSuggested next step:\nStart with the free business spotlight / visibility review, confirm the most urgent issue, and then choose the smallest paid step that creates visible improvement quickly.\n\nImportant notes:\nThis is a working proposal draft, not a guarantee of rankings, leads, platform approval, capital approval, or revenue. All outreach, publishing, and capital-related steps require human review and approval before use.`;
+    }
+
+    function refresh(e) {
+      if (e) e.preventDefault();
+      const data = calculate();
+      rangeMetric.textContent = `${money(data.low)}–${money(data.high)}`;
+      monthlyMetric.textContent = data.monthly ? money(data.monthly) : '$0';
+      serviceMetric.textContent = String(data.services.length);
+      output.textContent = generateProposal(data);
+    }
+
+    form.addEventListener('submit', refresh);
+    form.addEventListener('input', () => {
+      const data = calculate();
+      rangeMetric.textContent = `${money(data.low)}–${money(data.high)}`;
+      monthlyMetric.textContent = data.monthly ? money(data.monthly) : '$0';
+      serviceMetric.textContent = String(data.services.length);
+    });
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      await navigator.clipboard.writeText(output.textContent);
+      alert('Proposal copied.');
+    });
+    refresh();
+  </script>
+</body>
+</html>

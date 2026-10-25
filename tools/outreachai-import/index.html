@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OutreachAI Migration — Gabriel CRM</title>
+<style>
+:root{--bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#94a3b8;--border:#334155;--green:#22c55e;--blue:#38bdf8;--red:#ef4444}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:1000px;margin:auto;padding:24px}.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}h1,h2{margin-top:0}button,input{font:inherit}button{background:#14532d;color:white;border:1px solid #166534;border-radius:9px;padding:10px 14px;cursor:pointer;font-weight:700}.secondary{background:#0c4a6e;border-color:#0369a1}.danger{background:#450a0a;border-color:#991b1b}.muted{color:var(--muted)}.notice{border:1px solid var(--border);border-radius:10px;padding:12px;margin-top:12px;white-space:pre-wrap}.ok{border-color:#166534}.bad{border-color:#991b1b}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.metric{display:inline-block;border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin:4px 6px 4px 0}.metric strong{font-size:1.3rem}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{padding:8px;border-bottom:1px solid var(--border);text-align:left}code{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>OutreachAI → Gabriel CRM Migration</h1>
+    <p>This tool imports an OutreachAI CSV or JSON export into the restored Gabriel CRM. The file is processed only in this browser. No contact data is uploaded to GitHub by this page.</p>
+    <div class="row">
+      <input id="file" type="file" accept=".csv,.json,application/json,text/csv">
+      <button id="analyze" class="secondary">Analyze File</button>
+      <button id="import" disabled>Import Into CRM</button>
+      <a href="../../" style="color:var(--blue)">Open CRM</a>
+    </div>
+    <div id="status" class="notice">Choose the OutreachAI export file. Nothing is changed until you click Import Into CRM.</div>
+  </div>
+
+  <div class="card">
+    <h2>Migration summary</h2>
+    <div id="metrics"><span class="metric"><strong>0</strong><br><span class="muted">rows analyzed</span></span></div>
+    <p class="muted">Duplicates are matched by OutreachAI ID first, then verified email, phone, then business + contact name. Existing Gabriel CRM records are updated rather than duplicated.</p>
+  </div>
+
+  <div class="card">
+    <h2>Preview</h2>
+    <div style="overflow:auto"><table><thead><tr><th>Business</th><th>Contact</th><th>Pipeline</th><th>Status</th><th>Email</th><th>Phone</th></tr></thead><tbody id="preview"><tr><td colspan="6" class="muted">No file analyzed.</td></tr></tbody></table></div>
+  </div>
+</div>
+<script>
+const STORAGE_KEY='gabriel-growth-engine-v2';
+let pending=[];
+const $=id=>document.getElementById(id);
+const norm=v=>String(v??'').trim();
+const key=v=>norm(v).toLowerCase().replace(/[\s_-]+/g,'');
+const first=(obj,names)=>{const map={};for(const [k,v] of Object.entries(obj||{}))map[key(k)]=v;for(const n of names){const v=map[key(n)];if(v!==undefined&&v!==null&&String(v).trim()!=='')return String(v).trim()}return''};
+function uid(seed=''){return seed?`outreachai-${String(seed).replace(/[^a-zA-Z0-9._-]/g,'-')}`:`outreachai-${Date.now()}-${Math.floor(Math.random()*1e6)}`}
+function csvRows(text){const rows=[];let row=[],cell='',q=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(q){if(c==='"'&&n==='"'){cell+='"';i++}else if(c==='"')q=false;else cell+=c}else{if(c==='"')q=true;else if(c===','){row.push(cell);cell=''}else if(c==='\n'){row.push(cell);rows.push(row);row=[];cell=''}else if(c!=='\r')cell+=c}}if(cell!==''||row.length){row.push(cell);rows.push(row)}if(!rows.length)return[];const headers=rows.shift().map(h=>h.trim());return rows.filter(r=>r.some(v=>String(v).trim())).map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??''])))}
+function flattenJson(parsed){if(Array.isArray(parsed))return parsed;if(Array.isArray(parsed?.contacts))return parsed.contacts;if(Array.isArray(parsed?.leads))return parsed.leads;if(Array.isArray(parsed?.result?.data?.json?.contacts))return parsed.result.data.json.contacts;throw new Error('No contact array found in JSON. Expected an array, contacts, leads, or result.data.json.contacts.');}
+function localArea(r){const city=first(r,['city','localArea','location','businessCity']);const state=first(r,['state','region','businessState']);return [city,state].filter(Boolean).join(', ')||'Unknown';}
+function mapRecord(r){
+  const sourceId=first(r,['id','contactId','contact_id','uuid']);
+  const business=first(r,['businessName','company','companyName','business','organization','accountName','name']);
+  const contact=first(r,['contactName','fullName','person','decisionMaker','decisionMakerName','contact','name']);
+  const email=first(r,['email','emailAddress','workEmail']);
+  const phone=first(r,['phone','phoneNumber','mobile','mobilePhone']);
+  const pipeline=first(r,['pipeline','industry','vertical','category'])||'Other Local Business';
+  const status=first(r,['status','stage','leadStatus']);
+  const priority=first(r,['priority','leadPriority']);
+  const score=first(r,['score','leadScore','numericScore']);
+  const website=first(r,['website','websiteUrl','url','domain']);
+  const verifiedRaw=first(r,['verified','emailVerified','isVerified','verificationStatus']).toLowerCase();
+  const verified=verifiedRaw==='true'||verifiedRaw==='yes'||verifiedRaw==='verified';
+  const doNot=first(r,['doNotContact','dnc','suppressed','unsubscribed']).toLowerCase();
+  const isDnc=['true','yes','1','suppressed','unsubscribed'].includes(doNot);
+  return {
+    id:uid(sourceId),
+    outreachAiId:sourceId,
+    businessName:business||contact||'Unnamed OutreachAI Contact',
+    contactName:contact,
+    websiteUrl:website,
+    localArea:localArea(r),
+    pipeline,
+    relationshipSource:'OutreachAI migration',
+    relationshipWarmth:'unknown',
+    leadTemperature:priority.toLowerCase()==='high'?'warm':'cold',
+    email,
+    emailQuality:email?(verified?'verified':'unknown'):'missing',
+    phone,
+    isVerifiedContact:verified?'yes':'no',
+    sourceUrl:'',
+    doNotContact:isDnc?'yes':'no',
+    serviceFit:'unknown',
+    followUpDate:'',
+    websiteTrustStatus:'not_started',
+    fundingReadiness:'not_discussed',
+    monthlyRevenue:'unknown',
+    timeInBusiness:'unknown',
+    creditScore:'unknown',
+    urgency:'unknown',
+    revenueOneTime:0,
+    revenueMonthly:0,
+    visibilityNotes:'',
+    notes:[status&&`OutreachAI status: ${status}`,priority&&`Priority: ${priority}`,score&&`Score: ${score}`].filter(Boolean).join(' | '),
+    outreachAiStatus:status,
+    outreachAiPriority:priority,
+    outreachAiScore:score,
+    updatedAt:new Date().toISOString()
+  };
+}
+function loadState(){try{const p=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{"leads":[]}');if(!Array.isArray(p.leads))p.leads=[];return p}catch{return{leads:[]}}}
+function matchIndex(leads,r){
+  if(r.outreachAiId){const i=leads.findIndex(x=>String(x.outreachAiId||'')===String(r.outreachAiId));if(i>=0)return i}
+  if(r.email){const e=r.email.toLowerCase();const i=leads.findIndex(x=>String(x.email||'').toLowerCase()===e);if(i>=0)return i}
+  if(r.phone){const p=r.phone.replace(/\D/g,'');if(p){const i=leads.findIndex(x=>String(x.phone||'').replace(/\D/g,'')===p);if(i>=0)return i}}
+  const b=r.businessName.toLowerCase(),c=r.contactName.toLowerCase();return leads.findIndex(x=>String(x.businessName||'').toLowerCase()===b&&String(x.contactName||'').toLowerCase()===c);
+}
+function render(){
+  $('metrics').innerHTML=`<span class="metric"><strong>${pending.length}</strong><br><span class="muted">rows analyzed</span></span><span class="metric"><strong>${pending.filter(x=>x.email).length}</strong><br><span class="muted">with email</span></span><span class="metric"><strong>${pending.filter(x=>x.emailQuality==='verified').length}</strong><br><span class="muted">verified email</span></span><span class="metric"><strong>${pending.filter(x=>x.doNotContact==='yes').length}</strong><br><span class="muted">do not contact</span></span>`;
+  $('preview').innerHTML=pending.slice(0,25).map(r=>`<tr><td>${esc(r.businessName)}</td><td>${esc(r.contactName)}</td><td>${esc(r.pipeline)}</td><td>${esc(r.outreachAiStatus)}</td><td>${esc(r.email)}</td><td>${esc(r.phone)}</td></tr>`).join('')||'<tr><td colspan="6" class="muted">No records.</td></tr>';
+}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function analyze(){const file=$('file').files[0];if(!file)throw new Error('Choose an OutreachAI export file first.');const text=await file.text();let rows;if(file.name.toLowerCase().endsWith('.json')||text.trim().startsWith('[')||text.trim().startsWith('{'))rows=flattenJson(JSON.parse(text));else rows=csvRows(text);pending=rows.map(mapRecord);render();$('import').disabled=pending.length===0;$('status').className='notice ok';$('status').textContent=`Ready: ${pending.length} contact rows analyzed. Review the preview, then click Import Into CRM.`;}
+function importNow(){if(!pending.length)return;const state=loadState();let added=0,updated=0;for(const rec of pending){const i=matchIndex(state.leads,rec);if(i>=0){state.leads[i]={...state.leads[i],...rec,id:state.leads[i].id};updated++}else{state.leads.push(rec);added++}}localStorage.setItem(STORAGE_KEY,JSON.stringify(state));$('status').className='notice ok';$('status').textContent=`Migration complete in this browser. Added ${added}; updated ${updated}; total CRM records now ${state.leads.length}. No contact data was sent to GitHub by this page.`;}
+$('analyze').onclick=()=>analyze().catch(e=>{$('status').className='notice bad';$('status').textContent=e.message});
+$('import').onclick=()=>{try{importNow()}catch(e){$('status').className='notice bad';$('status').textContent=e.message}};
+</script>
+</body>
+</html>

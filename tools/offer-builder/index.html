@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel Impact Group — Offer Page Builder</title>
+  <meta name="description" content="Local-only service offer page builder for Gabriel Impact Group paid services." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #22c55e;
+      --accent: #38bdf8;
+      --border: #334155;
+      --warn: #f59e0b;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header, main, footer { max-width: 1120px; margin: 0 auto; padding: 1rem; }
+    header { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: flex-start; }
+    a { color: var(--accent); text-decoration: none; }
+    h1, h2, h3 { margin-top: 0; }
+    .muted { color: var(--muted); }
+    .small { font-size: 0.86rem; }
+    .grid { display: grid; gap: 1rem; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+    label { display: block; font-size: 0.86rem; margin-bottom: 0.25rem; color: #cbd5e1; }
+    input, select, textarea, button {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      padding: 0.65rem 0.75rem;
+      font: inherit;
+    }
+    textarea { min-height: 92px; resize: vertical; }
+    form { display: grid; gap: 0.8rem; }
+    button { cursor: pointer; font-weight: 700; background: #14532d; border-color: #166534; }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .actions button, .actions a { width: auto; }
+    .secondary { background: #0b1220; }
+    .pill { display: inline-block; border: 1px solid var(--border); border-radius: 999px; padding: 0.18rem 0.55rem; margin: 0.15rem 0.2rem 0.15rem 0; font-size: 0.78rem; }
+    .notice { border-left: 4px solid var(--warn); padding-left: 0.75rem; color: #fde68a; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #020617;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      min-height: 420px;
+    }
+    @media print {
+      body { background: white; color: black; }
+      header, .no-print, form, footer { display: none; }
+      .card, pre { border: none; background: white; color: black; padding: 0; }
+      main { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Offer Page Builder</h1>
+      <p class="muted">Create simple paid-service page copy for Gabriel Impact Group. Static, local-only, no auto-posting, no sending, no external API.</p>
+    </div>
+    <div class="actions no-print">
+      <a href="/gabriel-crm/tools/">Tools</a>
+      <a href="/gabriel-crm/">Command Center</a>
+    </div>
+  </header>
+
+  <main class="grid grid-2">
+    <section class="card no-print">
+      <h2>Build a Service Offer</h2>
+      <p class="small muted">Use this to draft website sections, one-page service pages, or proposal inserts. Review before publishing.</p>
+      <form id="offerForm">
+        <div>
+          <label for="serviceType">Service Type</label>
+          <select id="serviceType">
+            <option value="AI Video Upgrade">AI Video Upgrade</option>
+            <option value="Local Visibility Support">Local Visibility Support</option>
+            <option value="Website Trust + SEO/AEO">Website Trust + SEO/AEO</option>
+            <option value="Reputation Improvement Support">Reputation Improvement Support</option>
+            <option value="CRM / GHL Setup Support">CRM / GHL Setup Support</option>
+          </select>
+        </div>
+        <div>
+          <label for="audience">Best-fit customer</label>
+          <input id="audience" value="local service businesses that want more trust, visibility, and follow-up without adding complexity" />
+        </div>
+        <div>
+          <label for="coreProblem">Core problem</label>
+          <textarea id="coreProblem">The business is doing real work but its online presence does not clearly show trust, proof, services, recent activity, or an easy next step.</textarea>
+        </div>
+        <div>
+          <label for="outcome">Desired outcome</label>
+          <textarea id="outcome">A clearer online presence that helps prospects understand the business faster, trust it sooner, and take the next practical step.</textarea>
+        </div>
+        <div>
+          <label for="deliverables">Deliverables</label>
+          <textarea id="deliverables">Strategy notes, copy draft, implementation checklist, and a simple next-step recommendation.</textarea>
+        </div>
+        <div>
+          <label for="startingPrice">Starting price or range</label>
+          <input id="startingPrice" value="$297–$997 depending on scope" />
+        </div>
+        <div>
+          <label for="timeline">Typical timeline</label>
+          <input id="timeline" value="3–10 business days after required materials are provided" />
+        </div>
+        <div>
+          <label for="cta">Call to action</label>
+          <input id="cta" value="Request a simple visibility review" />
+        </div>
+        <div class="actions">
+          <button type="submit">Generate Offer Copy</button>
+          <button type="button" class="secondary" id="copyBtn">Copy Output</button>
+          <button type="button" class="secondary" onclick="window.print()">Print</button>
+        </div>
+      </form>
+      <p class="notice small">Do not publish without review. Do not include DAC or capital referral links here unless the assigned referral path rule is checked first.</p>
+    </section>
+
+    <section class="card">
+      <h2>Generated Offer Copy</h2>
+      <div class="small muted no-print">
+        <span class="pill">Local only</span>
+        <span class="pill">Draft only</span>
+        <span class="pill">Manual review required</span>
+      </div>
+      <pre id="output">Complete the form and generate the offer copy.</pre>
+    </section>
+  </main>
+
+  <footer class="small muted">
+    Gabriel Impact Group paid-service builder. This tool creates draft copy only. No data is transmitted.
+  </footer>
+
+  <script>
+    const form = document.getElementById('offerForm');
+    const output = document.getElementById('output');
+    const copyBtn = document.getElementById('copyBtn');
+
+    const templates = {
+      'AI Video Upgrade': {
+        headline: 'Turn your business into a clearer, more useful video presence.',
+        bullets: ['Short promotional video concepts', 'Trust-building message structure', 'Website and social-use copy notes', 'Optional next-video campaign ideas']
+      },
+      'Local Visibility Support': {
+        headline: 'Stay visible locally without trying to figure out what to post every week.',
+        bullets: ['Local content themes', 'Google Business Profile post drafts', 'Simple monthly visibility rhythm', 'Manual publishing checklist']
+      },
+      'Website Trust + SEO/AEO': {
+        headline: 'Make your website easier for people and AI search tools to understand.',
+        bullets: ['Trust and clarity review', 'Page title and heading recommendations', 'Service page structure', 'AI-answer readiness notes']
+      },
+      'Reputation Improvement Support': {
+        headline: 'Make your best customer proof easier to see and use.',
+        bullets: ['Review visibility review', 'Testimonial placement ideas', 'Response and follow-up suggestions', 'Trust-proof checklist']
+      },
+      'CRM / GHL Setup Support': {
+        headline: 'Turn scattered leads into a simple follow-up system.',
+        bullets: ['Pipeline and stage planning', 'Contact import cleanup checklist', 'Follow-up workflow outline', 'Simple dashboard recommendations']
+      }
+    };
+
+    function val(id) { return document.getElementById(id).value.trim(); }
+
+    function generate() {
+      const service = val('serviceType');
+      const t = templates[service] || templates['AI Video Upgrade'];
+      const text = `${service}\n\n${t.headline}\n\nWho this is for:\n${val('audience')}\n\nThe problem:\n${val('coreProblem')}\n\nThe outcome:\n${val('outcome')}\n\nWhat is included:\n${t.bullets.map(b => '- ' + b).join('\n')}\n- ${val('deliverables')}\n\nTypical investment:\n${val('startingPrice')}\n\nTypical timeline:\n${val('timeline')}\n\nNext step:\n${val('cta')}\n\nImportant note:\nThis is a draft service offer for manual review before publishing. It does not send messages, create guarantees, or include any capital referral link.`;
+      output.textContent = text;
+    }
+
+    form.addEventListener('submit', (e) => { e.preventDefault(); generate(); });
+    copyBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(output.textContent);
+      copyBtn.textContent = 'Copied';
+      setTimeout(() => { copyBtn.textContent = 'Copy Output'; }, 1200);
+    });
+
+    generate();
+  </script>
+</body>
+</html>
