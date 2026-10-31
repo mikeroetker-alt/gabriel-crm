@@ -14,7 +14,7 @@ Claude Code loads this file at the start of every session. Read it with `AGENTS.
 
 ## Memory
 
-Every session starts blank. Continuity lives in three places:
+Every session starts blank. **First, read `docs/MUST_KNOW.md` in the private ops repo, and read it again after every context summary.** Keeping Claude accurate is Claude's job, not Mike's. Continuity lives in three places:
 
 1. This file and `AGENTS.md`: roles, rules and channels.
 2. A private **Claude Lead Log** in Mike's Google Drive: current state, open orders, pending decisions and a session log. Read it first and update it last in every session. It is private and never copied into this repo.
